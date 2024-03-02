@@ -6,6 +6,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { NumeroDocumentoValidator } from '../validators/numero-documento.validator';
+import { CadastroService } from '../services/cadastro.service';
 
 @Component({
   selector: 'app-cadastro',
@@ -15,18 +16,27 @@ import { NumeroDocumentoValidator } from '../validators/numero-documento.validat
 export class CadastroComponent implements OnInit {
   form: FormGroup;
 
-  constructor(private _formBuilder: UntypedFormBuilder) {}
+  constructor(
+    private _formBuilder: UntypedFormBuilder,
+    private _cadastroService: CadastroService
+  ) {}
 
   ngOnInit(): void {
     this.form = this._formBuilder.group({
       nome: [null, [Validators.required]],
       email: [null, [Validators.required]],
-      cpf: ['', [Validators.required, NumeroDocumentoValidator()]],
-      cnpj: ['', [Validators.required, NumeroDocumentoValidator()]],
+      cpf: ['', [NumeroDocumentoValidator()]],
+      cnpj: ['', [NumeroDocumentoValidator()]],
       telefone: [null, [Validators.required]],
       senha: [null, [Validators.required]],
     });
   }
 
-  submitForm() {}
+  submitForm() {
+    console.log(this.form.value);
+    const data = { ...this.form.value, ativo: true };
+    this._cadastroService.postUsuario(data).subscribe((x) => {
+      console.log(x);
+    });
+  }
 }

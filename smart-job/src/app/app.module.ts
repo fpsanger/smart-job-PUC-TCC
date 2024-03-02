@@ -9,6 +9,7 @@ import { CadastroComponent } from './cadastro/cadastro.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputMaskModule } from 'primeng/inputmask';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { InputMaskModule } from 'primeng/inputmask';
     ReactiveFormsModule,
     InputTextModule,
     InputMaskModule,
+    HttpClientModule,
   ],
   exports: [],
   providers: [],
