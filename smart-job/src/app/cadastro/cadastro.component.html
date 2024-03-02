@@ -1,0 +1,79 @@
+<div class="d-flex vh-100 align-items-center justify-content-center">
+  <div class="card shadow-lg" style="border-radius: 20px; padding: 2rem">
+    <form [formGroup]="form" (submit)="submitForm()">
+      <div class="mb-4">
+        <span class="p-float-label">
+          <input pInputText formControlName="nome" class="form-control" />
+          <label for="nome">Nome</label>
+        </span>
+      </div>
+      <div class="mb-4">
+        <span class="p-float-label">
+          <input pInputText formControlName="email" class="form-control" />
+          <label for="email">Email</label>
+        </span>
+      </div>
+      <div class="mb-4">
+        <span class="p-float-label">
+          <p-inputMask
+            mask="99.999.999/9999-99"
+            formControlName="cnpj"
+            id="cnpj_input"
+            [unmask]="true"
+          ></p-inputMask>
+          <label for="cnpj_input">CNPJ</label>
+        </span>
+        <div
+          *ngIf="form.get('cnpj').errors && form.get('cnpj').errors?.['cnpjInvalido']"
+          class="invalid-feedback"
+        >
+          CNPJ inválido.
+        </div>
+      </div>
+      <div class="mb-4">
+        <span class="p-float-label">
+          <p-inputMask
+            mask="999.999.999-99"
+            formControlName="cpf"
+            id="cpf_input"
+            [unmask]="true"
+          ></p-inputMask>
+          <label for="cpf_input">CPF</label>
+        </span>
+      </div>
+      <div
+        *ngIf="form.get('cpf').errors?.['cpfInvalido']"
+        class="invalid-feedback"
+      >
+        CPF inválido
+      </div>
+
+      <div class="mb-4">
+        <span class="p-float-label">
+          <input pInputText formControlName="telefone" class="form-control" />
+          <label for="telefone">Telefone</label>
+        </span>
+      </div>
+      <div class="mb-4">
+        <span class="p-float-label">
+          <input
+            pInputText
+            type="password"
+            formControlName="senha"
+            class="form-control"
+          />
+          <label for="senha">Senha</label>
+        </span>
+      </div>
+      <div>
+        <button
+          type="submit"
+          class="btn btn-primary btn-md"
+          [disabled]="form.invalid"
+        >
+          Cadastrar
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
