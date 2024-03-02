@@ -7,6 +7,7 @@ import {
 } from '@angular/forms';
 import { NumeroDocumentoValidator } from '../validators/numero-documento.validator';
 import { CadastroService } from '../services/cadastro.service';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-cadastro',
@@ -16,9 +17,12 @@ import { CadastroService } from '../services/cadastro.service';
 export class CadastroComponent implements OnInit {
   form: FormGroup;
 
+  tipoUsuario: string;
+
   constructor(
     private _formBuilder: UntypedFormBuilder,
-    private _cadastroService: CadastroService
+    private _cadastroService: CadastroService,
+    private _messageService: MessageService
   ) {}
 
   ngOnInit(): void {
@@ -33,10 +37,20 @@ export class CadastroComponent implements OnInit {
   }
 
   submitForm() {
-    console.log(this.form.value);
     const data = { ...this.form.value, ativo: true };
-    this._cadastroService.postUsuario(data).subscribe((x) => {
-      console.log(x);
+    this._cadastroService.postUsuario(data).subscribe({
+      next: () =>
+        this._messageService.add({
+          severity: 'success',
+          summary: 'Sucesso',
+          detail: 'Usuário adicionado com sucesso',
+        }),
+      error: (err) =>
+        this._messageService.add({
+          severity: 'error',
+          summary: 'Erro',
+          detail: err,
+        }),
     });
   }
 }

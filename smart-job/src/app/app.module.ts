@@ -6,10 +6,14 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { HeaderComponent } from './header/header.component';
 import { CadastroComponent } from './cadastro/cadastro.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputMaskModule } from 'primeng/inputmask';
 import { HttpClientModule } from '@angular/common/http';
+import { RadioButtonModule } from 'primeng/radiobutton';
+import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'primeng/api';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -25,9 +29,13 @@ import { HttpClientModule } from '@angular/common/http';
     InputTextModule,
     InputMaskModule,
     HttpClientModule,
+    RadioButtonModule,
+    FormsModule,
+    ToastModule,
+    BrowserAnimationsModule,
   ],
   exports: [],
-  providers: [],
+  providers: [MessageService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
