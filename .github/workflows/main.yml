@@ -32,6 +32,7 @@ jobs:
           node-version: '18.19'
             
       - name: npm install and npm run CI commands
+        working-directory: /smart-job
         run: |
           npm i
           npm run test:ci
