@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CadastroComponent } from './cadastro.component';
+import { UntypedFormBuilder } from '@angular/forms';
 
 describe('CadastroComponent', () => {
   let component: CadastroComponent;
@@ -9,6 +10,7 @@ describe('CadastroComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [CadastroComponent],
+      providers: [{ provide: UntypedFormBuilder }],
     }).compileComponents();
 
     fixture = TestBed.createComponent(CadastroComponent);
