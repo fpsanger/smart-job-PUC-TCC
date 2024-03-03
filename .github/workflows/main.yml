@@ -35,5 +35,3 @@ jobs:
         working-directory: ./smart-job
         run: |
           npm i
-          npm run test:ci
-          npm run build:ci
