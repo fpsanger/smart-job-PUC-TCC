@@ -43,3 +43,4 @@ jobs:
         working-directory: ./smart-job
         run: |
           npm i
+          npm test
