@@ -15,6 +15,11 @@ import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TrabalhadorComponent } from './trabalhador/trabalhador.component';
+import { TableModule } from 'primeng/table';
+import { CommonModule, DatePipe } from '@angular/common';
+import { DropdownModule } from 'primeng/dropdown';
+import { MultiSelectModule } from 'primeng/multiselect';
+import { CalendarModule } from 'primeng/calendar';
 
 @NgModule({
   declarations: [
@@ -35,9 +40,14 @@ import { TrabalhadorComponent } from './trabalhador/trabalhador.component';
     FormsModule,
     ToastModule,
     BrowserAnimationsModule,
+    TableModule,
+    CommonModule,
+    DropdownModule,
+    MultiSelectModule,
+    CalendarModule,
   ],
   exports: [],
-  providers: [MessageService, HttpClient],
+  providers: [MessageService, HttpClient, DatePipe],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

@@ -5,7 +5,7 @@ import { CadastroComponent } from './cadastro/cadastro.component';
 import { TrabalhadorComponent } from './trabalhador/trabalhador.component';
 
 const routes: Routes = [
-  { path: '', component: TrabalhadorComponent },
+  { path: '', component: HomeComponent },
   { path: 'cadastro', component: CadastroComponent },
   { path: 'trabalhador/inicial', component: TrabalhadorComponent },
 ];
