@@ -14,4 +14,8 @@ export class HomeComponent implements OnInit {
   navigateCadastro() {
     this._router.navigate(['cadastro']);
   }
+
+  navigateLogin() {
+    this._router.navigate(['login']);
+  }
 }

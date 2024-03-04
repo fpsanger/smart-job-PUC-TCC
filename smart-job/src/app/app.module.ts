@@ -20,6 +20,7 @@ import { CommonModule, DatePipe } from '@angular/common';
 import { DropdownModule } from 'primeng/dropdown';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { CalendarModule } from 'primeng/calendar';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { CalendarModule } from 'primeng/calendar';
     HeaderComponent,
     CadastroComponent,
     TrabalhadorComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,
