@@ -24,6 +24,8 @@ import { LoginComponent } from './login/login.component';
 import { VagaComponent } from './vaga/vaga.component';
 import { FieldsetModule } from 'primeng/fieldset';
 import { PanelModule } from 'primeng/panel';
+import { VagaListComponent } from './vaga-list/vaga-list.component';
+import { CarouselModule } from 'primeng/carousel';
 
 @NgModule({
   declarations: [
@@ -34,6 +36,7 @@ import { PanelModule } from 'primeng/panel';
     TrabalhadorComponent,
     LoginComponent,
     VagaComponent,
+    VagaListComponent,
   ],
   imports: [
     BrowserModule,
@@ -53,6 +56,7 @@ import { PanelModule } from 'primeng/panel';
     CalendarModule,
     FieldsetModule,
     PanelModule,
+    CarouselModule,
   ],
   exports: [],
   providers: [MessageService, HttpClient, DatePipe],
