@@ -26,6 +26,8 @@ import { FieldsetModule } from 'primeng/fieldset';
 import { PanelModule } from 'primeng/panel';
 import { VagaListComponent } from './vaga-list/vaga-list.component';
 import { CarouselModule } from 'primeng/carousel';
+import { CadastroVagaComponent } from './cadastro-vaga/cadastro-vaga.component';
+import { InputTextareaModule } from 'primeng/inputtextarea';
 
 @NgModule({
   declarations: [
@@ -37,6 +39,7 @@ import { CarouselModule } from 'primeng/carousel';
     LoginComponent,
     VagaComponent,
     VagaListComponent,
+    CadastroVagaComponent,
   ],
   imports: [
     BrowserModule,
@@ -57,6 +60,7 @@ import { CarouselModule } from 'primeng/carousel';
     FieldsetModule,
     PanelModule,
     CarouselModule,
+    InputTextareaModule,
   ],
   exports: [],
   providers: [MessageService, HttpClient, DatePipe],

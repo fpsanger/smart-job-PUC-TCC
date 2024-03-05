@@ -6,6 +6,7 @@ import { TrabalhadorComponent } from './trabalhador/trabalhador.component';
 import { LoginComponent } from './login/login.component';
 import { VagaComponent } from './vaga/vaga.component';
 import { VagaListComponent } from './vaga-list/vaga-list.component';
+import { CadastroVagaComponent } from './cadastro-vaga/cadastro-vaga.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -14,6 +15,7 @@ const routes: Routes = [
   { path: 'trabalhador/inicial', component: TrabalhadorComponent },
   { path: 'vaga/:id', component: VagaComponent },
   { path: 'suas-vagas', component: VagaListComponent },
+  { path: 'cadastro-vaga', component: CadastroVagaComponent },
 ];
 
 @NgModule({
