@@ -1,0 +1,38 @@
+<div class="page-header">
+  <div class="d-flex justify-content-center my-sm-5 my-md-5">
+    <h1>Cadastro de vagas</h1>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-4">
+    <span class="p-float-label">
+      <input id="float-input" type="text" pInputText />
+      <label for="float-input">Título vaga</label>
+    </span>
+  </div>
+  <div class="col-md-4">
+    <span class="p-float-label">
+      <input id="float-input" type="text" pInputText />
+      <label for="float-input">Remuneração</label>
+    </span>
+  </div>
+  <div class="col-md-4">
+    <p-dropdown
+      [options]="tipoVagas"
+      [(ngModel)]="selectedVaga"
+      optionLabel="name"
+    ></p-dropdown>
+  </div>
+  <div class="col-md-12 mt-4 text-center">
+    <textarea
+      [rows]="5"
+      [cols]="30"
+      pInputTextarea
+      [autoResize]="true"
+    ></textarea>
+  </div>
+  <div class="offset-11 col-md-1">
+    <button pRipple type="submit" class="btn btn-primary btn-md">Salvar</button>
+  </div>
+</div>
