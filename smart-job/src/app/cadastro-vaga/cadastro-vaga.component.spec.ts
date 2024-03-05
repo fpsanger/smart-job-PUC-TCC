@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CadastroVagaComponent } from './cadastro-vaga.component';
+import { HttpClient, HttpHandler } from '@angular/common/http';
+import { VagaService } from '../services/vaga.service';
 
 describe('CadastroVagaComponent', () => {
   let component: CadastroVagaComponent;
@@ -8,9 +10,13 @@ describe('CadastroVagaComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CadastroVagaComponent ]
-    })
-    .compileComponents();
+      providers: [
+        { provide: HttpClient },
+        { provide: HttpHandler },
+        { provide: VagaService },
+      ],
+      declarations: [CadastroVagaComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(CadastroVagaComponent);
     component = fixture.componentInstance;

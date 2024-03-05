@@ -24,6 +24,28 @@ routes.get("/:id", async (req, res) => {
   }
 });
 
+routes.post("/", (req, res) => {
+  const data = req.body;
+
+  try {
+    const query = `INSERT INTO [dbo].[Vaga] (Nome, Descricao, Remuneracao, Endereco, Estado, Cidade, Ativo, TipoVaga, DataAtualizacao, DataExpiracao, IdEmpresa) VALUES ('${data.Nome}', '${data.Descricao}', '${data.Remuneracao}', '${data.Endereco}', '${data.Estado}', '${data.Cidade}', '${data.Ativo}', '${data.TipoVaga}', '${data.DataAtualizacao}', '${data.DataExpiracao}', '${data.IdEmpresa}')`;
+    sql.query(query, (err, result) => {
+      if (err) {
+        return res
+          .status(500)
+          .json({ mensagem: "Erro ao adicionar vaga", err });
+      }
+      res.status(201).json({
+        mensagem: "Vaga adicionada com sucesso",
+        id: result.insertId,
+      });
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Server error");
+  }
+});
+
 routes.post("/atribuirVaga", (req, res) => {
   const data = req.body;
 
