@@ -3,7 +3,7 @@
     <h1>Olá fulano, bem vindo</h1>
   </div>
 </div>
-<div class="d-flex vh-100 align-items-sm-star justify-content-center">
+<div class="d-flex vh-100 align-items-sm-start justify-content-center">
   <p-table
     [value]="vagas"
     [paginator]="true"
@@ -112,7 +112,14 @@
         <td>{{ rowData.DataExpiracao | date }}</td>
         <td>{{ rowData.Remuneracao }}</td>
         <td>
-          <button pButton pRipple class="p-button-secondary">Detalhes</button>
+          <button
+            pButton
+            pRipple
+            class="p-button-secondary"
+            (click)="navigateToDetalhesVaga(rowData.Id)"
+          >
+            Detalhes
+          </button>
         </td>
       </tr>
     </ng-template>

@@ -21,6 +21,9 @@ import { DropdownModule } from 'primeng/dropdown';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { CalendarModule } from 'primeng/calendar';
 import { LoginComponent } from './login/login.component';
+import { VagaComponent } from './vaga/vaga.component';
+import { FieldsetModule } from 'primeng/fieldset';
+import { PanelModule } from 'primeng/panel';
 
 @NgModule({
   declarations: [
@@ -30,6 +33,7 @@ import { LoginComponent } from './login/login.component';
     CadastroComponent,
     TrabalhadorComponent,
     LoginComponent,
+    VagaComponent,
   ],
   imports: [
     BrowserModule,
@@ -47,6 +51,8 @@ import { LoginComponent } from './login/login.component';
     DropdownModule,
     MultiSelectModule,
     CalendarModule,
+    FieldsetModule,
+    PanelModule,
   ],
   exports: [],
   providers: [MessageService, HttpClient, DatePipe],

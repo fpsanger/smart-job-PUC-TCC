@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { VagaService } from '../services/vaga.service';
 import { IVaga } from '../interfaces/vaga.interface';
-import { ValidatorFn } from '@angular/forms';
 import { DatePipe } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-trabalhador',
@@ -17,7 +17,11 @@ export class TrabalhadorComponent implements OnInit {
   dataExpiracaoOptions: string[] = [];
   valorOptions: string[] = [];
 
-  constructor(private _vagaService: VagaService, private _datePipe: DatePipe) {}
+  constructor(
+    private _vagaService: VagaService,
+    private _datePipe: DatePipe,
+    private _router: Router
+  ) {}
 
   ngOnInit(): void {
     this._vagaService.getVagas().subscribe((x) => {
@@ -32,5 +36,9 @@ export class TrabalhadorComponent implements OnInit {
         ),
       ];
     });
+  }
+
+  navigateToDetalhesVaga(vagaId: number) {
+    this._router.navigate(['/vaga', vagaId]);
   }
 }
