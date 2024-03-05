@@ -7,13 +7,18 @@
 <div class="row">
   <div class="col-md-4">
     <span class="p-float-label">
-      <input id="float-input" type="text" pInputText />
+      <input [(ngModel)]="nomeVaga" id="float-input" type="text" pInputText />
       <label for="float-input">Título vaga</label>
     </span>
   </div>
   <div class="col-md-4">
     <span class="p-float-label">
-      <input id="float-input" type="text" pInputText />
+      <input
+        [(ngModel)]="remuneracao"
+        id="float-input"
+        type="text"
+        pInputText
+      />
       <label for="float-input">Remuneração</label>
     </span>
   </div>
@@ -30,9 +35,17 @@
       [cols]="30"
       pInputTextarea
       [autoResize]="true"
+      [(ngModel)]="descricao"
     ></textarea>
   </div>
   <div class="offset-11 col-md-1">
-    <button pRipple type="submit" class="btn btn-primary btn-md">Salvar</button>
+    <button
+      pRipple
+      type="button"
+      class="btn btn-primary btn-md"
+      (click)="adicionarVaga()"
+    >
+      Salvar
+    </button>
   </div>
 </div>

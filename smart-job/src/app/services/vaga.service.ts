@@ -18,6 +18,10 @@ export class VagaService {
     return this._httpClient.get<IVaga>(`http://localhost:3000/vagas/${id}`);
   }
 
+  adicionarVaga(data: IVaga): Observable<IVaga> {
+    return this._httpClient.post<IVaga>('http://localhost:3000/vagas', data);
+  }
+
   atribuirVaga(data: ITrabalhadorVaga): Observable<ITrabalhadorVaga> {
     return this._httpClient.post<ITrabalhadorVaga>(
       'http://localhost:3000/vagas/atribuirVaga',

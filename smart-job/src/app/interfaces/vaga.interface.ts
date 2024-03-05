@@ -6,8 +6,9 @@ export interface IVaga {
   Endereco: string;
   Estado: string;
   Cidade: string;
-  Ativo: string;
+  Ativo: boolean;
   TipoVaga: string;
   DataAtualizacao: Date;
   DataExpiracao: Date;
+  IdEmpresa?: number;
 }
