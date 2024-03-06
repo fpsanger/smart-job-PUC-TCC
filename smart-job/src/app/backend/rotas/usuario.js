@@ -37,16 +37,11 @@ routes.post("/", (req, res) => {
 routes.post("/login", async (req, res) => {
   const { Email, Senha } = req.body;
 
-  console.log(req.body);
-
   const result = await sql.query(
     `SELECT * FROM Trabalhador WHERE Email = '${Email}' AND Senha = '${Senha}'`
   );
 
-  console.log(result);
-
-  // Verifica se o usuário existe no banco de dados
-  if (req.body) {
+  if (result.recordset.length === 0) {
     res.json({ success: true, message: "Login successful" });
   } else {
     res

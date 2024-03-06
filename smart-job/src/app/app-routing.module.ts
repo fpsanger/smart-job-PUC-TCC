@@ -7,15 +7,28 @@ import { LoginComponent } from './login/login.component';
 import { VagaComponent } from './vaga/vaga.component';
 import { VagaListComponent } from './vaga-list/vaga-list.component';
 import { CadastroVagaComponent } from './cadastro-vaga/cadastro-vaga.component';
+import { AuthGuard } from './auth.guard';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'cadastro', component: CadastroComponent },
   { path: 'login', component: LoginComponent },
-  { path: 'trabalhador/inicial', component: TrabalhadorComponent },
-  { path: 'vaga/:id', component: VagaComponent },
-  { path: 'suas-vagas', component: VagaListComponent },
-  { path: 'cadastro-vaga', component: CadastroVagaComponent },
+  {
+    path: 'trabalhador/inicial',
+    component: TrabalhadorComponent,
+    canActivate: [AuthGuard],
+  },
+  { path: 'vaga/:id', component: VagaComponent, canActivate: [AuthGuard] },
+  {
+    path: 'suas-vagas',
+    component: VagaListComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'cadastro-vaga',
+    component: CadastroVagaComponent,
+    canActivate: [AuthGuard],
+  },
 ];
 
 @NgModule({

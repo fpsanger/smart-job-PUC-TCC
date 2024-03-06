@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { LoginService } from '../services/login.service';
 import { FormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
+import { AuthService } from '../services/auth/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -11,8 +13,9 @@ export class LoginComponent implements OnInit {
   form: UntypedFormGroup;
 
   constructor(
-    private _loginService: LoginService,
-    private _formBuilder: FormBuilder
+    private _formBuilder: FormBuilder,
+    private _authService: AuthService,
+    private _router: Router
   ) {}
 
   ngOnInit(): void {
@@ -23,7 +26,11 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-    this._loginService.login(this.form.value).subscribe();
+    this._authService
+      .login(this.form.get('email').value, this.form.get('senha').value)
+      .subscribe((x) => {
+        this._router.navigate(['trabalhador/inicial']);
+      });
   }
 
   navigateRedefinirSenha() {}
