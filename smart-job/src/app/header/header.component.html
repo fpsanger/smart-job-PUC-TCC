@@ -10,6 +10,15 @@
     >
       <span class="navbar-toggler-icon"></span>
     </button>
+    <button
+      *ngIf="isAuthenticated"
+      pRipple
+      class="btn btn-secondary btn-md"
+      type="button"
+      (click)="logout()"
+    >
+      Sair
+    </button>
     <div
       class="offcanvas offcanvas-end"
       tabindex="-1"
