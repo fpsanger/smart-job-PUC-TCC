@@ -8,11 +8,13 @@ import { VagaComponent } from './vaga/vaga.component';
 import { VagaListComponent } from './vaga-list/vaga-list.component';
 import { CadastroVagaComponent } from './cadastro-vaga/cadastro-vaga.component';
 import { AuthGuard } from './auth.guard';
+import { RedefinirSenhaComponent } from './redefinir-senha/redefinir-senha.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'cadastro', component: CadastroComponent },
   { path: 'login', component: LoginComponent },
+  { path: 'redefinir-senha', component: RedefinirSenhaComponent },
   {
     path: 'trabalhador/inicial',
     component: TrabalhadorComponent,

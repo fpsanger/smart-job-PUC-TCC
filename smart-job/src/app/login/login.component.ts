@@ -33,5 +33,7 @@ export class LoginComponent implements OnInit {
       });
   }
 
-  navigateRedefinirSenha() {}
+  navigateRedefinirSenha() {
+    this._router.navigate(['redefinir-senha']);
+  }
 }
