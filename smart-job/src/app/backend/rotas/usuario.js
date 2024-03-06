@@ -50,4 +50,22 @@ routes.post("/login", async (req, res) => {
   }
 });
 
+routes.post("/redefinir-senha", async (req, res) => {
+  const { Email, Senha } = req.body;
+
+  const result = await sql.query(
+    `UPDATE Trabalhador SET Senha = '${Senha}' WHERE Email = '${Email}' `
+  );
+  console.log(result);
+
+  if (result.rowsAffected.length > 0) {
+    res.json({ success: true, message: "Senha editada com sucesso" });
+  } else {
+    res.status(401).json({
+      success: false,
+      message: "ALgo de erro aconteceu, tente novamente",
+    });
+  }
+});
+
 module.exports = routes;

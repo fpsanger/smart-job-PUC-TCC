@@ -9,11 +9,13 @@ import { IUsuario } from '../interfaces/usuario.interface';
 export class LoginService {
   constructor(private _httpClient: HttpClient) {}
 
-  login(data: IUsuario): Observable<any> {
-    console.log(data);
-    return this._httpClient.post('http://localhost:3000/usuario/login', {
-      Email: data.email,
-      Senha: data.senha,
-    });
+  redefinirSenha(email: string, novaSenha: string): Observable<any> {
+    return this._httpClient.post(
+      'http://localhost:3000/usuario/redefinir-senha',
+      {
+        Email: email,
+        Senha: novaSenha,
+      }
+    );
   }
 }

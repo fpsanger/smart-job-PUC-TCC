@@ -28,6 +28,7 @@ import { VagaListComponent } from './vaga-list/vaga-list.component';
 import { CarouselModule } from 'primeng/carousel';
 import { CadastroVagaComponent } from './cadastro-vaga/cadastro-vaga.component';
 import { InputTextareaModule } from 'primeng/inputtextarea';
+import { RedefinirSenhaComponent } from './redefinir-senha/redefinir-senha.component';
 
 @NgModule({
   declarations: [
@@ -40,6 +41,7 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
     VagaComponent,
     VagaListComponent,
     CadastroVagaComponent,
+    RedefinirSenhaComponent,
   ],
   imports: [
     BrowserModule,
