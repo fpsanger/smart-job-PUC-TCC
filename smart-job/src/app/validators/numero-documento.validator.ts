@@ -2,8 +2,8 @@ import { AbstractControl, ValidatorFn } from '@angular/forms';
 
 export function NumeroDocumentoValidator(): ValidatorFn {
   return (control: AbstractControl): { [key: string]: any } | null => {
-    console.log(control.value);
     const cpfCnpj = control.value;
+
     if (cpfCnpj.length === 11) {
       if (!validarCPF(cpfCnpj)) {
         return { cpfInvalido: true };

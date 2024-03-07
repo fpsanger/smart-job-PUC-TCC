@@ -29,6 +29,7 @@ import { CarouselModule } from 'primeng/carousel';
 import { CadastroVagaComponent } from './cadastro-vaga/cadastro-vaga.component';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { RedefinirSenhaComponent } from './redefinir-senha/redefinir-senha.component';
+import { InputNumberModule } from 'primeng/inputnumber';
 
 @NgModule({
   declarations: [
@@ -63,6 +64,7 @@ import { RedefinirSenhaComponent } from './redefinir-senha/redefinir-senha.compo
     PanelModule,
     CarouselModule,
     InputTextareaModule,
+    InputNumberModule,
   ],
   exports: [],
   providers: [MessageService, HttpClient, DatePipe],
