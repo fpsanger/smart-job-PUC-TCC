@@ -17,7 +17,7 @@ import { MessageService } from 'primeng/api';
 export class CadastroComponent implements OnInit {
   form: FormGroup;
 
-  tipoUsuario: string;
+  tipoUsuario: string = null;
 
   constructor(
     private _formBuilder: UntypedFormBuilder,
@@ -29,8 +29,22 @@ export class CadastroComponent implements OnInit {
     this.form = this._formBuilder.group({
       nome: [null, [Validators.required]],
       email: [null, [Validators.required]],
-      cpf: ['', [NumeroDocumentoValidator()]],
-      cnpj: ['', [NumeroDocumentoValidator()]],
+      cpf: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(11),
+          NumeroDocumentoValidator(),
+        ],
+      ],
+      cnpj: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(14),
+          NumeroDocumentoValidator(),
+        ],
+      ],
       telefone: [null, [Validators.required]],
       senha: [null, [Validators.required]],
     });
@@ -52,5 +66,17 @@ export class CadastroComponent implements OnInit {
           detail: err,
         }),
     });
+  }
+
+  setValidators() {
+    if (this.tipoUsuario == 'cpf') {
+      this.form.get('cnpj').removeValidators([Validators.required]);
+      this.form.get('cnpj').setValue('');
+    } else {
+      this.form.get('cpf').removeValidators([Validators.required]);
+      this.form.get('cpf').setValue('');
+    }
+    this.form.get('cpf').updateValueAndValidity();
+    this.form.get('cnpj').updateValueAndValidity();
   }
 }
