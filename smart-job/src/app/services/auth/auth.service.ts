@@ -12,9 +12,9 @@ export class AuthService {
 
   constructor(private http: HttpClient) {}
 
-  login(username: string, password: string): Observable<any> {
+  login(email: string, senha: string): Observable<any> {
     return this.http
-      .post<any>(`${this.apiUrl}/usuario/login`, { username, password })
+      .post<any>(`${this.apiUrl}/usuario/login`, { email, senha })
       .pipe(
         tap((response) => {
           localStorage.setItem('token', response.token); // Armazena o token JWT no localStorage

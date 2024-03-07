@@ -35,18 +35,18 @@ routes.post("/", (req, res) => {
 });
 
 routes.post("/login", async (req, res) => {
-  const { Email, Senha } = req.body;
+  const { email, senha } = req.body;
 
   const result = await sql.query(
-    `SELECT * FROM Trabalhador WHERE Email = '${Email}' AND Senha = '${Senha}'`
+    `SELECT * FROM Trabalhador WHERE Email = '${email}' AND Senha = '${senha}'`
   );
 
-  if (result.recordset.length === 0) {
-    res.json({ success: true, message: "Login successful" });
+  if (result.recordset.length !== 0) {
+    res.json({ success: true, message: "Login feito com sucesso" });
   } else {
     res
       .status(401)
-      .json({ success: false, message: "Invalid username or password" });
+      .json({ success: false, message: "Senha ou usuário inválido" });
   }
 });
 
@@ -63,7 +63,7 @@ routes.post("/redefinir-senha", async (req, res) => {
   } else {
     res.status(401).json({
       success: false,
-      message: "ALgo de erro aconteceu, tente novamente",
+      message: "Algo de erro aconteceu, tente novamente",
     });
   }
 });

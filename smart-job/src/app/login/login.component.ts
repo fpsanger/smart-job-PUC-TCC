@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../services/auth/auth.service';
 import { Router } from '@angular/router';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-login',
@@ -15,7 +16,8 @@ export class LoginComponent implements OnInit {
   constructor(
     private _formBuilder: FormBuilder,
     private _authService: AuthService,
-    private _router: Router
+    private _router: Router,
+    private _messageService: MessageService
   ) {}
 
   ngOnInit(): void {
@@ -28,8 +30,23 @@ export class LoginComponent implements OnInit {
   login() {
     this._authService
       .login(this.form.get('email').value, this.form.get('senha').value)
-      .subscribe((x) => {
-        this._router.navigate(['trabalhador/inicial']);
+      .subscribe({
+        next: async () => {
+          await this._messageService.add({
+            severity: 'success',
+            summary: 'Sucesso',
+            detail: 'Login feito com sucesso',
+          });
+        },
+        error: (err) => {
+          console.log(err);
+          this._messageService.add({
+            severity: 'error',
+            summary: 'Erro',
+            detail: err.error.message,
+          });
+        },
+        complete: () => this._router.navigate(['trabalhador/inicial']),
       });
   }
 
