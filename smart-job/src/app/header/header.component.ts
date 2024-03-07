@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, DoCheck } from '@angular/core';
 import { AuthService } from '../services/auth/auth.service';
 import { Router } from '@angular/router';
 
@@ -7,12 +7,12 @@ import { Router } from '@angular/router';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css'],
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent implements DoCheck {
   isAuthenticated: boolean = false;
 
   constructor(private _authService: AuthService, private _router: Router) {}
 
-  ngOnInit(): void {
+  ngDoCheck(): void {
     this.isAuthenticated = this._authService.isAuthenticated();
   }
 

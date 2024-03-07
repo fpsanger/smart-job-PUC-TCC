@@ -30,6 +30,7 @@ import { CadastroVagaComponent } from './cadastro-vaga/cadastro-vaga.component';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { RedefinirSenhaComponent } from './redefinir-senha/redefinir-senha.component';
 import { InputNumberModule } from 'primeng/inputnumber';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 @NgModule({
   declarations: [
@@ -43,6 +44,7 @@ import { InputNumberModule } from 'primeng/inputnumber';
     VagaListComponent,
     CadastroVagaComponent,
     RedefinirSenhaComponent,
+    PageNotFoundComponent,
   ],
   imports: [
     BrowserModule,
