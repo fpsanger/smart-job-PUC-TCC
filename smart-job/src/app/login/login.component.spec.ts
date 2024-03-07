@@ -3,6 +3,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { LoginComponent } from './login.component';
 import { HttpClient, HttpHandler } from '@angular/common/http';
 import { FormBuilder } from '@angular/forms';
+import { MessageService } from 'primeng/api';
 
 describe('LoginComponent', () => {
   let component: LoginComponent;
@@ -15,6 +16,7 @@ describe('LoginComponent', () => {
         { provide: HttpClient },
         { provide: HttpHandler },
         { provide: FormBuilder },
+        { provide: MessageService },
       ],
     }).compileComponents();
 
