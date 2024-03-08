@@ -31,7 +31,8 @@ export class LoginComponent implements OnInit {
     this._authService
       .login(this.form.get('email').value, this.form.get('senha').value)
       .subscribe({
-        next: async () => {
+        next: async (value) => {
+          localStorage.setItem('user', value.user);
           await this._messageService.add({
             severity: 'success',
             summary: 'Sucesso',
@@ -46,11 +47,17 @@ export class LoginComponent implements OnInit {
             detail: err.error.message,
           });
         },
-        complete: () => this._router.navigate(['trabalhador/inicial']),
+        complete: () => {
+          this._router.navigate(['trabalhador/inicial']);
+        },
       });
   }
 
-  navigateRedefinirSenha() {
+  navigateToRedefinirSenha() {
     this._router.navigate(['redefinir-senha']);
+  }
+
+  navigateToCadastro() {
+    this._router.navigate(['cadastro']);
   }
 }

@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { IUsuario } from '../interfaces/usuario.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -17,5 +16,13 @@ export class LoginService {
         Senha: novaSenha,
       }
     );
+  }
+
+  getTrabalhadores(): Observable<any> {
+    return this._httpClient.get('http://localhost:3000/usuario/trabalhador');
+  }
+
+  getEmpresas(): Observable<any> {
+    return this._httpClient.get('http://localhost:3000/usuario/empresa');
   }
 }

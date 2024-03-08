@@ -1,9 +1,15 @@
 <div class="page-header">
-  <div class="d-flex justify-content-center my-sm-5">
-    <h1>Olá fulano, bem vindo</h1>
+  <div class="d-flex justify-content-center my-5">
+    <div class="col-md-5 text-center">
+      <h1>Olá {{ usuario?.Nome }}, bem vindo</h1>
+      <h6 *ngIf="usuario?.CPF">
+        Aqui estão algumas vagas disponíveis para você
+      </h6>
+      <h6 *ngIf="usuario?.CNPJ">Aqui estão as vagas cadastradas</h6>
+    </div>
   </div>
 </div>
-<div class="d-flex vh-100 align-items-sm-start justify-content-center">
+<div class="container">
   <p-table
     [value]="vagas"
     [paginator]="true"
@@ -11,15 +17,17 @@
     [showCurrentPageReport]="true"
     currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
     [rowsPerPageOptions]="[10, 25, 50]"
-    [tableStyle]="{ 'min-width': '50rem' }"
+    [scrollable]="true"
+    scrollHeight="400px"
+    [tableStyle]="{ 'min-width': '400px' }"
   >
     <ng-template pTemplate="header">
       <tr>
-        <th>Evento</th>
-        <th>Localização</th>
-        <th>Data Expiração</th>
-        <th>Valor</th>
-        <th></th>
+        <th style="width: 20%">Evento</th>
+        <th style="width: 20%">Localização</th>
+        <th style="width: 20%">Data Expiração</th>
+        <th style="width: 20%">Valor</th>
+        <th style="width: 20%"></th>
       </tr>
       <tr>
         <th class="w-250">
@@ -60,7 +68,7 @@
             </ng-template>
           </p-columnFilter>
         </th>
-        <th>
+        <th class="w-250">
           <p-columnFilter
             field="DataExpiracao"
             matchMode="equals"
@@ -120,6 +128,16 @@
           >
             Detalhes
           </button>
+        </td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="emptymessage">
+      <tr>
+        <td *ngIf="usuario?.CPF" class="text-center" colspan="5">
+          Não há vagas no momento
+        </td>
+        <td *ngIf="usuario?.CNPJ" class="text-center" colspan="5">
+          Não há vagas cadastradas
         </td>
       </tr>
     </ng-template>
