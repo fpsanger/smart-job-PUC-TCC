@@ -4,48 +4,144 @@
   </div>
 </div>
 
-<div class="row">
-  <div class="col-md-4">
-    <span class="p-float-label">
-      <input [(ngModel)]="nomeVaga" id="float-input" type="text" pInputText />
-      <label for="float-input">Título vaga</label>
-    </span>
-  </div>
-  <div class="col-md-4">
-    <span class="p-float-label">
-      <input
-        [(ngModel)]="remuneracao"
-        id="float-input"
-        type="text"
-        pInputText
-      />
-      <label for="float-input">Remuneração</label>
-    </span>
-  </div>
-  <div class="col-md-4">
-    <p-dropdown
-      [options]="tipoVagas"
-      [(ngModel)]="selectedVaga"
-      optionLabel="name"
-    ></p-dropdown>
-  </div>
-  <div class="col-md-12 mt-4 text-center">
-    <textarea
-      [rows]="5"
-      [cols]="30"
-      pInputTextarea
-      [autoResize]="true"
-      [(ngModel)]="descricao"
-    ></textarea>
-  </div>
-  <div class="offset-11 col-md-1">
-    <button
-      pRipple
-      type="button"
-      class="btn btn-primary btn-md"
-      (click)="adicionarVaga()"
-    >
-      Salvar
-    </button>
-  </div>
+<div class="container">
+  <form [formGroup]="form" (submit)="adicionarVaga()">
+    <div class="row mb-5">
+      <div class="col-md-3 mt-md-0 col-sm-5 col-5 mt-2">
+        <span class="p-float-label">
+          <input
+            pInputText
+            formControlName="nomeVaga"
+            type="text"
+            class="form-control"
+          />
+          <label for="nomeVaga"
+            >Título da vaga
+            <i class="fa-solid fa-asterisk fa-2xs" style="color: red"></i
+          ></label>
+        </span>
+      </div>
+      <div class="col-md-3 mt-md-0 col-sm-5 col-5 mt-2">
+        <span class="p-float-label">
+          <input
+            pInputText
+            formControlName="remuneracao"
+            type="number"
+            class="form-control"
+          />
+
+          <label for="remuneracao"
+            >Remuneração
+            <i class="fa-solid fa-asterisk fa-2xs" style="color: red"></i
+          ></label>
+        </span>
+      </div>
+      <div class="col-md-3 mt-md-0 col-sm-5 mt-sm-2 col-5 mt-2">
+        <span class="p-float-label">
+          <input
+            pInputText
+            formControlName="endereco"
+            type="text"
+            class="form-control"
+          />
+          <label for="endereco"
+            >Endereço
+            <i class="fa-solid fa-asterisk fa-2xs" style="color: red"></i
+          ></label>
+        </span>
+      </div>
+      <div class="col-md-3 mt-md-0 col-sm-5 mt-sm-2 col-5 mt-2">
+        <span class="p-float-label">
+          <input
+            pInputText
+            formControlName="estado"
+            type="text"
+            class="form-control"
+          />
+          <label for="estado"
+            >Estado
+            <i class="fa-solid fa-asterisk fa-2xs" style="color: red"></i
+          ></label>
+        </span>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-3 col-sm-5 col-5 mt-2">
+        <span class="p-float-label">
+          <input
+            pInputText
+            formControlName="cidade"
+            type="text"
+            class="form-control"
+          />
+          <label for="cidade"
+            >Cidade
+            <i class="fa-solid fa-asterisk fa-2xs" style="color: red"></i
+          ></label>
+        </span>
+      </div>
+
+      <div class="col-md-3 col-sm-5 col-6 mt-2">
+        <span class="p-float-label">
+          <p-calendar
+            inputId="dataExpiracao"
+            formControlName="dataExpiracao"
+            [showIcon]="true"
+            appendTo="body"
+          ></p-calendar>
+          <label for="dataExpiracao"
+            >Data de expiração
+            <i class="fa-solid fa-asterisk fa-2xs" style="color: red"></i
+          ></label>
+        </span>
+      </div>
+      <div class="col-md-5 mt-md-2 col-sm-6 mt-sm-2 col-5 mt-2">
+        <span class="p-float-label">
+          <p-dropdown
+            inputId="tipoVaga"
+            [options]="tipoVagas"
+            formControlName="tipoVaga"
+            optionLabel="name"
+            appendTo="body"
+            [autoDisplayFirst]="false"
+          ></p-dropdown>
+          <label for="tipoVaga"
+            >Tipo da vaga
+            <i class="fa-solid fa-asterisk fa-2xs" style="color: red"></i
+          ></label>
+        </span>
+      </div>
+    </div>
+
+    <div class="d-flex justify-content-center mt-4">
+      <span class="p-float-label">
+        <textarea
+          inputId="descricao"
+          [rows]="5"
+          [cols]="50"
+          pInputTextarea
+          [autoResize]="true"
+          formControlName="descricao"
+        ></textarea>
+        <label for="descricao"
+          >Descrição da vaga
+          <i class="fa-solid fa-asterisk fa-2xs" style="color: red"></i
+        ></label>
+      </span>
+    </div>
+
+    <code>{{ form.value | json }}</code>
+
+    <div class="d-flex justify-content-center mt-4">
+      <button
+        pRipple
+        type="submit"
+        class="btn btn-primary btn-md"
+        [disabled]="form.invalid"
+      >
+        Salvar
+      </button>
+    </div>
+  </form>
 </div>

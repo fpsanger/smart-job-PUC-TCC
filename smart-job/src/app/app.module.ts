@@ -71,6 +71,7 @@ import { EmpresaComponent } from './usuario/empresa/empresa.component';
     CarouselModule,
     InputTextareaModule,
     InputNumberModule,
+    CalendarModule,
   ],
   exports: [],
   providers: [MessageService, HttpClient, DatePipe],
