@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { VagaService } from '../services/vaga.service';
+import { FormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { IVaga } from '../interfaces/vaga.interface';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-cadastro-vaga',
@@ -14,30 +16,36 @@ export class CadastroVagaComponent implements OnInit {
     { name: 'Sazonal', value: 3 },
   ];
 
-  nomeVaga: string = ' ';
-  remuneracao: string = ' ';
-  descricao: string = ' ';
+  form: UntypedFormGroup;
 
-  selectedVaga: any = ' ';
-  text1: string = ' ';
+  constructor(
+    private _vagaService: VagaService,
+    private _formBuilder: FormBuilder,
+    private _datePipe: DatePipe
+  ) {}
 
-  constructor(private _vagaService: VagaService) {}
-
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.form = this._formBuilder.group({
+      nomeVaga: [null, [Validators.required]],
+      descricao: [null, [Validators.required]],
+      remuneracao: [null, [Validators.required]],
+      endereco: [null, [Validators.required]],
+      estado: [null, [Validators.required]],
+      cidade: [null, [Validators.required]],
+      tipoVaga: [null, [Validators.required]],
+      dataExpiracao: [null, [Validators.required]],
+    });
+  }
 
   adicionarVaga() {
     const data = {
-      Nome: this.nomeVaga,
-      Remuneracao: this.remuneracao,
-      TipoVaga: this.selectedVaga,
+      ...this.form.value,
       Ativo: true,
-      Cidade: 'SP',
-      Estado: 'SP',
-      DataAtualizacao: new Date(),
-      DataExpiracao: new Date(),
-      Descricao: this.descricao,
-      Endereco: 'Rua ENdereco',
-      IdEmpresa: 1,
+      DataAtualizacao: this._datePipe.transform(new Date()),
+      DataExpiracao: this._datePipe.transform(
+        this.form.get('dataExpiracao').value
+      ),
+      IdEmpresa: 8,
     } as IVaga;
     this._vagaService.adicionarVaga(data).subscribe();
   }
