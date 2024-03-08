@@ -3,6 +3,7 @@ import { FormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../services/auth/auth.service';
 import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
+import * as e from 'cors';
 
 @Component({
   selector: 'app-login',
@@ -31,12 +32,19 @@ export class LoginComponent implements OnInit {
     this._authService
       .login(this.form.get('email').value, this.form.get('senha').value)
       .subscribe({
-        next: async () => {
-          await this._messageService.add({
+        next: (value) => {
+          localStorage.setItem('user', value.user);
+          this._messageService.add({
             severity: 'success',
             summary: 'Sucesso',
             detail: 'Login feito com sucesso',
           });
+
+          if (value.user.length === 11) {
+            this._router.navigate(['trabalhador/inicial']);
+          } else {
+            this._router.navigate(['empresa/inicial']);
+          }
         },
         error: (err) => {
           console.log(err);
@@ -46,11 +54,14 @@ export class LoginComponent implements OnInit {
             detail: err.error.message,
           });
         },
-        complete: () => this._router.navigate(['trabalhador/inicial']),
       });
   }
 
-  navigateRedefinirSenha() {
+  navigateToRedefinirSenha() {
     this._router.navigate(['redefinir-senha']);
+  }
+
+  navigateToCadastro() {
+    this._router.navigate(['cadastro']);
   }
 }

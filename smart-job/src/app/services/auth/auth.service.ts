@@ -1,4 +1,3 @@
-// auth.service.ts
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -17,20 +16,20 @@ export class AuthService {
       .post<any>(`${this.apiUrl}/usuario/login`, { email, senha })
       .pipe(
         tap((response) => {
-          localStorage.setItem('token', response.token); // Armazena o token JWT no localStorage
+          localStorage.setItem('token', response.token);
         })
       );
   }
 
   logout(): void {
-    localStorage.removeItem('token'); // Remove o token JWT do localStorage
+    localStorage.removeItem('token');
   }
 
   getToken(): string | null {
-    return localStorage.getItem('token'); // Obtém o token JWT do localStorage
+    return localStorage.getItem('token');
   }
 
   isAuthenticated(): boolean {
-    return !!this.getToken(); // Verifica se o usuário está autenticado com base na presença do token JWT
+    return !!this.getToken();
   }
 }
