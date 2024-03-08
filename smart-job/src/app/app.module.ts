@@ -14,7 +14,7 @@ import { RadioButtonModule } from 'primeng/radiobutton';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { TrabalhadorComponent } from './trabalhador/trabalhador.component';
+import { TrabalhadorComponent } from './usuario/trabalhador/trabalhador.component';
 import { TableModule } from 'primeng/table';
 import { CommonModule, DatePipe } from '@angular/common';
 import { DropdownModule } from 'primeng/dropdown';
@@ -31,6 +31,8 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
 import { RedefinirSenhaComponent } from './redefinir-senha/redefinir-senha.component';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { TabelaVagasComponent } from './tabela-vagas/tabela-vagas.component';
+import { EmpresaComponent } from './usuario/empresa/empresa.component';
 
 @NgModule({
   declarations: [
@@ -45,6 +47,8 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
     CadastroVagaComponent,
     RedefinirSenhaComponent,
     PageNotFoundComponent,
+    TabelaVagasComponent,
+    EmpresaComponent,
   ],
   imports: [
     BrowserModule,
