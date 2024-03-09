@@ -17,14 +17,29 @@
         <div class="product-item">
           <div class="product-item-content">
             <div>
-              <h4 class="mb-1">Cliente Oculto - Em aberto</h4>
-              <h6 class="mt-0 mb-3">
-                Trabalho disponibilizado na plataforma dia 02/02/2024
+              <h4 class="mb-1">
+                {{ rowData.Nome }} - {{ status[rowData.Status] }}
+              </h4>
+              <h6 class="mt-2 mb-3">
+                Você aceitou a vaga dia {{ rowData.DataAceite | date }}
               </h6>
-              <h6 class="mt-0 mb-3">
-                Ainda em aberto. Total de participantes: 15 pessoas
-              </h6>
-              <span>Última atualização dia 03/02/2024</span>
+
+              <ng-container *ngIf="rowData.Status === 2">
+                <h6 class="mt-0 mb-3">Requisitos salvos com sucesso</h6>
+              </ng-container>
+
+              <ng-container *ngIf="rowData.Status === 1">
+                <h6 class="mt-0 mb-3">Requisitos salvos com sucesso</h6>
+              </ng-container>
+
+              <ng-container *ngIf="rowData.Status === 0">
+                <h6 class="mt-0 mb-3">Requisitos salvos com sucesso</h6>
+              </ng-container>
+
+              <span
+                >Última atualização dia
+                {{ rowData.DataAtualizacao | date }}</span
+              >
             </div>
           </div>
         </div>

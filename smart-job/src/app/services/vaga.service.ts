@@ -30,6 +30,12 @@ export class VagaService {
     );
   }
 
+  getVagasEmpresaTrabalhador(idEmpresa: number): Observable<any[]> {
+    return this._httpClient.get<IVaga[]>(
+      `http://localhost:3000/vagas/empresa/trabalhador/${idEmpresa}`
+    );
+  }
+
   getVaga(id: number): Observable<IVaga> {
     return this._httpClient.get<IVaga>(`http://localhost:3000/vagas/${id}`);
   }

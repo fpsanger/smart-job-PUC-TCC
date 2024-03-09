@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { VagaService } from '../services/vaga.service';
 import { IVaga } from '../interfaces/vaga.interface';
+import { TrabalhadorVagaStatus } from '../enum/trabalhador-vaga-status.enum';
 
 @Component({
   selector: 'app-vaga-list',
@@ -9,6 +10,10 @@ import { IVaga } from '../interfaces/vaga.interface';
 })
 export class VagaListComponent implements OnInit {
   vagas: IVaga[] = [];
+
+  totalParticipantes: number;
+
+  status: typeof TrabalhadorVagaStatus = TrabalhadorVagaStatus;
 
   responsiveOptions;
 
