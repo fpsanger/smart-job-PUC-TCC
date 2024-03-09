@@ -15,6 +15,8 @@ export class VagaComponent implements OnInit {
 
   vagaId: number;
 
+  descricao: string;
+
   constructor(
     private _vagaService: VagaService,
     private _messageService: MessageService,
@@ -23,11 +25,13 @@ export class VagaComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    //! adicionar responsividade
     this.vagaId = this._activatedRoute.snapshot.params['id'];
 
-    this._vagaService.getVaga(this.vagaId).subscribe((x) => {
+    this._vagaService.getVaga(11).subscribe((x) => {
       console.log(x);
       this.vaga = x;
+      this.descricao = this.vaga.Remuneracao;
     });
   }
 
@@ -50,7 +54,6 @@ export class VagaComponent implements OnInit {
           summary: 'Erro',
           detail: err,
         }),
-      complete: () => this._router.navigate(['/trabalhador/inicial']),
     });
   }
 }

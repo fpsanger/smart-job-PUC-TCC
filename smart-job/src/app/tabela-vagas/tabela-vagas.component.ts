@@ -15,7 +15,7 @@ export class TabelaVagasComponent implements OnInit {
 
   eventoOptions: string[] = [];
   localizacaoOptions: string[] = [];
-  dataExpiracaoOptions: Date[] = [];
+  dataExpiracaoOptions: string[] = [];
   valorOptions: string[] = [];
 
   constructor(private _router: Router) {}

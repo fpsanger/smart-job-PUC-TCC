@@ -39,7 +39,13 @@ export class CadastroVagaComponent implements OnInit {
 
   adicionarVaga() {
     const data = {
-      ...this.form.value,
+      Nome: this.form.get('nomeVaga').value as string,
+      Descricao: this.form.get('descricao').value as string,
+      Cidade: this.form.get('cidade').value as string,
+      Endereco: this.form.get('endereco').value as string,
+      Estado: this.form.get('estado').value as string,
+      Remuneracao: this.form.get('remuneracao').value as string,
+      TipoVaga: this.form.get('tipoVaga').value as string,
       Ativo: true,
       DataAtualizacao: this._datePipe.transform(new Date()),
       DataExpiracao: this._datePipe.transform(
