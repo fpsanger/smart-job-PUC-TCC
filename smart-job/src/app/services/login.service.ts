@@ -17,12 +17,4 @@ export class LoginService {
       }
     );
   }
-
-  getTrabalhadores(): Observable<any> {
-    return this._httpClient.get('http://localhost:3000/usuario/trabalhador');
-  }
-
-  getEmpresas(): Observable<any> {
-    return this._httpClient.get('http://localhost:3000/usuario/empresa');
-  }
 }

@@ -68,7 +68,11 @@
         </p-columnFilter>
       </th>
       <th class="w-250">
-        <p-columnFilter field="Valor" matchMode="equals" [showMenu]="false">
+        <p-columnFilter
+          field="Remuneracao"
+          matchMode="equals"
+          [showMenu]="false"
+        >
           <ng-template pTemplate="filter" let-value let-filter="filterCallback">
             <p-dropdown
               [ngModel]="value"

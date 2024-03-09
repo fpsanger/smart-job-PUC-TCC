@@ -28,6 +28,7 @@ routes.get("/ativo", async (req, res) => {
 // retorna uma vaga pelo id
 routes.get("/:id", async (req, res) => {
   const id = req.params.id;
+  console.log(id);
   try {
     const results = await sql.query(`SELECT * FROM Vaga WHERE Id = '${id}'`);
     res.status(200).json(results.recordset[0]);
@@ -38,13 +39,14 @@ routes.get("/:id", async (req, res) => {
 });
 
 // retorna as vagas de uma empresa
-routes.get("/:idEmpresa", async (req, res) => {
-  const idEmpresa = req.params.idEmpresa;
+routes.get("/empresa/:id", async (req, res) => {
+  const idEmpresa = req.params.id;
+  console.log(idEmpresa);
   try {
     const results = await sql.query(
       `SELECT * FROM Vaga WHERE IdEmpresa = '${idEmpresa}'`
     );
-    res.status(200).json(results.recordset[0]);
+    res.status(200).json(results.recordset);
   } catch (err) {
     console.error(err);
     res.status(500).send("Server error");
@@ -52,8 +54,8 @@ routes.get("/:idEmpresa", async (req, res) => {
 });
 
 // retorna as vagas de um trabalhador
-routes.get("/:idTrabalhador", async (req, res) => {
-  const idTrabalhador = req.params.idTrabalhador;
+routes.get("/trabalhador/:id", async (req, res) => {
+  const idTrabalhador = req.params.id;
   try {
     const results = await sql.query(
       `SELECT * FROM Trabalhador t

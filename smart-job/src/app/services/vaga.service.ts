@@ -20,13 +20,13 @@ export class VagaService {
 
   getVagasTrabalhador(idTrabalhador: number): Observable<IVaga[]> {
     return this._httpClient.get<IVaga[]>(
-      `http://localhost:3000/vagas/${idTrabalhador}`
+      `http://localhost:3000/vagas/trabalhador/${idTrabalhador}`
     );
   }
 
   getVagasEmpresa(idEmpresa: number): Observable<IVaga[]> {
     return this._httpClient.get<IVaga[]>(
-      `http://localhost:3000/vagas/${idEmpresa}`
+      `http://localhost:3000/vagas/empresa/${idEmpresa}`
     );
   }
 

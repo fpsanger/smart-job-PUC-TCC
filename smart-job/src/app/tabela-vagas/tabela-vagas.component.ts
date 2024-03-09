@@ -1,4 +1,11 @@
-import { Component, Input, OnInit } from '@angular/core';
+import {
+  Component,
+  DoCheck,
+  Input,
+  OnChanges,
+  OnInit,
+  SimpleChanges,
+} from '@angular/core';
 import { Router } from '@angular/router';
 import { IUsuario } from '../interfaces/usuario.interface';
 import { IVaga } from '../interfaces/vaga.interface';
@@ -8,7 +15,7 @@ import { IVaga } from '../interfaces/vaga.interface';
   templateUrl: './tabela-vagas.component.html',
   styleUrls: ['./tabela-vagas.component.css'],
 })
-export class TabelaVagasComponent implements OnInit {
+export class TabelaVagasComponent implements OnChanges {
   @Input() vagas: IVaga[];
 
   usuario: IUsuario;
@@ -20,13 +27,15 @@ export class TabelaVagasComponent implements OnInit {
 
   constructor(private _router: Router) {}
 
-  ngOnInit(): void {
-    this.eventoOptions = [...new Set(this.vagas.map((x) => x.Nome))];
-    this.localizacaoOptions = [...new Set(this.vagas.map((x) => x.Cidade))];
-    this.valorOptions = [...new Set(this.vagas.map((x) => x.Remuneracao))];
-    this.dataExpiracaoOptions = [
-      ...new Set(this.vagas.map((x) => x.DataExpiracao)),
-    ];
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['vagas'].currentValue?.length > 0) {
+      this.eventoOptions = [...new Set(this.vagas.map((x) => x.Nome))];
+      this.localizacaoOptions = [...new Set(this.vagas.map((x) => x.Cidade))];
+      this.valorOptions = [...new Set(this.vagas.map((x) => x.Remuneracao))];
+      this.dataExpiracaoOptions = [
+        ...new Set(this.vagas.map((x) => x.DataExpiracao)),
+      ];
+    }
   }
 
   navigateToDetalhesVaga(vagaId: number) {
