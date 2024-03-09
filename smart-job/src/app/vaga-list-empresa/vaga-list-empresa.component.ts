@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { VagaService } from '../services/vaga.service';
 import { IVaga } from '../interfaces/vaga.interface';
+import { VagaService } from '../services/vaga.service';
 
 @Component({
-  selector: 'app-vaga-list',
-  templateUrl: './vaga-list.component.html',
-  styleUrls: ['./vaga-list.component.css'],
+  selector: 'app-vaga-list-empresa',
+  templateUrl: './vaga-list-empresa.component.html',
+  styleUrls: ['./vaga-list-empresa.component.css'],
 })
-export class VagaListComponent implements OnInit {
+export class VagaListEmpresaComponent implements OnInit {
   vagas: IVaga[] = [];
 
   responsiveOptions;
@@ -33,7 +33,7 @@ export class VagaListComponent implements OnInit {
       },
     ];
 
-    this._vagaService.getVagasTrabalhador(10).subscribe((x) => {
+    this._vagaService.getVagasEmpresa(8).subscribe((x) => {
       this.vagas = x;
     });
   }

@@ -9,7 +9,7 @@ describe('TabelaVagasComponent', () => {
 
   let vagas = [
     {
-      Id: 1,
+      Nome: 'Nome',
     },
   ] as IVaga[];
 

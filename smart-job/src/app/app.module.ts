@@ -33,6 +33,7 @@ import { InputNumberModule } from 'primeng/inputnumber';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { TabelaVagasComponent } from './tabela-vagas/tabela-vagas.component';
 import { EmpresaComponent } from './usuario/empresa/empresa.component';
+import { VagaListEmpresaComponent } from './vaga-list-empresa/vaga-list-empresa.component';
 
 @NgModule({
   declarations: [
@@ -49,6 +50,7 @@ import { EmpresaComponent } from './usuario/empresa/empresa.component';
     PageNotFoundComponent,
     TabelaVagasComponent,
     EmpresaComponent,
+    VagaListEmpresaComponent,
   ],
   imports: [
     BrowserModule,

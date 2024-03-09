@@ -4,8 +4,8 @@
   </div>
 </div>
 
-<div class="container-fluid">
-  <div class="row">
+<div class="row">
+  <div class="col-md-12">
     <p-carousel
       [value]="vagas"
       [numVisible]="3"
@@ -17,14 +17,10 @@
         <div class="product-item">
           <div class="product-item-content">
             <div>
-              <h4 class="mb-1">Cliente Oculto - Em aberto</h4>
-              <h6 class="mt-0 mb-3">
-                Trabalho disponibilizado na plataforma dia 02/02/2024
-              </h6>
-              <h6 class="mt-0 mb-3">
-                Ainda em aberto. Total de participantes: 15 pessoas
-              </h6>
-              <span>Última atualização dia 03/02/2024</span>
+              <h4 class="mb-1">{{ rowData.Nome }}</h4>
+              <h6 class="mt-0 mb-3">${{ rowData.Remuneracao }}</h6>
+              <span>{{ rowData.TipoVaga }}</span>
+              <div class="car-buttons mt-5"></div>
             </div>
           </div>
         </div>

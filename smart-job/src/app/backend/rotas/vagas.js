@@ -14,9 +14,21 @@ routes.get("/", async (req, res) => {
   }
 });
 
+// retorna todas as vagas ativas
+routes.get("/ativo", async (req, res) => {
+  try {
+    const results = await sql.query("SELECT * FROM Vaga WHERE ATIVO = 1 ");
+    res.status(200).json(results.recordset);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Server error");
+  }
+});
+
 // retorna uma vaga pelo id
 routes.get("/:id", async (req, res) => {
   const id = req.params.id;
+  console.log(id);
   try {
     const results = await sql.query(`SELECT * FROM Vaga WHERE Id = '${id}'`);
     res.status(200).json(results.recordset[0]);
@@ -27,29 +39,30 @@ routes.get("/:id", async (req, res) => {
 });
 
 // retorna as vagas de uma empresa
-routes.get("/:idEmpresa", async (req, res) => {
-  const idEmpresa = req.params.idEmpresa;
+routes.get("/empresa/:id", async (req, res) => {
+  const idEmpresa = req.params.id;
+  console.log(idEmpresa);
   try {
     const results = await sql.query(
       `SELECT * FROM Vaga WHERE IdEmpresa = '${idEmpresa}'`
     );
-    res.status(200).json(results.recordset[0]);
+    res.status(200).json(results.recordset);
   } catch (err) {
     console.error(err);
     res.status(500).send("Server error");
   }
 });
 
-// retorna as vagas de um trabalhador
-routes.get("/:idTrabalhador", async (req, res) => {
-  const idTrabalhador = req.params.idTrabalhador;
+// retorna as vagas atribuidas a um trabalhador
+routes.get("/trabalhador/:id", async (req, res) => {
+  const idTrabalhador = req.params.id;
   try {
     const results = await sql.query(
-      `SELECT * FROM Trabalhador t
-      JOIN TrabalhadorVaga tg ON tg.IdTrabalhador = t.Id
+      `SELECT * FROM Vaga v
+      JOIN TrabalhadorVaga tg ON tg.IdVaga = v.Id
       WHERE tg.IdTrabalhador = '${idTrabalhador}' `
     );
-    res.status(200).json(results.recordset[0]);
+    res.status(200).json(results.recordset);
   } catch (err) {
     console.error(err);
     res.status(500).send("Server error");

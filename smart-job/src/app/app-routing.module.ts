@@ -11,6 +11,7 @@ import { AuthGuard } from './auth.guard';
 import { RedefinirSenhaComponent } from './redefinir-senha/redefinir-senha.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { EmpresaComponent } from './usuario/empresa/empresa.component';
+import { VagaListEmpresaComponent } from './vaga-list-empresa/vaga-list-empresa.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -29,8 +30,13 @@ const routes: Routes = [
   },
   { path: 'vaga/:id', component: VagaComponent, canActivate: [AuthGuard] },
   {
-    path: 'suas-vagas',
+    path: 'trabalhador/suas-vagas',
     component: VagaListComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'empresa/suas-vagas',
+    component: VagaListEmpresaComponent,
     canActivate: [AuthGuard],
   },
   {

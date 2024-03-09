@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { VagaService } from '../../services/vaga.service';
 import { IVaga } from '../../interfaces/vaga.interface';
-import { DatePipe } from '@angular/common';
-import { LoginService } from '../../services/login.service';
 import { IUsuario } from '../../interfaces/usuario.interface';
+import { UsuarioService } from 'src/app/services/usuario.service';
 
 @Component({
   selector: 'app-trabalhador',
@@ -16,15 +15,20 @@ export class TrabalhadorComponent implements OnInit {
 
   constructor(
     private _vagaService: VagaService,
-    private _loginService: LoginService
+    private _usuario: UsuarioService
   ) {}
 
+  //! Criar chamada para pegar o user de acordo com o CPF/CNPJ
+
   ngOnInit(): void {
-    this._vagaService.getVagasTrabalhador(1).subscribe((x) => {
+    this._vagaService.getVagasAtivas().subscribe((x) => {
       this.vagas = x;
     });
 
     const userDocNumber = localStorage.getItem('user');
-    console.log(userDocNumber);
+
+    this._usuario.getTrabalhador(userDocNumber).subscribe((x) => {
+      this.usuario = x;
+    });
   }
 }

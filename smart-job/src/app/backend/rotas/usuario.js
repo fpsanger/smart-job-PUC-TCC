@@ -52,7 +52,6 @@ routes.post("/login", async (req, res) => {
       user: trabalhador.recordset[0].CPF,
     });
   } else if (empresa.recordset.length !== 0) {
-    console.log(empresa.recordset[0].CNPJ);
     res.json({
       success: true,
       message: "Login feito com sucesso",
@@ -83,6 +82,7 @@ routes.post("/redefinir-senha", async (req, res) => {
   }
 });
 
+// retorna todos os trabalhadores
 routes.get("/trabalhador", async (req, res) => {
   try {
     const results = await sql.query(`SELECT * FROM Trabalhador`);
@@ -93,6 +93,35 @@ routes.get("/trabalhador", async (req, res) => {
   }
 });
 
+// retorna o trabalhador pelo cpf
+routes.get("/trabalhador/:cpf", async (req, res) => {
+  const data = req.params.cpf;
+  try {
+    const results = await sql.query(
+      `SELECT * FROM Trabalhador WHERE CPF = '${data}'`
+    );
+    res.status(200).json(results.recordset[0]);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Server error");
+  }
+});
+
+// retorna a empresa pelo cnpj
+routes.get("/empresa/:cnpj", async (req, res) => {
+  const data = req.params.cnpj;
+  try {
+    const results = await sql.query(
+      `SELECT * FROM Empresa WHERE CNPJ = '${data}'`
+    );
+    res.status(200).json(results.recordset[0]);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Server error");
+  }
+});
+
+// retorna todas as empresas
 routes.get("/empresa", async (req, res) => {
   try {
     const results = await sql.query(`SELECT * FROM Empresa`);

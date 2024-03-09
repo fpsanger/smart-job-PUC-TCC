@@ -1,5 +1,4 @@
 export interface IVaga {
-  Id: number;
   Nome: string;
   Descricao: string;
   Remuneracao: string;
@@ -8,7 +7,7 @@ export interface IVaga {
   Cidade: string;
   Ativo: boolean;
   TipoVaga: string;
-  DataAtualizacao: Date;
-  DataExpiracao: Date;
+  DataAtualizacao: string;
+  DataExpiracao: string;
   IdEmpresa?: number;
 }
