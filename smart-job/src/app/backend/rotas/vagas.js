@@ -14,6 +14,17 @@ routes.get("/", async (req, res) => {
   }
 });
 
+// retorna todas as vagas ativas
+routes.get("/ativo", async (req, res) => {
+  try {
+    const results = await sql.query("SELECT * FROM Vaga WHERE ATIVO = 1 ");
+    res.status(200).json(results.recordset);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Server error");
+  }
+});
+
 // retorna uma vaga pelo id
 routes.get("/:id", async (req, res) => {
   const id = req.params.id;

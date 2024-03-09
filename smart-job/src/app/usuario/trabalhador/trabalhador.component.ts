@@ -14,13 +14,10 @@ export class TrabalhadorComponent implements OnInit {
   vagas: IVaga[] = [];
   usuario: IUsuario;
 
-  constructor(
-    private _vagaService: VagaService,
-    private _loginService: LoginService
-  ) {}
+  constructor(private _vagaService: VagaService) {}
 
   ngOnInit(): void {
-    this._vagaService.getVagasTrabalhador(1).subscribe((x) => {
+    this._vagaService.getVagasAtivas().subscribe((x) => {
       this.vagas = x;
     });
 
