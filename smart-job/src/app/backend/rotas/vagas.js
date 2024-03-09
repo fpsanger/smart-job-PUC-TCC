@@ -28,7 +28,6 @@ routes.get("/ativo", async (req, res) => {
 // retorna uma vaga pelo id
 routes.get("/:id", async (req, res) => {
   const id = req.params.id;
-  console.log(id);
   try {
     const results = await sql.query(`SELECT * FROM Vaga WHERE Id = '${id}'`);
     res.status(200).json(results.recordset[0]);
@@ -41,10 +40,28 @@ routes.get("/:id", async (req, res) => {
 // retorna as vagas de uma empresa
 routes.get("/empresa/:id", async (req, res) => {
   const idEmpresa = req.params.id;
-  console.log(idEmpresa);
   try {
     const results = await sql.query(
-      `SELECT * FROM Vaga WHERE IdEmpresa = '${idEmpresa}'`
+      `SELECT * FROM Vaga v 
+      WHERE IdEmpresa = '${idEmpresa}'`
+    );
+    res.status(200).json(results.recordset);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Server error");
+  }
+});
+
+// retorna as vagas e quantidade de trabalhadores em cada uma por empresa
+routes.get("/empresa/trabalhador/:id", async (req, res) => {
+  const idEmpresa = req.params.id;
+  try {
+    const results = await sql.query(
+      `SELECT v.Id, v.Nome, COUNT(TrabalhadorVaga.IdTrabalhador) AS ContagemTrabalhadores, SUM(v.Remuneracao) as remuneracaoTotal
+      FROM Vaga v
+      LEFT JOIN TrabalhadorVaga ON v.Id = TrabalhadorVaga.IdVaga
+      WHERE v.IdEmpresa = '${idEmpresa}'
+      GROUP BY v.Id, v.Nome;`
     );
     res.status(200).json(results.recordset);
   } catch (err) {

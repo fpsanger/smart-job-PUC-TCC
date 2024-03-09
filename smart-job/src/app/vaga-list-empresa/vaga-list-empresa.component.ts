@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { IVaga } from '../interfaces/vaga.interface';
 import { VagaService } from '../services/vaga.service';
+import { VagaStatus } from '../enum/vaga-status.enum';
 
 @Component({
   selector: 'app-vaga-list-empresa',
@@ -9,6 +10,8 @@ import { VagaService } from '../services/vaga.service';
 })
 export class VagaListEmpresaComponent implements OnInit {
   vagas: IVaga[] = [];
+
+  status: typeof VagaStatus = VagaStatus;
 
   responsiveOptions;
 
@@ -35,6 +38,14 @@ export class VagaListEmpresaComponent implements OnInit {
 
     this._vagaService.getVagasEmpresa(8).subscribe((x) => {
       this.vagas = x;
+    });
+
+    this._vagaService.getVagasEmpresaTrabalhador(8).subscribe((x) => {
+      this.vagas = this.vagas.map((vaga) => ({
+        ...vaga,
+        totalParticipantes: x.find((y) => y.Id === vaga.Id)
+          .ContagemTrabalhadores,
+      }));
     });
   }
 }

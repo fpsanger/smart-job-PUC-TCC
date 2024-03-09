@@ -4,8 +4,8 @@
   </div>
 </div>
 
-<div class="row">
-  <div class="col-md-12">
+<div class="container-fluid">
+  <div class="row">
     <p-carousel
       [value]="vagas"
       [numVisible]="3"
@@ -17,10 +17,34 @@
         <div class="product-item">
           <div class="product-item-content">
             <div>
-              <h4 class="mb-1">{{ rowData.Nome }}</h4>
-              <h6 class="mt-0 mb-3">${{ rowData.Remuneracao }}</h6>
-              <span>{{ rowData.TipoVaga }}</span>
-              <div class="car-buttons mt-5"></div>
+              <h4 class="mb-1">
+                {{ rowData.Nome }} - {{ status[rowData.status] }}
+              </h4>
+
+              <ng-container *ngIf="rowData.status === 0">
+                <h6 class="mt-0 mb-3">
+                  Ainda está em aberto. Total de participantes:
+                  {{ rowData.totalPartipantes }}
+                </h6>
+              </ng-container>
+
+              <ng-container *ngIf="rowData.status === 1">
+                <h6 class="mt-0 mb-3">
+                  Análise dos pariticpantes que farão parte do trabalho
+                </h6>
+              </ng-container>
+
+              <ng-container *ngIf="rowData.status === 2">
+                <h6 class="mt-0 mb-3">
+                  A vaga foi finalizada. Remuneração total de R$ 300 para os
+                  participantes
+                </h6>
+              </ng-container>
+
+              <span
+                >Última atualização dia
+                {{ rowData.DataAtualizacao | date }}</span
+              >
             </div>
           </div>
         </div>

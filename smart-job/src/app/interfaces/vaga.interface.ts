@@ -1,4 +1,5 @@
 export interface IVaga {
+  Id?: number;
   Nome: string;
   Descricao: string;
   Remuneracao: string;
@@ -10,4 +11,5 @@ export interface IVaga {
   DataAtualizacao: string;
   DataExpiracao: string;
   IdEmpresa?: number;
+  status: number;
 }
