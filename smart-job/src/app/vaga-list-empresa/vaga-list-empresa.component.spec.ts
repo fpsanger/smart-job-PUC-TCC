@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { VagaListEmpresaComponent } from './vaga-list-empresa.component';
+import { HttpClient, HttpHandler } from '@angular/common/http';
 
 describe('VagaListEmpresaComponent', () => {
   let component: VagaListEmpresaComponent;
@@ -8,9 +9,9 @@ describe('VagaListEmpresaComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ VagaListEmpresaComponent ]
-    })
-    .compileComponents();
+      providers: [{ provide: HttpClient }, { provide: HttpHandler }],
+      declarations: [VagaListEmpresaComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(VagaListEmpresaComponent);
     component = fixture.componentInstance;
