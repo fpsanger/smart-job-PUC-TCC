@@ -51,6 +51,12 @@ export class VagaService {
     );
   }
 
+  apagarVaga(idVaga: number): Observable<IVaga> {
+    return this._httpClient.delete<IVaga>(
+      `http://localhost:3000/vagas/${idVaga}`
+    );
+  }
+
   atribuirVaga(data: ITrabalhadorVaga): Observable<ITrabalhadorVaga> {
     return this._httpClient.post<ITrabalhadorVaga>(
       'http://localhost:3000/vagas/atribuirVaga',

@@ -8,9 +8,9 @@ import { Observable } from 'rxjs';
 export class UsuarioService {
   constructor(private _httpClient: HttpClient) {}
 
-  getTrabalhador(cpf: string): Observable<any> {
+  getTrabalhador(idTrabalhador: number): Observable<any> {
     return this._httpClient.get(
-      `http://localhost:3000/usuario/trabalhador/${cpf}`
+      `http://localhost:3000/usuario/trabalhador/${idTrabalhador}`
     );
   }
 

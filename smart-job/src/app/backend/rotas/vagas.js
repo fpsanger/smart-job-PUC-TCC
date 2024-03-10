@@ -133,6 +133,27 @@ routes.put("/editar/:idVaga", (req, res) => {
   }
 });
 
+// remove uma vaga
+routes.delete("/:idVaga", (req, res) => {
+  const idVaga = req.params.idVaga;
+
+  try {
+    const query = ` DELETE FROM VAGA WHERE Id ='${idVaga}'`;
+    sql.query(query, (err, result) => {
+      if (err) {
+        return res.status(500).json({ mensagem: "Erro ao apagar vaga", err });
+      }
+      res.status(201).json({
+        mensagem: "Vaga apagada com sucesso",
+        id: result.insertId,
+      });
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Server error");
+  }
+});
+
 // atribui a vaga a um trabalhador
 routes.post("/atribuirVaga", (req, res) => {
   const data = req.body;

@@ -100,11 +100,11 @@ routes.get("/trabalhador", async (req, res) => {
 });
 
 // retorna o trabalhador pelo cpf
-routes.get("/trabalhador/:cpf", async (req, res) => {
-  const data = req.params.cpf;
+routes.get("/trabalhador/:id", async (req, res) => {
+  const data = req.params.id;
   try {
     const results = await sql.query(
-      `SELECT * FROM Trabalhador WHERE CPF = '${data}'`
+      `SELECT * FROM Trabalhador WHERE Id = '${data}'`
     );
     res.status(200).json(results.recordset[0]);
   } catch (err) {

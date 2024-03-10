@@ -4,6 +4,7 @@ import { IVaga } from '../interfaces/vaga.interface';
 import { MessageService } from 'primeng/api';
 import { ITrabalhadorVaga } from '../interfaces/trabalhador-vaga';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ConfirmationService } from 'primeng/api';
 
 @Component({
   selector: 'app-vaga',
@@ -17,12 +18,14 @@ export class VagaComponent implements OnInit {
   idUsuario: number;
 
   isEmpresa: boolean;
+  mostrarModal: boolean;
 
   constructor(
     private _vagaService: VagaService,
     private _messageService: MessageService,
     private _router: Router,
-    private _activatedRoute: ActivatedRoute
+    private _activatedRoute: ActivatedRoute,
+    private _confirmationService: ConfirmationService
   ) {}
 
   ngOnInit(): void {
@@ -65,5 +68,32 @@ export class VagaComponent implements OnInit {
           detail: err,
         }),
     });
+  }
+
+  apagarVaga() {
+    this._confirmationService.confirm({
+      message: 'Tem certeza que quer apagar essa vaga?',
+      accept: () => {
+        this._vagaService.apagarVaga(this.idVaga).subscribe({
+          next: () =>
+            this._messageService.add({
+              severity: 'success',
+              summary: 'Sucesso',
+              detail: 'Vaga apagada com sucesso',
+            }),
+          error: (err) =>
+            this._messageService.add({
+              severity: 'error',
+              summary: 'Erro',
+              detail: err,
+            }),
+          complete: () => this._router.navigate(['/empresa/inicial']),
+        });
+      },
+    });
+  }
+
+  showEditarVagaDialog() {
+    this.mostrarModal = true;
   }
 }
