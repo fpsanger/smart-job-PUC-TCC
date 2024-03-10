@@ -109,6 +109,30 @@ routes.post("/", (req, res) => {
   }
 });
 
+// adiciona uma vaga nova
+routes.put("/editar/:idVaga", (req, res) => {
+  const idVaga = req.params.idVaga;
+  const data = req.body;
+
+  try {
+    const query = `UPDATE [dbo].[Vaga] SET Nome = '${data.Nome}', Descricao = '${data.Descricao}', Remuneracao = '${data.Remuneracao}', Endereco = '${data.Endereco}', Estado = '${data.Estado}', Cidade = '${data.Cidade}', Ativo = '${data.Ativo}', TipoVaga = '${data.TipoVaga}', DataAtualizacao = '${data.DataAtualizacao}', DataExpiracao =  '${data.DataExpiracao}' WHERE Id ='${idVaga}'`;
+    sql.query(query, (err, result) => {
+      if (err) {
+        return res
+          .status(500)
+          .json({ mensagem: "Erro ao adicionar vaga", err });
+      }
+      res.status(201).json({
+        mensagem: "Vaga adicionada com sucesso",
+        id: result.insertId,
+      });
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Server error");
+  }
+});
+
 // atribui a vaga a um trabalhador
 routes.post("/atribuirVaga", (req, res) => {
   const data = req.body;

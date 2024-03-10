@@ -33,14 +33,14 @@ export class LoginComponent implements OnInit {
       .login(this.form.get('email').value, this.form.get('senha').value)
       .subscribe({
         next: (value) => {
-          localStorage.setItem('user', value.user);
+          localStorage.setItem('user', JSON.stringify(value.user));
           this._messageService.add({
             severity: 'success',
             summary: 'Sucesso',
             detail: 'Login feito com sucesso',
           });
 
-          if (value.user.length === 11) {
+          if (value.user.numeroDoc.length === 11) {
             this._router.navigate(['trabalhador/inicial']);
           } else {
             this._router.navigate(['empresa/inicial']);

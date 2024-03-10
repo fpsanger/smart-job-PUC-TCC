@@ -4,6 +4,8 @@
   </div>
 </div>
 
+{{ idEmpresa | json }}
+
 <div class="container">
   <form [formGroup]="form" (submit)="adicionarVaga()">
     <div class="row mb-5">
@@ -103,6 +105,7 @@
             [options]="tipoVagas"
             formControlName="tipoVaga"
             optionLabel="name"
+            optionValue="value"
             appendTo="body"
             [autoDisplayFirst]="false"
           ></p-dropdown>

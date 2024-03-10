@@ -3,6 +3,7 @@ import { VagaService } from '../services/vaga.service';
 import { FormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { IVaga } from '../interfaces/vaga.interface';
 import { DatePipe } from '@angular/common';
+import { UsuarioService } from '../services/usuario.service';
 
 @Component({
   selector: 'app-cadastro-vaga',
@@ -18,13 +19,19 @@ export class CadastroVagaComponent implements OnInit {
 
   form: UntypedFormGroup;
 
+  idEmpresa: any;
+
   constructor(
     private _vagaService: VagaService,
     private _formBuilder: FormBuilder,
-    private _datePipe: DatePipe
+    private _datePipe: DatePipe,
+    private _usuario: UsuarioService
   ) {}
 
   ngOnInit(): void {
+    const item = localStorage.getItem('user');
+    this.idEmpresa = JSON.parse(item).idUsuario;
+
     this.form = this._formBuilder.group({
       nomeVaga: [null, [Validators.required]],
       descricao: [null, [Validators.required]],
@@ -51,7 +58,7 @@ export class CadastroVagaComponent implements OnInit {
       DataExpiracao: this._datePipe.transform(
         this.form.get('dataExpiracao').value
       ),
-      IdEmpresa: 8,
+      IdEmpresa: this.idEmpresa,
     } as IVaga;
     this._vagaService.adicionarVaga(data).subscribe();
   }

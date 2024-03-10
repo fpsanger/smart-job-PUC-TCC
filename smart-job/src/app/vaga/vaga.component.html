@@ -37,14 +37,10 @@
 
   <div
     class="d-flex flex-row justify-content-md-center justify-content-sm-start"
-  >
-    <div class="col-sm-10 col-md-6 mb-3">
-      <h5>Qual a importância do {{ vaga?.Nome }} ?</h5>
-      <p>Bla bla bla</p>
-    </div>
-  </div>
+  ></div>
   <div class="d-flex flex-row justify-content-md-center justify-content-lg-end">
     <button
+      *ngIf="!isEmpresa"
       pRipple
       type="button"
       class="btn btn-primary btn-md"

@@ -13,9 +13,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class VagaComponent implements OnInit {
   vaga: IVaga;
 
-  vagaId: number;
+  idVaga: number;
+  idUsuario: number;
 
-  descricao: string;
+  isEmpresa: boolean;
 
   constructor(
     private _vagaService: VagaService,
@@ -25,22 +26,31 @@ export class VagaComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    //! adicionar responsividade
-    this.vagaId = this._activatedRoute.snapshot.params['id'];
+    this.idVaga = this._activatedRoute.snapshot.params['id'];
 
-    this._vagaService.getVaga(11).subscribe((x) => {
-      console.log(x);
+    const item = localStorage.getItem('user');
+    this.idUsuario = JSON.parse(item).idUsuario;
+
+    console.log(JSON.parse(item));
+
+    if (JSON.parse(item).numeroDoc.length > 11) {
+      this.isEmpresa = true;
+    } else {
+      this.isEmpresa = false;
+    }
+
+    this._vagaService.getVaga(this.idVaga).subscribe((x) => {
       this.vaga = x;
-      this.descricao = this.vaga.Remuneracao;
     });
   }
 
   registrarVaga() {
     const data = {
-      idVaga: this.vagaId,
-      idTrabalhador: 1, // usar cookies ou sessão para pegar o id
+      idVaga: +this.idVaga,
+      idTrabalhador: this.idUsuario,
       dataAceite: new Date(),
     } as ITrabalhadorVaga;
+
     this._vagaService.atribuirVaga(data).subscribe({
       next: () =>
         this._messageService.add({

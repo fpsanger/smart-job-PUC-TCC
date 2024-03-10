@@ -1,11 +1,4 @@
-import {
-  Component,
-  DoCheck,
-  Input,
-  OnChanges,
-  OnInit,
-  SimpleChanges,
-} from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { Router } from '@angular/router';
 import { IUsuario } from '../interfaces/usuario.interface';
 import { IVaga } from '../interfaces/vaga.interface';

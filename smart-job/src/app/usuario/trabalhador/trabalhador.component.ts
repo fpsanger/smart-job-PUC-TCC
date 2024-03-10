@@ -18,8 +18,6 @@ export class TrabalhadorComponent implements OnInit {
     private _usuario: UsuarioService
   ) {}
 
-  //! Criar chamada para pegar o user de acordo com o CPF/CNPJ
-
   ngOnInit(): void {
     this._vagaService.getVagasAtivas().subscribe((x) => {
       this.vagas = x;

@@ -14,9 +14,9 @@ export class UsuarioService {
     );
   }
 
-  getEmpresa(cnpj: string): Observable<any> {
+  getEmpresa(idEmpresa: number): Observable<any> {
     return this._httpClient.get(
-      `http://localhost:3000/usuario/empresa/${cnpj}`
+      `http://localhost:3000/usuario/empresa/${idEmpresa}`
     );
   }
 }
