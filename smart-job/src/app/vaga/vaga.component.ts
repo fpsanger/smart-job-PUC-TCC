@@ -34,8 +34,6 @@ export class VagaComponent implements OnInit {
     const item = localStorage.getItem('user');
     this.idUsuario = JSON.parse(item).idUsuario;
 
-    console.log(JSON.parse(item));
-
     if (JSON.parse(item).numeroDoc.length > 11) {
       this.isEmpresa = true;
     } else {
