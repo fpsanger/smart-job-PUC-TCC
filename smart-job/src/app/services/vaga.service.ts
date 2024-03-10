@@ -52,8 +52,9 @@ export class VagaService {
   }
 
   apagarVaga(idVaga: number): Observable<IVaga> {
-    return this._httpClient.delete<IVaga>(
-      `http://localhost:3000/vagas/${idVaga}`
+    return this._httpClient.put<IVaga>(
+      `http://localhost:3000/vagas/${idVaga}`,
+      idVaga
     );
   }
 

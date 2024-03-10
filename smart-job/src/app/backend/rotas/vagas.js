@@ -134,11 +134,11 @@ routes.put("/editar/:idVaga", (req, res) => {
 });
 
 // remove uma vaga
-routes.delete("/:idVaga", (req, res) => {
+routes.put("/:idVaga", (req, res) => {
   const idVaga = req.params.idVaga;
 
   try {
-    const query = ` DELETE FROM VAGA WHERE Id ='${idVaga}'`;
+    const query = ` UPDATE VAGA SET Ativo = 0 WHERE Id ='${idVaga}'`;
     sql.query(query, (err, result) => {
       if (err) {
         return res.status(500).json({ mensagem: "Erro ao apagar vaga", err });
