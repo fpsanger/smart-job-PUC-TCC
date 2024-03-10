@@ -49,13 +49,19 @@ routes.post("/login", async (req, res) => {
     res.json({
       success: true,
       message: "Login feito com sucesso",
-      user: trabalhador.recordset[0].CPF,
+      user: {
+        numeroDoc: trabalhador.recordset[0].CPF,
+        idUsuario: trabalhador.recordset[0].Id,
+      },
     });
   } else if (empresa.recordset.length !== 0) {
     res.json({
       success: true,
       message: "Login feito com sucesso",
-      user: empresa.recordset[0].CNPJ,
+      user: {
+        numeroDoc: empresa.recordset[0].CNPJ,
+        idUsuario: empresa.recordset[0].Id,
+      },
     });
   } else {
     res
@@ -94,11 +100,11 @@ routes.get("/trabalhador", async (req, res) => {
 });
 
 // retorna o trabalhador pelo cpf
-routes.get("/trabalhador/:cpf", async (req, res) => {
-  const data = req.params.cpf;
+routes.get("/trabalhador/:id", async (req, res) => {
+  const data = req.params.id;
   try {
     const results = await sql.query(
-      `SELECT * FROM Trabalhador WHERE CPF = '${data}'`
+      `SELECT * FROM Trabalhador WHERE Id = '${data}'`
     );
     res.status(200).json(results.recordset[0]);
   } catch (err) {
@@ -107,12 +113,12 @@ routes.get("/trabalhador/:cpf", async (req, res) => {
   }
 });
 
-// retorna a empresa pelo cnpj
-routes.get("/empresa/:cnpj", async (req, res) => {
-  const data = req.params.cnpj;
+// retorna a empresa pelo id
+routes.get("/empresa/:id", async (req, res) => {
+  const data = req.params.id;
   try {
     const results = await sql.query(
-      `SELECT * FROM Empresa WHERE CNPJ = '${data}'`
+      `SELECT * FROM Empresa WHERE Id = '${data}'`
     );
     res.status(200).json(results.recordset[0]);
   } catch (err) {
@@ -120,6 +126,20 @@ routes.get("/empresa/:cnpj", async (req, res) => {
     res.status(500).send("Server error");
   }
 });
+
+// // retorna a empresa pelo cnpj
+// routes.get("/empresa/:cnpj", async (req, res) => {
+//   const data = req.params.cnpj;
+//   try {
+//     const results = await sql.query(
+//       `SELECT * FROM Empresa WHERE CNPJ = '${data}'`
+//     );
+//     res.status(200).json(results.recordset[0]);
+//   } catch (err) {
+//     console.error(err);
+//     res.status(500).send("Server error");
+//   }
+// });
 
 // retorna todas as empresas
 routes.get("/empresa", async (req, res) => {

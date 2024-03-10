@@ -13,6 +13,7 @@ import { VagaService } from 'src/app/services/vaga.service';
 export class EmpresaComponent implements OnInit {
   vagas: IVaga[] = [];
   usuario: IUsuario;
+  idEmpresa: number;
 
   constructor(
     private _vagaService: VagaService,
@@ -21,13 +22,14 @@ export class EmpresaComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this._vagaService.getVagasEmpresa(8).subscribe((x) => {
+    const item = localStorage.getItem('user');
+    this.idEmpresa = JSON.parse(item).idUsuario;
+
+    this._vagaService.getVagasEmpresa(this.idEmpresa).subscribe((x) => {
       this.vagas = x;
     });
 
-    const userDocNumber = localStorage.getItem('user');
-
-    this._usuario.getEmpresa(userDocNumber).subscribe((x) => {
+    this._usuario.getEmpresa(this.idEmpresa).subscribe((x) => {
       this.usuario = x;
     });
   }

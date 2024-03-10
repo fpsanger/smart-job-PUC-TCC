@@ -1,11 +1,11 @@
 <div class="page-header">
   <div class="d-flex justify-content-center my-sm-5 my-md-5">
-    <h1>Cadastro de vagas</h1>
+    <h1 *ngIf="!vaga">Cadastro de vagas</h1>
   </div>
 </div>
 
 <div class="container">
-  <form [formGroup]="form" (submit)="adicionarVaga()">
+  <form [formGroup]="form" (submit)="salvarVaga()">
     <div class="row mb-5">
       <div class="col-md-3 mt-md-0 col-sm-5 col-5 mt-2">
         <span class="p-float-label">
@@ -103,6 +103,7 @@
             [options]="tipoVagas"
             formControlName="tipoVaga"
             optionLabel="name"
+            optionValue="name"
             appendTo="body"
             [autoDisplayFirst]="false"
           ></p-dropdown>
@@ -130,8 +131,6 @@
         ></label>
       </span>
     </div>
-
-    <code>{{ form.value | json }}</code>
 
     <div class="d-flex justify-content-center mt-4">
       <button

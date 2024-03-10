@@ -13,6 +13,8 @@ export class VagaListEmpresaComponent implements OnInit {
 
   status: typeof VagaStatus = VagaStatus;
 
+  idEmpresa: number;
+
   responsiveOptions;
 
   constructor(private _vagaService: VagaService) {}
@@ -36,16 +38,21 @@ export class VagaListEmpresaComponent implements OnInit {
       },
     ];
 
-    this._vagaService.getVagasEmpresa(8).subscribe((x) => {
+    const item = localStorage.getItem('user');
+    this.idEmpresa = JSON.parse(item).idUsuario;
+
+    this._vagaService.getVagasEmpresa(this.idEmpresa).subscribe((x) => {
       this.vagas = x;
     });
 
-    this._vagaService.getVagasEmpresaTrabalhador(8).subscribe((x) => {
-      this.vagas = this.vagas.map((vaga) => ({
-        ...vaga,
-        totalParticipantes: x.find((y) => y.Id === vaga.Id)
-          .ContagemTrabalhadores,
-      }));
-    });
+    this._vagaService
+      .getVagasEmpresaTrabalhador(this.idEmpresa)
+      .subscribe((x) => {
+        this.vagas = this.vagas.map((vaga) => ({
+          ...vaga,
+          totalParticipantes: x.find((y) => y.Id === vaga.Id)
+            .ContagemTrabalhadores,
+        }));
+      });
   }
 }

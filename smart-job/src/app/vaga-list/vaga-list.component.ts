@@ -11,7 +11,7 @@ import { TrabalhadorVagaStatus } from '../enum/trabalhador-vaga-status.enum';
 export class VagaListComponent implements OnInit {
   vagas: IVaga[] = [];
 
-  totalParticipantes: number;
+  idTrabalhador: number;
 
   status: typeof TrabalhadorVagaStatus = TrabalhadorVagaStatus;
 
@@ -38,7 +38,10 @@ export class VagaListComponent implements OnInit {
       },
     ];
 
-    this._vagaService.getVagasTrabalhador(10).subscribe((x) => {
+    const item = localStorage.getItem('user');
+    this.idTrabalhador = JSON.parse(item).idUsuario;
+
+    this._vagaService.getVagasTrabalhador(this.idTrabalhador).subscribe((x) => {
       this.vagas = x;
     });
   }

@@ -13,21 +13,22 @@ export class TrabalhadorComponent implements OnInit {
   vagas: IVaga[] = [];
   usuario: IUsuario;
 
+  idTrabalhador: number;
+
   constructor(
     private _vagaService: VagaService,
     private _usuario: UsuarioService
   ) {}
 
-  //! Criar chamada para pegar o user de acordo com o CPF/CNPJ
-
   ngOnInit(): void {
+    const item = localStorage.getItem('user');
+    this.idTrabalhador = JSON.parse(item).idUsuario;
+
     this._vagaService.getVagasAtivas().subscribe((x) => {
       this.vagas = x;
     });
 
-    const userDocNumber = localStorage.getItem('user');
-
-    this._usuario.getTrabalhador(userDocNumber).subscribe((x) => {
+    this._usuario.getTrabalhador(this.idTrabalhador).subscribe((x) => {
       this.usuario = x;
     });
   }

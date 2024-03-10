@@ -7,11 +7,25 @@ describe('VagaListEmpresaComponent', () => {
   let component: VagaListEmpresaComponent;
   let fixture: ComponentFixture<VagaListEmpresaComponent>;
 
+  const mockLocalStorage = {
+    getItem: (key: string): string => {
+      return {
+        user: '{"idUsuario": "1"}',
+      }[key];
+    },
+    setItem: (key: string, value: string) => {},
+    removeItem: (key: string) => {},
+  };
+
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       providers: [{ provide: HttpClient }, { provide: HttpHandler }],
       declarations: [VagaListEmpresaComponent],
     }).compileComponents();
+
+    spyOn(localStorage, 'getItem').and.callFake(mockLocalStorage.getItem);
+    spyOn(localStorage, 'setItem').and.callFake(mockLocalStorage.setItem);
+    spyOn(localStorage, 'removeItem').and.callFake(mockLocalStorage.removeItem);
 
     fixture = TestBed.createComponent(VagaListEmpresaComponent);
     component = fixture.componentInstance;
@@ -20,5 +34,11 @@ describe('VagaListEmpresaComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('deve obter e analisar o objeto do localStorage', () => {
+    const item = localStorage.getItem('user');
+    const idUsuario = JSON.parse(item).idUsuario;
+    expect(idUsuario).toEqual('1');
   });
 });

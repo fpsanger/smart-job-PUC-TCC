@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
@@ -12,7 +11,7 @@ import { InputMaskModule } from 'primeng/inputmask';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { ToastModule } from 'primeng/toast';
-import { MessageService } from 'primeng/api';
+import { ConfirmationService, MessageService } from 'primeng/api';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TrabalhadorComponent } from './usuario/trabalhador/trabalhador.component';
 import { TableModule } from 'primeng/table';
@@ -34,6 +33,8 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { TabelaVagasComponent } from './tabela-vagas/tabela-vagas.component';
 import { EmpresaComponent } from './usuario/empresa/empresa.component';
 import { VagaListEmpresaComponent } from './vaga-list-empresa/vaga-list-empresa.component';
+import { DialogModule } from 'primeng/dialog';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
 
 @NgModule({
   declarations: [
@@ -74,9 +75,11 @@ import { VagaListEmpresaComponent } from './vaga-list-empresa/vaga-list-empresa.
     InputTextareaModule,
     InputNumberModule,
     CalendarModule,
+    DialogModule,
+    ConfirmDialogModule,
   ],
   exports: [],
-  providers: [MessageService, HttpClient, DatePipe],
+  providers: [MessageService, HttpClient, DatePipe, ConfirmationService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
