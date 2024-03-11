@@ -1,7 +1,7 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { Router } from '@angular/router';
-import { IUsuario } from '../interfaces/usuario.interface';
-import { IVaga } from '../interfaces/vaga.interface';
+import { IUsuario } from 'src/app/interfaces/usuario.interface';
+import { IVaga } from 'src/app/interfaces/vaga.interface';
 
 @Component({
   selector: 'app-tabela-vagas',

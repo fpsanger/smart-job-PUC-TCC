@@ -1,10 +1,10 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { VagaComponent } from './vaga.component';
+import { VagaComponent } from './detalhe-vaga.component';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ConfirmationService, MessageService } from 'primeng/api';
-import { VagaService } from '../services/vaga.service';
 import { HttpClient, HttpHandler } from '@angular/common/http';
+import { VagaService } from 'src/app/services/vaga.service';
 
 describe('VagaComponent', () => {
   let component: VagaComponent;

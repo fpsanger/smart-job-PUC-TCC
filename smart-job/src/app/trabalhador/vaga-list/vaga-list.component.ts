@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { VagaService } from '../services/vaga.service';
-import { IVaga } from '../interfaces/vaga.interface';
-import { TrabalhadorVagaStatus } from '../enum/trabalhador-vaga-status.enum';
+import { VagaService } from '../../services/vaga.service';
+import { IVaga } from '../../interfaces/vaga.interface';
+import { TrabalhadorVagaStatus } from '../../enum/trabalhador-vaga-status.enum';
 import { MenuItem } from 'primeng/api';
 
 @Component({

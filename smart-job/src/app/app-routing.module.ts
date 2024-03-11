@@ -1,17 +1,17 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
-import { CadastroComponent } from './cadastro/cadastro.component';
-import { TrabalhadorComponent } from './usuario/trabalhador/trabalhador.component';
-import { LoginComponent } from './login/login.component';
-import { VagaComponent } from './vaga/vaga.component';
-import { VagaListComponent } from './vaga-list/vaga-list.component';
-import { CadastroVagaComponent } from './cadastro-vaga/cadastro-vaga.component';
+import { CadastroComponent } from './home/cadastro/cadastro.component';
+import { TrabalhadorComponent } from './trabalhador/trabalhador.component';
+import { LoginComponent } from './home/login/login.component';
+import { VagaListComponent } from './trabalhador/vaga-list/vaga-list.component';
 import { AuthGuard } from './auth.guard';
-import { RedefinirSenhaComponent } from './redefinir-senha/redefinir-senha.component';
+import { RedefinirSenhaComponent } from './home/redefinir-senha/redefinir-senha.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
-import { EmpresaComponent } from './usuario/empresa/empresa.component';
-import { VagaListEmpresaComponent } from './vaga-list-empresa/vaga-list-empresa.component';
+import { EmpresaComponent } from './empresa/empresa.component';
+import { VagaListEmpresaComponent } from './empresa/vaga-list-empresa/vaga-list-empresa.component';
+import { CadastroVagaComponent } from './vaga/cadastro-vaga/cadastro-vaga.component';
+import { VagaComponent } from './vaga/detalhe-vaga/detalhe-vaga.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },

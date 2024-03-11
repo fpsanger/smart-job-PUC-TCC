@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { IVaga } from '../interfaces/vaga.interface';
-import { VagaService } from '../services/vaga.service';
-import { VagaStatus } from '../enum/vaga-status.enum';
 import { MenuItem } from 'primeng/api';
+import { VagaStatus } from 'src/app/enum/vaga-status.enum';
+import { IVaga } from 'src/app/interfaces/vaga.interface';
+import { VagaService } from 'src/app/services/vaga.service';
 
 @Component({
   selector: 'app-vaga-list-empresa',

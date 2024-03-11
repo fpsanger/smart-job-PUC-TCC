@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { VagaListComponent } from './vaga-list.component';
-import { VagaService } from '../services/vaga.service';
+import { VagaService } from '../../services/vaga.service';
 import { HttpClient, HttpHandler } from '@angular/common/http';
 
 describe('VagaListComponent', () => {
