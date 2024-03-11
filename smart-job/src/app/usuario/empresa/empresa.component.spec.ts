@@ -37,7 +37,6 @@ describe('EmpresaComponent', () => {
   });
 
   it('deve obter e analisar o objeto do localStorage', () => {
-    // Seu teste aqui
     const item = localStorage.getItem('user');
     const idUsuario = JSON.parse(item).idUsuario;
     expect(idUsuario).toEqual('123');
