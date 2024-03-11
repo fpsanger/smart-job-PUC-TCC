@@ -5,11 +5,11 @@ import {
   OnInit,
   SimpleChanges,
 } from '@angular/core';
-import { VagaService } from '../services/vaga.service';
 import { FormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
-import { IVaga } from '../interfaces/vaga.interface';
 import { DatePipe } from '@angular/common';
 import { MenuItem, MessageService } from 'primeng/api';
+import { IVaga } from 'src/app/interfaces/vaga.interface';
+import { VagaService } from 'src/app/services/vaga.service';
 
 @Component({
   selector: 'app-cadastro-vaga',

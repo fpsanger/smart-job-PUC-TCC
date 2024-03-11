@@ -14,12 +14,11 @@ export class HeaderComponent implements OnInit, DoCheck {
 
   constructor(private _authService: AuthService, private _router: Router) {}
 
-  ngOnInit(): void {
-    const item = localStorage.getItem('user');
-    this.numeroDoc = JSON.parse(item).numeroDoc;
-  }
+  ngOnInit(): void {}
 
   ngDoCheck(): void {
+    const item = localStorage.getItem('user');
+    this.numeroDoc = JSON.parse(item).numeroDoc;
     this.isAuthenticated = this._authService.isAuthenticated();
 
     if (this.numeroDoc?.length === 11) {

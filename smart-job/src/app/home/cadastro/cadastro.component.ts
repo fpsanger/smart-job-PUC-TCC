@@ -5,8 +5,8 @@ import {
   UntypedFormBuilder,
   Validators,
 } from '@angular/forms';
-import { NumeroDocumentoValidator } from '../validators/numero-documento.validator';
-import { CadastroService } from '../services/cadastro.service';
+import { NumeroDocumentoValidator } from '../../validators/numero-documento.validator';
+import { CadastroService } from '../../services/cadastro.service';
 import { MessageService } from 'primeng/api';
 
 @Component({

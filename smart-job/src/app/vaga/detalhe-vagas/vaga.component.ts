@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { VagaService } from '../services/vaga.service';
-import { IVaga } from '../interfaces/vaga.interface';
 import { MenuItem, MessageService } from 'primeng/api';
-import { ITrabalhadorVaga } from '../interfaces/trabalhador-vaga';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ConfirmationService } from 'primeng/api';
+import { ITrabalhadorVaga } from 'src/app/interfaces/trabalhador-vaga';
+import { IVaga } from 'src/app/interfaces/vaga.interface';
+import { VagaService } from 'src/app/services/vaga.service';
 
 @Component({
   selector: 'app-vaga',
