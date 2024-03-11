@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { IVaga } from '../interfaces/vaga.interface';
 import { VagaService } from '../services/vaga.service';
 import { VagaStatus } from '../enum/vaga-status.enum';
+import { MenuItem } from 'primeng/api';
 
 @Component({
   selector: 'app-vaga-list-empresa',
@@ -16,6 +17,9 @@ export class VagaListEmpresaComponent implements OnInit {
   idEmpresa: number;
 
   responsiveOptions;
+
+  items: MenuItem[];
+  home: MenuItem;
 
   constructor(private _vagaService: VagaService) {}
 
@@ -37,6 +41,10 @@ export class VagaListEmpresaComponent implements OnInit {
         numScroll: 1,
       },
     ];
+
+    this.items = [{ label: 'Situação das vagas' }];
+
+    this.home = { icon: 'pi pi-home', routerLink: '/empresa/inicial' };
 
     const item = localStorage.getItem('user');
     this.idEmpresa = JSON.parse(item).idUsuario;

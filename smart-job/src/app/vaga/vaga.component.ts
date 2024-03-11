@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { VagaService } from '../services/vaga.service';
 import { IVaga } from '../interfaces/vaga.interface';
-import { MessageService } from 'primeng/api';
+import { MenuItem, MessageService } from 'primeng/api';
 import { ITrabalhadorVaga } from '../interfaces/trabalhador-vaga';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ConfirmationService } from 'primeng/api';
@@ -19,6 +19,9 @@ export class VagaComponent implements OnInit {
 
   isEmpresa: boolean;
   mostrarModal: boolean;
+
+  items: MenuItem[];
+  home: MenuItem;
 
   constructor(
     private _vagaService: VagaService,
@@ -39,6 +42,10 @@ export class VagaComponent implements OnInit {
     } else {
       this.isEmpresa = false;
     }
+
+    this.items = [{ label: 'Detalhe da vaga' }];
+
+    this.home = { icon: 'pi pi-home', routerLink: '/empresa/inicial' };
 
     this._vagaService.getVaga(this.idVaga).subscribe((x) => {
       this.vaga = x;

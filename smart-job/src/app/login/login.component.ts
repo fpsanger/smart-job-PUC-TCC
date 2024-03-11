@@ -3,7 +3,6 @@ import { FormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../services/auth/auth.service';
 import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
-import * as e from 'cors';
 
 @Component({
   selector: 'app-login',
@@ -39,6 +38,7 @@ export class LoginComponent implements OnInit {
             summary: 'Sucesso',
             detail: 'Login feito com sucesso',
           });
+          console.log(value);
 
           if (value.user.numeroDoc.length === 11) {
             this._router.navigate(['trabalhador/inicial']);

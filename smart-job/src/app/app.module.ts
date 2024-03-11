@@ -35,6 +35,7 @@ import { EmpresaComponent } from './usuario/empresa/empresa.component';
 import { VagaListEmpresaComponent } from './vaga-list-empresa/vaga-list-empresa.component';
 import { DialogModule } from 'primeng/dialog';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { BreadcrumbModule } from 'primeng/breadcrumb';
 
 @NgModule({
   declarations: [
@@ -77,6 +78,7 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
     CalendarModule,
     DialogModule,
     ConfirmDialogModule,
+    BreadcrumbModule,
   ],
   exports: [],
   providers: [MessageService, HttpClient, DatePipe, ConfirmationService],

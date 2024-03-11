@@ -50,7 +50,7 @@ routes.post("/login", async (req, res) => {
       success: true,
       message: "Login feito com sucesso",
       user: {
-        numeroDoc: trabalhador.recordset[0].CPF,
+        numeroDoc: trabalhador.recordset[0].Cpf,
         idUsuario: trabalhador.recordset[0].Id,
       },
     });
@@ -59,7 +59,7 @@ routes.post("/login", async (req, res) => {
       success: true,
       message: "Login feito com sucesso",
       user: {
-        numeroDoc: empresa.recordset[0].CNPJ,
+        numeroDoc: empresa.recordset[0].Cnpj,
         idUsuario: empresa.recordset[0].Id,
       },
     });
@@ -99,7 +99,7 @@ routes.get("/trabalhador", async (req, res) => {
   }
 });
 
-// retorna o trabalhador pelo cpf
+// retorna o trabalhador pelo id
 routes.get("/trabalhador/:id", async (req, res) => {
   const data = req.params.id;
   try {

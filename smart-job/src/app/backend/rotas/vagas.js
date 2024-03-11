@@ -37,13 +37,13 @@ routes.get("/:id", async (req, res) => {
   }
 });
 
-// retorna as vagas de uma empresa
+// retorna as vagas ativas de uma empresa
 routes.get("/empresa/:id", async (req, res) => {
   const idEmpresa = req.params.id;
   try {
     const results = await sql.query(
       `SELECT * FROM Vaga v 
-      WHERE IdEmpresa = '${idEmpresa}'`
+      WHERE IdEmpresa = '${idEmpresa}' AND ATIVO = 1`
     );
     res.status(200).json(results.recordset);
   } catch (err) {

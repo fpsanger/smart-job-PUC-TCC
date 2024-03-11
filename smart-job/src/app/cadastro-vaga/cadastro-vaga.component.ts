@@ -9,7 +9,7 @@ import { VagaService } from '../services/vaga.service';
 import { FormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { IVaga } from '../interfaces/vaga.interface';
 import { DatePipe } from '@angular/common';
-import { MessageService } from 'primeng/api';
+import { MenuItem, MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-cadastro-vaga',
@@ -29,6 +29,9 @@ export class CadastroVagaComponent implements OnInit, OnChanges {
 
   idEmpresa: number;
 
+  items: MenuItem[];
+  home: MenuItem;
+
   constructor(
     private _vagaService: VagaService,
     private _formBuilder: FormBuilder,
@@ -39,6 +42,10 @@ export class CadastroVagaComponent implements OnInit, OnChanges {
   ngOnInit(): void {
     const item = localStorage.getItem('user');
     this.idEmpresa = JSON.parse(item).idUsuario;
+
+    this.items = [{ label: 'Cadastro de vagas' }];
+
+    this.home = { icon: 'pi pi-home', routerLink: '/empresa/inicial' };
 
     this.form = this._formBuilder.group({
       nomeVaga: [null, [Validators.required]],

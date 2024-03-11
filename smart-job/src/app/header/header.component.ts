@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
 })
 export class HeaderComponent implements OnInit, DoCheck {
   isAuthenticated: boolean = false;
-  numeroDoc: string;
+  numeroDoc: string = '';
   routePage: string = '';
 
   constructor(private _authService: AuthService, private _router: Router) {}
@@ -22,9 +22,9 @@ export class HeaderComponent implements OnInit, DoCheck {
   ngDoCheck(): void {
     this.isAuthenticated = this._authService.isAuthenticated();
 
-    if (this.numeroDoc.length > 11) {
+    if (this.numeroDoc?.length === 11) {
       this.routePage = 'trabalhador';
-    } else {
+    } else if (this.numeroDoc?.length === 14) {
       this.routePage = 'empresa';
     }
   }
