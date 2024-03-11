@@ -7,9 +7,9 @@ import { IVaga } from 'src/app/interfaces/vaga.interface';
 import { VagaService } from 'src/app/services/vaga.service';
 
 @Component({
-  selector: 'app-vaga',
-  templateUrl: './vaga.component.html',
-  styleUrls: ['./vaga.component.css'],
+  selector: 'app-detalhe-vaga',
+  templateUrl: './detalhe-vaga.component.html',
+  styleUrls: ['./detalhe-vaga.component.css'],
 })
 export class VagaComponent implements OnInit {
   vaga: IVaga;

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { VagaService } from '../../services/vaga.service';
-import { IVaga } from '../../interfaces/vaga.interface';
-import { IUsuario } from '../../interfaces/usuario.interface';
+import { VagaService } from '../services/vaga.service';
+import { IVaga } from '../interfaces/vaga.interface';
+import { IUsuario } from '../interfaces/usuario.interface';
 import { UsuarioService } from 'src/app/services/usuario.service';
 
 @Component({

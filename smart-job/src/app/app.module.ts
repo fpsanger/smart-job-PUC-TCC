@@ -13,7 +13,7 @@ import { RadioButtonModule } from 'primeng/radiobutton';
 import { ToastModule } from 'primeng/toast';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { TrabalhadorComponent } from './trabalhador/pagina-inicial-trabalhador/trabalhador.component';
+import { TrabalhadorComponent } from './trabalhador/trabalhador.component';
 import { TableModule } from 'primeng/table';
 import { CommonModule, DatePipe } from '@angular/common';
 import { DropdownModule } from 'primeng/dropdown';
@@ -32,10 +32,10 @@ import { DialogModule } from 'primeng/dialog';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { BreadcrumbModule } from 'primeng/breadcrumb';
 import { TabelaVagasComponent } from './componentes/tabela-vagas/tabela-vagas.component';
-import { EmpresaComponent } from './empresa/pagina-inicial-empresa/empresa.component';
+import { EmpresaComponent } from './empresa/empresa.component';
 import { VagaListEmpresaComponent } from './empresa/vaga-list-empresa/vaga-list-empresa.component';
 import { CadastroVagaComponent } from './vaga/cadastro-vaga/cadastro-vaga.component';
-import { VagaComponent } from './vaga/detalhe-vagas/vaga.component';
+import { VagaComponent } from './vaga/detalhe-vaga/detalhe-vaga.component';
 
 @NgModule({
   declarations: [
