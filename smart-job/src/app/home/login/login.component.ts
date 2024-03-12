@@ -38,9 +38,8 @@ export class LoginComponent implements OnInit {
             summary: 'Sucesso',
             detail: 'Login feito com sucesso',
           });
-          console.log(value);
 
-          if (value.user.numeroDoc.length === 11) {
+          if (value.user.isTrabalhador) {
             this._router.navigate(['trabalhador/inicial']);
           } else {
             this._router.navigate(['empresa/inicial']);

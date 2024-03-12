@@ -18,6 +18,7 @@ export class VagaComponent implements OnInit {
   idUsuario: number;
 
   isEmpresa: boolean;
+  isTrabalhador: boolean;
   mostrarModal: boolean;
 
   items: MenuItem[];
@@ -35,9 +36,10 @@ export class VagaComponent implements OnInit {
     this.idVaga = this._activatedRoute.snapshot.params['id'];
 
     const item = localStorage.getItem('user');
-    this.idUsuario = JSON.parse(item).idUsuario;
+    this.idUsuario = JSON.parse(item)?.idUsuario;
+    this.isTrabalhador = JSON.parse(item)?.isTrabalhador;
 
-    if (JSON.parse(item).numeroDoc.length > 11) {
+    if (!this.isTrabalhador) {
       this.isEmpresa = true;
     } else {
       this.isEmpresa = false;

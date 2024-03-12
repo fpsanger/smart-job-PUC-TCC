@@ -13,7 +13,7 @@ describe('VagaComponent', () => {
   const mockLocalStorage = {
     getItem: (key: string): string => {
       return {
-        user: '{"idUsuario": "1","numeroDoc": "12345678"}',
+        user: '{"idUsuario": "1","isTrabalhador": "true"}',
       }[key];
     },
     setItem: (key: string, value: string) => {},

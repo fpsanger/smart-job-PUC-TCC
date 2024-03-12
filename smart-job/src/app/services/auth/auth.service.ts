@@ -13,7 +13,7 @@ export class AuthService {
 
   login(email: string, senha: string): Observable<any> {
     return this.http
-      .post<any>(`${this.apiUrl}/usuario/login`, { email, senha })
+      .post<any>(`${this.apiUrl}/autenticacao/login`, { email, senha })
       .pipe(
         tap((response) => {
           localStorage.setItem('token', response.token);
@@ -23,6 +23,7 @@ export class AuthService {
 
   logout(): void {
     localStorage.removeItem('token');
+    localStorage.removeItem('user');
   }
 
   getToken(): string | null {

@@ -11,7 +11,7 @@ describe('HeaderComponent', () => {
   const mockLocalStorage = {
     getItem: (key: string): string => {
       return {
-        user: '{"numeroDoc": "123456789"}',
+        user: '{"isTrabalhador": "true"}',
       }[key];
     },
     setItem: (key: string, value: string) => {},
@@ -43,7 +43,7 @@ describe('HeaderComponent', () => {
 
   it('deve obter e analisar o objeto do localStorage', () => {
     const item = localStorage.getItem('user');
-    const numeroDoc = JSON.parse(item).numeroDoc;
-    expect(numeroDoc).toEqual('123456789');
+    const isTrabalhador = JSON.parse(item).isTrabalhador;
+    expect(isTrabalhador).toEqual('true');
   });
 });
