@@ -19,13 +19,15 @@ routes.get(
   }
 );
 
-// retorna todas as vagas ativas
+// retorna todas as vagas ativas e com vagas disponíveis
 routes.get(
   "/ativo",
   passport.authenticate("jwt", { session: false }),
   async (req, res) => {
     try {
-      const results = await sql.query("SELECT * FROM Vaga WHERE ATIVO = 1 ");
+      const results = await sql.query(
+        "SELECT v.* FROM Vaga v LEFT JOIN (SELECT IdVaga, COUNT(*) AS NumTrabalhadores FROM TrabalhadorVaga GROUP BY IdVaga ) tv ON v.Id = tv.IdVaga WHERE v.ATIVO = 1 AND (tv.NumTrabalhadores IS NULL OR tv.NumTrabalhadores < v.LimiteTrabalhadores) AND tv.IdVaga IS NULL"
+      );
       res.status(200).json(results.recordset);
     } catch (err) {
       console.error(err);
@@ -138,7 +140,7 @@ routes.post(
   }
 );
 
-// adiciona uma vaga nova
+// edita uma vaga
 routes.put(
   "/editar/:idVaga",
   passport.authenticate("jwt", { session: false }),
@@ -199,7 +201,9 @@ routes.post("/atribuirVaga", (req, res) => {
     const query = `INSERT INTO [dbo].[TrabalhadorVaga] (IdVaga,IdTrabalhador,DataAceite) VALUES ('${data.idVaga}', '${data.idTrabalhador}', '${data.dataAceite}')`;
     sql.query(query, (err, result) => {
       if (err) {
-        return res.status(500).json({ mensagem: "Erro ao atribuir vaga" });
+        return res
+          .status(500)
+          .json({ mensagem: "Você já está cadastrado nessa vaga" });
       }
       res.status(201).json({
         mensagem: "Vaga atribuída com sucesso",

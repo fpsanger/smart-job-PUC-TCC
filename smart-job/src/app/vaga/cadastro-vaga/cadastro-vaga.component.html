@@ -90,6 +90,7 @@
             formControlName="dataExpiracao"
             [showIcon]="true"
             appendTo="body"
+            [minDate]="minDate"
           ></p-calendar>
           <label for="dataExpiracao"
             >Data de expiração
@@ -97,7 +98,21 @@
           ></label>
         </span>
       </div>
-      <div class="col-md-5 mt-md-2 col-sm-6 mt-sm-2 col-5 mt-2">
+      <div class="col-md-3 col-sm-5 col-5 mt-2">
+        <span class="p-float-label">
+          <input
+            pInputText
+            formControlName="limiteTrabalhadores"
+            type="number"
+            class="form-control"
+          />
+          <label for="limiteTrabalhadores"
+            >Limite de trabalhadores
+            <i class="fa-solid fa-asterisk fa-2xs" style="color: red"></i
+          ></label>
+        </span>
+      </div>
+      <div class="col-md-3 col-sm-5 col-5 mt-2">
         <span class="p-float-label">
           <p-dropdown
             inputId="tipoVaga"
