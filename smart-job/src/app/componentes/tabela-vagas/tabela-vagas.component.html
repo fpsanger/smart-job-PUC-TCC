@@ -6,7 +6,7 @@
   currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
   [rowsPerPageOptions]="[10, 25, 50]"
   [scrollable]="true"
-  scrollHeight="400px"
+  scrollHeight="500px"
   [tableStyle]="{ 'min-width': '400px' }"
 >
   <ng-template pTemplate="header">
@@ -102,12 +102,14 @@
           class="p-button-secondary"
           (click)="navigateToDetalhesVaga(rowData.Id)"
         >
-          Detalhes
+          <i class="fa-solid fa-circle-info"></i> &nbsp; Detalhes
         </button>
       </td>
     </tr>
   </ng-template>
   <ng-template pTemplate="emptymessage">
-    <tr></tr>
+    <tr>
+      <td colspan="5">Não há vagags no momento</td>
+    </tr>
   </ng-template>
 </p-table>
