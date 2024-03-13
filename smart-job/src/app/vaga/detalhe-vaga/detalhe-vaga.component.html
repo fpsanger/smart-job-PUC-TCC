@@ -1,6 +1,6 @@
 <div class="page-header">
   <p-breadcrumb [model]="items" [home]="home"></p-breadcrumb>
-  <div class="d-flex justify-content-center my-sm-5 my-md-5">
+  <div class="d-flex justify-content-center mt-4 mb-2">
     <h1>{{ vaga?.Nome }}</h1>
   </div>
 </div>
@@ -45,10 +45,7 @@
     </div>
   </div>
 
-  <div
-    class="d-flex flex-row justify-content-md-center justify-content-sm-start"
-  ></div>
-  <div class="d-flex flex-row justify-content-md-center justify-content-lg-end">
+  <div class="d-flex flex-row justify-content-end">
     <button
       *ngIf="!isEmpresa"
       pRipple
@@ -59,24 +56,29 @@
       Quero me candidatar
     </button>
 
-    <button
-      *ngIf="isEmpresa"
-      pRipple
-      type="button"
-      class="btn btn-info btn-md"
-      (click)="showEditarVagaDialog()"
-    >
-      <i class="fa-solid fa-pen-to-square"> </i> Editar vaga
-    </button>
-    <button
-      *ngIf="isEmpresa"
-      pRipple
-      type="button"
-      class="btn btn-danger btn-md"
-      (click)="apagarVaga()"
-    >
-      <i class="fa-solid fa-trash"> </i> Apagar vaga
-    </button>
+    <div class="col-sm-10 col-md-2">
+      <button
+        *ngIf="isEmpresa"
+        pRipple
+        type="button"
+        class="btn btn-info btn-md"
+        (click)="showEditarVagaDialog()"
+      >
+        <i class="fa-solid fa-pen-to-square"> </i> Editar vaga
+      </button>
+    </div>
+
+    <div class="col-sm-10 col-md-2">
+      <button
+        *ngIf="isEmpresa"
+        pRipple
+        type="button"
+        class="btn btn-danger btn-md"
+        (click)="apagarVaga()"
+      >
+        <i class="fa-solid fa-trash"> </i> Apagar vaga
+      </button>
+    </div>
   </div>
 </div>
 
