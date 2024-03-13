@@ -1,5 +1,7 @@
 const express = require("express");
 const sql = require("../db");
+const bcrypt = require("bcryptjs");
+const passport = require("passport");
 
 const routes = express.Router();
 
@@ -8,7 +10,10 @@ routes.post("/", (req, res) => {
   const data = req.body;
 
   if (data.cpf) {
-    const query = `INSERT INTO [dbo].[Trabalhador] (Nome, Email, CPF, Senha, Telefone, Ativo) VALUES ('${data.nome}', '${data.email}', '${data.cpf}', '${data.senha}', '${data.telefone}', '${data.ativo}')`;
+    const hashedSenha = bcrypt.hashSync(data.senha, 10);
+    const hashedNumeroDoc = bcrypt.hashSync(data.senha, 10);
+
+    const query = `INSERT INTO [dbo].[Trabalhador] (Nome, Email, CPF, Senha, Telefone, Ativo) VALUES ('${data.nome}', '${data.email}', '${hashedNumeroDoc}', '${hashedSenha}', '${data.telefone}', '${data.ativo}')`;
     sql.query(query, (err, result) => {
       if (err) {
         console.error("Erro ao inserir usuário:", err);
@@ -20,7 +25,10 @@ routes.post("/", (req, res) => {
       });
     });
   } else {
-    const query = `INSERT INTO [dbo].[Empresa] (Nome, Email, CNPJ, Senha, Telefone, Ativo) VALUES ('${data.nome}', '${data.email}', '${data.cnpj}', '${data.senha}', '${data.telefone}', '${data.ativo}')`;
+    const hashedSenha = bcrypt.hashSync(data.senha, 10);
+    const hashedNumeroDoc = bcrypt.hashSync(data.senha, 10);
+
+    const query = `INSERT INTO [dbo].[Empresa] (Nome, Email, CNPJ, Senha, Telefone, Ativo) VALUES ('${data.nome}', '${data.email}', '${hashedNumeroDoc}', '${hashedSenha}', '${data.telefone}', '${data.ativo}')`;
     sql.query(query, (err, result) => {
       if (err) {
         console.error("Erro ao inserir usuário:", err);
@@ -31,52 +39,17 @@ routes.post("/", (req, res) => {
         id: result.insertId,
       });
     });
-  }
-});
-
-routes.post("/login", async (req, res) => {
-  const { email, senha } = req.body;
-
-  const trabalhador = await sql.query(
-    `SELECT * FROM Trabalhador WHERE Email = '${email}' AND Senha = '${senha}'`
-  );
-
-  const empresa = await sql.query(
-    `SELECT * FROM Empresa WHERE Email = '${email}' AND Senha = '${senha}'`
-  );
-
-  if (trabalhador.recordset.length !== 0) {
-    res.json({
-      success: true,
-      message: "Login feito com sucesso",
-      user: {
-        numeroDoc: trabalhador.recordset[0].Cpf,
-        idUsuario: trabalhador.recordset[0].Id,
-      },
-    });
-  } else if (empresa.recordset.length !== 0) {
-    res.json({
-      success: true,
-      message: "Login feito com sucesso",
-      user: {
-        numeroDoc: empresa.recordset[0].Cnpj,
-        idUsuario: empresa.recordset[0].Id,
-      },
-    });
-  } else {
-    res
-      .status(401)
-      .json({ success: false, message: "Senha ou usuário inválido" });
   }
 });
 
 routes.post("/redefinir-senha", async (req, res) => {
   const { Email, Senha } = req.body;
 
+  const hashedPassword = bcrypt.hashSync(Senha, 10);
+
   const result = await sql.query(
-    `UPDATE Trabalhador SET Senha = '${Senha}' WHERE Email = '${Email}' `
+    `UPDATE Trabalhador SET Senha = '${hashedPassword}' WHERE Email = '${Email}' `
   );
-  console.log(result);
 
   if (result.rowsAffected.length > 0) {
     res.json({ success: true, message: "Senha editada com sucesso" });
@@ -89,43 +62,55 @@ routes.post("/redefinir-senha", async (req, res) => {
 });
 
 // retorna todos os trabalhadores
-routes.get("/trabalhador", async (req, res) => {
-  try {
-    const results = await sql.query(`SELECT * FROM Trabalhador`);
-    res.status(200).json(results.recordset);
-  } catch (err) {
-    console.error(err);
-    res.status(500).send("Server error");
+routes.get(
+  "/trabalhador",
+  passport.authenticate("jwt", { session: false }),
+  async (req, res) => {
+    try {
+      const results = await sql.query(`SELECT * FROM Trabalhador`);
+      res.status(200).json(results.recordset);
+    } catch (err) {
+      console.error(err);
+      res.status(500).send("Server error");
+    }
   }
-});
+);
 
 // retorna o trabalhador pelo id
-routes.get("/trabalhador/:id", async (req, res) => {
-  const data = req.params.id;
-  try {
-    const results = await sql.query(
-      `SELECT * FROM Trabalhador WHERE Id = '${data}'`
-    );
-    res.status(200).json(results.recordset[0]);
-  } catch (err) {
-    console.error(err);
-    res.status(500).send("Server error");
+routes.get(
+  "/trabalhador/:id",
+  passport.authenticate("jwt", { session: false }),
+  async (req, res) => {
+    const data = req.params.id;
+    try {
+      const results = await sql.query(
+        `SELECT * FROM Trabalhador WHERE Id = '${data}'`
+      );
+      res.status(200).json(results.recordset[0]);
+    } catch (err) {
+      console.error(err);
+      res.status(500).send("Server error");
+    }
   }
-});
+);
 
 // retorna a empresa pelo id
-routes.get("/empresa/:id", async (req, res) => {
-  const data = req.params.id;
-  try {
-    const results = await sql.query(
-      `SELECT * FROM Empresa WHERE Id = '${data}'`
-    );
-    res.status(200).json(results.recordset[0]);
-  } catch (err) {
-    console.error(err);
-    res.status(500).send("Server error");
+routes.get(
+  "/empresa/:id",
+  passport.authenticate("jwt", { session: false }),
+  async (req, res) => {
+    const data = req.params.id;
+    try {
+      const results = await sql.query(
+        `SELECT * FROM Empresa WHERE Id = '${data}'`
+      );
+      res.status(200).json(results.recordset[0]);
+    } catch (err) {
+      console.error(err);
+      res.status(500).send("Server error");
+    }
   }
-});
+);
 
 // // retorna a empresa pelo cnpj
 // routes.get("/empresa/:cnpj", async (req, res) => {
@@ -142,14 +127,18 @@ routes.get("/empresa/:id", async (req, res) => {
 // });
 
 // retorna todas as empresas
-routes.get("/empresa", async (req, res) => {
-  try {
-    const results = await sql.query(`SELECT * FROM Empresa`);
-    res.status(200).json(results.recordset);
-  } catch (err) {
-    console.error(err);
-    res.status(500).send("Server error");
+routes.get(
+  "/empresa",
+  passport.authenticate("jwt", { session: false }),
+  async (req, res) => {
+    try {
+      const results = await sql.query(`SELECT * FROM Empresa`);
+      res.status(200).json(results.recordset);
+    } catch (err) {
+      console.error(err);
+      res.status(500).send("Server error");
+    }
   }
-});
+);
 
 module.exports = routes;
