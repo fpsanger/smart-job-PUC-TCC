@@ -66,6 +66,7 @@ routes.post("/login", async (req, res) => {
       user: {
         idUsuario: user.Id,
         isTrabalhador: true,
+        permissao: "trabalhador",
       },
     });
   } else if (empresa.recordset.length !== 0) {
@@ -85,6 +86,7 @@ routes.post("/login", async (req, res) => {
       user: {
         idUsuario: user.Id,
         isTrabalhador: false,
+        permissao: "empresa",
       },
     });
   } else {

@@ -5,6 +5,7 @@ import { ConfirmationService } from 'primeng/api';
 import { ITrabalhadorVaga } from 'src/app/interfaces/trabalhador-vaga';
 import { IVaga } from 'src/app/interfaces/vaga.interface';
 import { VagaService } from 'src/app/services/vaga.service';
+import { filter } from 'rxjs';
 
 @Component({
   selector: 'app-detalhe-vaga',
@@ -24,6 +25,8 @@ export class VagaComponent implements OnInit {
   items: MenuItem[];
   home: MenuItem;
 
+  route: string;
+
   constructor(
     private _vagaService: VagaService,
     private _messageService: MessageService,
@@ -41,13 +44,18 @@ export class VagaComponent implements OnInit {
 
     if (!this.isTrabalhador) {
       this.isEmpresa = true;
+      this.route = 'empresa/inicial';
     } else {
       this.isEmpresa = false;
+      this.route = 'trabalhador/inicial';
     }
 
     this.items = [{ label: 'Detalhe da vaga' }];
 
-    this.home = { icon: 'pi pi-home', routerLink: '/empresa/inicial' };
+    this.home = {
+      icon: 'pi pi-home',
+      url: this.route,
+    };
 
     this._vagaService.getVaga(this.idVaga).subscribe((x) => {
       this.vaga = x;
