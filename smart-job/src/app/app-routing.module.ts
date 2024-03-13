@@ -28,7 +28,11 @@ const routes: Routes = [
     component: EmpresaComponent,
     canActivate: [AuthGuard],
   },
-  { path: 'vaga/:id', component: VagaComponent, canActivate: [AuthGuard] },
+  {
+    path: 'vaga/:id',
+    component: VagaComponent,
+    canActivate: [AuthGuard],
+  },
   {
     path: 'trabalhador/suas-vagas',
     component: VagaListComponent,

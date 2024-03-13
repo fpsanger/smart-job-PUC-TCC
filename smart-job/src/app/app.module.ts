@@ -8,7 +8,11 @@ import { CadastroComponent } from './home/cadastro/cadastro.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputMaskModule } from 'primeng/inputmask';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import {
+  HTTP_INTERCEPTORS,
+  HttpClient,
+  HttpClientModule,
+} from '@angular/common/http';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { ToastModule } from 'primeng/toast';
 import { ConfirmationService, MessageService } from 'primeng/api';
@@ -36,6 +40,7 @@ import { EmpresaComponent } from './empresa/empresa.component';
 import { VagaListEmpresaComponent } from './empresa/vaga-list-empresa/vaga-list-empresa.component';
 import { CadastroVagaComponent } from './vaga/cadastro-vaga/cadastro-vaga.component';
 import { VagaComponent } from './vaga/detalhe-vaga/detalhe-vaga.component';
+import { JwtInterceptor } from './services/interceptors/jwt.interceptor';
 
 @NgModule({
   declarations: [
@@ -81,7 +86,13 @@ import { VagaComponent } from './vaga/detalhe-vaga/detalhe-vaga.component';
     BreadcrumbModule,
   ],
   exports: [],
-  providers: [MessageService, HttpClient, DatePipe, ConfirmationService],
+  providers: [
+    MessageService,
+    HttpClient,
+    DatePipe,
+    ConfirmationService,
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
