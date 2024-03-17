@@ -216,4 +216,29 @@ routes.post("/atribuirVaga", (req, res) => {
   }
 });
 
+// deletar vaga do trabalhador
+routes.delete(
+  "/:idTrabalhador/:idVaga",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    const idTrabalhador = req.params.idTrabalhador;
+    const idVaga = req.params.idVaga;
+
+    console.log(idVaga);
+    console.log(idTrabalhador);
+
+    try {
+      const query = `DELETE FROM TrabalhadorVaga WHERE IdVaga ='${idVaga}' AND IdTrabalhador ='${idTrabalhador}'`;
+      sql.query(query, (err, result) => {
+        res.status(200).json({
+          mensagem: "Vaga excluída com sucesso",
+        });
+      });
+    } catch (err) {
+      console.error(err);
+      res.status(500).send("Server error");
+    }
+  }
+);
+
 module.exports = routes;

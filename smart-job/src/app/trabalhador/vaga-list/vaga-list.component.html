@@ -42,9 +42,21 @@
                 {{ rowData.DataAtualizacao | date }}</span
               >
             </div>
+            <div class="car-buttons mt-5">
+              <button class="btn btn-danger" (click)="sairVaga(rowData.Id)">
+                Sair da vaga
+              </button>
+            </div>
           </div>
         </div>
       </ng-template>
     </p-carousel>
   </div>
 </div>
+
+<p-confirmDialog
+  header="Confirmation"
+  icon="pi pi-exclamation-triangle"
+></p-confirmDialog>
+
+<p-toast></p-toast>

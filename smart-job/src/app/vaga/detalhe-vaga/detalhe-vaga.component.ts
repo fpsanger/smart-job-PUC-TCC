@@ -21,6 +21,7 @@ export class VagaComponent implements OnInit {
   isEmpresa: boolean;
   isTrabalhador: boolean;
   mostrarModal: boolean;
+  isTrabalhadorHasVaga: boolean = false;
 
   items: MenuItem[];
   home: MenuItem;
@@ -55,6 +56,7 @@ export class VagaComponent implements OnInit {
     this.home = {
       icon: 'pi pi-home',
       url: this.route,
+      target: '_self',
     };
 
     this._vagaService.getVaga(this.idVaga).subscribe((x) => {
@@ -80,7 +82,7 @@ export class VagaComponent implements OnInit {
         this._messageService.add({
           severity: 'error',
           summary: 'Erro',
-          detail: err,
+          detail: 'Você já está atrubído a essa vaga!',
         }),
     });
   }
