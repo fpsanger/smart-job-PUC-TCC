@@ -32,6 +32,8 @@ export class CadastroVagaComponent implements OnInit, OnChanges {
   items: MenuItem[];
   home: MenuItem;
 
+  minDate: Date = new Date();
+
   constructor(
     private _vagaService: VagaService,
     private _formBuilder: FormBuilder,
@@ -56,6 +58,7 @@ export class CadastroVagaComponent implements OnInit, OnChanges {
       cidade: [null, [Validators.required]],
       tipoVaga: [null, [Validators.required]],
       dataExpiracao: [null, [Validators.required]],
+      limiteTrabalhadores: [null, [Validators.required, Validators.min(1)]],
     });
   }
 
@@ -80,6 +83,7 @@ export class CadastroVagaComponent implements OnInit, OnChanges {
       DataExpiracao: this._datePipe.transform(
         this.form.get('dataExpiracao').value
       ),
+      LimiteTrabalhadores: this.form.get('limiteTrabalhadores').value,
       IdEmpresa: this.idEmpresa,
     } as IVaga;
 

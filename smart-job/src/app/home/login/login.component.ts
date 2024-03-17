@@ -39,6 +39,8 @@ export class LoginComponent implements OnInit {
             detail: 'Login feito com sucesso',
           });
 
+          this._authService.setAuthenticated(true); //! AO invés de usar um token para o User, salvar tudo no token e fazer um jwt_decode para pegar as informacões. Vai reduizer as chamadas no banco de dados
+
           if (value.user.isTrabalhador) {
             this._router.navigate(['trabalhador/inicial']);
           } else {

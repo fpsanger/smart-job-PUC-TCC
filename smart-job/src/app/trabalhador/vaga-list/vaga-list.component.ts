@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { VagaService } from '../../services/vaga.service';
 import { IVaga } from '../../interfaces/vaga.interface';
 import { TrabalhadorVagaStatus } from '../../enum/trabalhador-vaga-status.enum';
-import { MenuItem } from 'primeng/api';
+import { ConfirmationService, MenuItem, MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-vaga-list',
@@ -21,7 +21,11 @@ export class VagaListComponent implements OnInit {
   items: MenuItem[];
   home: MenuItem;
 
-  constructor(private _vagaService: VagaService) {}
+  constructor(
+    private _vagaService: VagaService,
+    private _confirmationService: ConfirmationService,
+    private _messageService: MessageService
+  ) {}
 
   ngOnInit(): void {
     this.responsiveOptions = [
@@ -51,6 +55,30 @@ export class VagaListComponent implements OnInit {
 
     this._vagaService.getVagasTrabalhador(this.idTrabalhador).subscribe((x) => {
       this.vagas = x;
+    });
+  }
+
+  sairVaga(idVaga: number) {
+    console.log(this.idTrabalhador);
+    console.log(idVaga);
+    this._confirmationService.confirm({
+      message: 'Tem certeza que quer sair dessa vaga?',
+      accept: () => {
+        this._vagaService.sairVaga(this.idTrabalhador, idVaga).subscribe({
+          next: () =>
+            this._messageService.add({
+              severity: 'success',
+              summary: 'Sucesso',
+              detail: 'Vaga apagada com sucesso',
+            }),
+          error: (err) =>
+            this._messageService.add({
+              severity: 'error',
+              summary: 'Erro',
+              detail: err,
+            }),
+        });
+      },
     });
   }
 }

@@ -64,4 +64,13 @@ export class VagaService {
       data
     );
   }
+
+  sairVaga(
+    idTrabalhador: number,
+    idVaga: number
+  ): Observable<ITrabalhadorVaga> {
+    return this._httpClient.delete<ITrabalhadorVaga>(
+      `http://localhost:3000/vagas/${idTrabalhador}/${idVaga}`
+    );
+  }
 }

@@ -12,4 +12,5 @@ export interface IVaga {
   DataExpiracao: string;
   IdEmpresa?: number;
   status: number;
+  LimiteTrabalhadores: number;
 }
