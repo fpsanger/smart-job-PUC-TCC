@@ -14,7 +14,7 @@ O projeto tem como objetivo proporcionar uma plataforma para encontrar as melhor
   - Framework: Angular (HTML,CSS)
  
 - Testes:
-  - Framework: Cypress
+  - Jasmine/Jest: Angular
 
 ## Arquitetura
 A arquitetura escolhida para o projeto foi a monolítica, dada a simplicidade das funcionalidades e a natureza da prova de conceito. Isso foi decidido devido à necessidade de um menor tempo de configuração e manutenção. A conexão do backend com o frontend será feita através do Express.js, possibilitando operações básicas no banco de dados.
