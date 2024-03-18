@@ -2,6 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { VagaListEmpresaComponent } from './vaga-list-empresa.component';
 import { HttpClient, HttpHandler } from '@angular/common/http';
+import { MessageService } from 'primeng/api';
 
 describe('VagaListEmpresaComponent', () => {
   let component: VagaListEmpresaComponent;
@@ -19,7 +20,11 @@ describe('VagaListEmpresaComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      providers: [{ provide: HttpClient }, { provide: HttpHandler }],
+      providers: [
+        { provide: HttpClient },
+        { provide: HttpHandler },
+        { provide: MessageService },
+      ],
       declarations: [VagaListEmpresaComponent],
     }).compileComponents();
 
