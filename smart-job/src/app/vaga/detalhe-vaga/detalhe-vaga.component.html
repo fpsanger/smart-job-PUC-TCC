@@ -33,6 +33,7 @@
         Endereço: {{ vaga?.Endereco }} - {{ vaga?.Cidade }}, {{ vaga?.Estado }}
       </p>
       <p>Dúvidas? Fale conosco no número: 999999999</p>
+      <p>Limite de vagas: {{ vaga?.LimiteTrabalhadores ?? 0 }}</p>
     </div>
   </div>
 
@@ -98,4 +99,4 @@
   icon="pi pi-exclamation-triangle"
 ></p-confirmDialog>
 
-<p-toast></p-toast>
+<p-toast key="tc"></p-toast>

@@ -79,7 +79,7 @@ routes.get(
     const idEmpresa = req.params.id;
     try {
       const results = await sql.query(
-        `SELECT v.Id, v.Nome, COUNT(TrabalhadorVaga.IdTrabalhador) AS ContagemTrabalhadores, SUM(v.Remuneracao) as remuneracaoTotal
+        `SELECT v.Id, v.Nome, COUNT(TrabalhadorVaga.IdTrabalhador) AS ContagemTrabalhadores, SUM(v.Remuneracao) as RemuneracaoTotal
       FROM Vaga v
       LEFT JOIN TrabalhadorVaga ON v.Id = TrabalhadorVaga.IdVaga
       WHERE v.IdEmpresa = '${idEmpresa}'
@@ -101,7 +101,7 @@ routes.get(
     const idTrabalhador = req.params.id;
     try {
       const results = await sql.query(
-        `SELECT * FROM Vaga v
+        `SELECT v.*,tg.[Status] as TrabalhadorStatus,tg.DataAceite FROM Vaga v
       JOIN TrabalhadorVaga tg ON tg.IdVaga = v.Id
       WHERE tg.IdTrabalhador = '${idTrabalhador}' `
       );
@@ -149,7 +149,7 @@ routes.put(
     const data = req.body;
 
     try {
-      const query = `UPDATE [dbo].[Vaga] SET Nome = '${data.Nome}', Descricao = '${data.Descricao}', Remuneracao = '${data.Remuneracao}', Endereco = '${data.Endereco}', Estado = '${data.Estado}', Cidade = '${data.Cidade}', Ativo = '${data.Ativo}', TipoVaga = '${data.TipoVaga}', DataAtualizacao = '${data.DataAtualizacao}', DataExpiracao =  '${data.DataExpiracao}' WHERE Id ='${idVaga}'`;
+      const query = `UPDATE [dbo].[Vaga] SET Nome = '${data.Nome}', Descricao = '${data.Descricao}', Remuneracao = '${data.Remuneracao}', Endereco = '${data.Endereco}', Estado = '${data.Estado}', Cidade = '${data.Cidade}', Ativo = '${data.Ativo}', TipoVaga = '${data.TipoVaga}', DataAtualizacao = '${data.DataAtualizacao}', DataExpiracao =  '${data.DataExpiracao}', LimiteTrabalhadores =  '${data.LimiteTrabalhadores}' WHERE Id ='${idVaga}'`;
       sql.query(query, (err, result) => {
         if (err) {
           return res
@@ -224,11 +224,30 @@ routes.delete(
     const idTrabalhador = req.params.idTrabalhador;
     const idVaga = req.params.idVaga;
 
-    console.log(idVaga);
-    console.log(idTrabalhador);
-
     try {
       const query = `DELETE FROM TrabalhadorVaga WHERE IdVaga ='${idVaga}' AND IdTrabalhador ='${idTrabalhador}'`;
+      sql.query(query, (err, result) => {
+        res.status(200).json({
+          mensagem: "Vaga excluída com sucesso",
+        });
+      });
+    } catch (err) {
+      console.error(err);
+      res.status(500).send("Server error");
+    }
+  }
+);
+
+// alterar status da vaga
+routes.put(
+  "/status/:idVaga",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    const idVaga = req.params.idVaga;
+    const data = req.body;
+
+    try {
+      const query = `UPDATE Vaga SET [Status]='${data.status}' WHERE Id ='${idVaga}'`;
       sql.query(query, (err, result) => {
         res.status(200).json({
           mensagem: "Vaga excluída com sucesso",

@@ -16,8 +16,6 @@ const options = {
 
 passport.use(
   new JwtStrategy(options, async (payload, done) => {
-    console.log(payload);
-
     const userId = payload.id;
 
     let user = await sql.query(

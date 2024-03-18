@@ -91,12 +91,14 @@ export class CadastroVagaComponent implements OnInit, OnChanges {
       this._vagaService.editarVaga(data).subscribe({
         next: () =>
           this._messageService.add({
+            key: 'tl',
             severity: 'success',
             summary: 'Sucesso',
             detail: 'Vaga editada com sucesso',
           }),
         error: (err) =>
           this._messageService.add({
+            key: 'tl',
             severity: 'error',
             summary: 'Erro',
             detail: err,
@@ -106,12 +108,14 @@ export class CadastroVagaComponent implements OnInit, OnChanges {
       this._vagaService.adicionarVaga(data).subscribe({
         next: () =>
           this._messageService.add({
+            key: 'tl',
             severity: 'success',
             summary: 'Sucesso',
             detail: 'Vaga adicionada com sucesso',
           }),
         error: (err) =>
           this._messageService.add({
+            key: 'tl',
             severity: 'error',
             summary: 'Erro',
             detail: err,
@@ -130,6 +134,7 @@ export class CadastroVagaComponent implements OnInit, OnChanges {
       cidade: this.vaga?.Cidade,
       tipoVaga: this.vaga?.TipoVaga,
       dataExpiracao: new Date(this.vaga?.DataExpiracao),
+      limiteTrabalhadores: this.vaga?.LimiteTrabalhadores,
     });
   }
 }
