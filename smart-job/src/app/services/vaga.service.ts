@@ -73,4 +73,11 @@ export class VagaService {
       `http://localhost:3000/vagas/${idTrabalhador}/${idVaga}`
     );
   }
+
+  alterarStatusVaga(idVaga: number, data: IVaga): Observable<ITrabalhadorVaga> {
+    return this._httpClient.put<ITrabalhadorVaga>(
+      `http://localhost:3000/vagas/status/${idVaga}`,
+      data
+    );
+  }
 }

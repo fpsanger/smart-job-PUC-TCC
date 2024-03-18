@@ -19,21 +19,21 @@
           <div class="product-item-content">
             <div>
               <h4 class="mb-1">
-                {{ rowData.Nome }} - {{ status[rowData.Status] }}
+                {{ rowData.Nome }} - {{ status[rowData.TrabalhadorStatus] }}
               </h4>
               <h6 class="mt-2 mb-3">
                 Você aceitou a vaga dia {{ rowData.DataAceite | date }}
               </h6>
 
-              <ng-container *ngIf="rowData.Status === 2">
+              <ng-container *ngIf="rowData.TrabalhadorStatus === 2">
                 <h6 class="mt-0 mb-3">Requisitos salvos com sucesso</h6>
               </ng-container>
 
-              <ng-container *ngIf="rowData.Status === 1">
+              <ng-container *ngIf="rowData.TrabalhadorStatus === 1">
                 <h6 class="mt-0 mb-3">Requisitos salvos com sucesso</h6>
               </ng-container>
 
-              <ng-container *ngIf="rowData.Status === 0">
+              <ng-container *ngIf="rowData.TrabalhadorStatus === 0">
                 <h6 class="mt-0 mb-3">Requisitos salvos com sucesso</h6>
               </ng-container>
 

@@ -19,26 +19,26 @@
           <div class="product-item-content">
             <div>
               <h4 class="mb-1">
-                {{ rowData.Nome }} - {{ status[rowData.status] }}
+                {{ rowData.Nome }} - {{ status[rowData.Status] }}
               </h4>
 
-              <ng-container *ngIf="rowData.status === 0">
-                <h6 class="mt-0 mb-3">
+              <ng-container *ngIf="rowData.Status === 0">
+                <h6 class="mt-2 mb-3">
                   Ainda está em aberto. Total de participantes:
-                  {{ rowData.totalPartipantes }}
+                  {{ rowData.totalParticipantes }}
                 </h6>
               </ng-container>
 
-              <ng-container *ngIf="rowData.status === 1">
+              <ng-container *ngIf="rowData.Status === 1">
                 <h6 class="mt-0 mb-3">
-                  Análise dos pariticpantes que farão parte do trabalho
+                  Análise dos pariticpantes que farão parte do trabalho.
                 </h6>
               </ng-container>
 
-              <ng-container *ngIf="rowData.status === 2">
+              <ng-container *ngIf="rowData.Status === 2">
                 <h6 class="mt-0 mb-3">
-                  A vaga foi finalizada. Remuneração total de R$ 300 para os
-                  participantes
+                  A vaga foi finalizada. Remuneração total de R$
+                  {{ rowData.remuneracaoTotal }} para os participantes.
                 </h6>
               </ng-container>
 
@@ -47,9 +47,49 @@
                 {{ rowData.DataAtualizacao | date }}</span
               >
             </div>
+            <div class="car-buttons mt-5">
+              <button
+                class="btn btn-info"
+                (click)="showAlterarStatusDialog(rowData.Id)"
+              >
+                Alterar status da vaga
+              </button>
+            </div>
           </div>
         </div>
       </ng-template>
     </p-carousel>
   </div>
 </div>
+
+<p-dialog
+  header="Alterar status da vaga"
+  [(visible)]="mostrarModal"
+  [modal]="true"
+  [style]="{ width: '50vw' }"
+  [draggable]="false"
+  [resizable]="false"
+  (onHide)="refresh()"
+>
+  <div class="row">
+    <div class="text-center">
+      <p-dropdown
+        [(ngModel)]="valorStatus"
+        [options]="statusOptions"
+        [autoDisplayFirst]="false"
+        placeholder="Selecione um status"
+        optionLabel="label"
+        optionValue="value"
+        appendTo="body"
+      >
+      </p-dropdown>
+    </div>
+    <div class="text-center col-12 mt-2">
+      <button class="btn btn-primary" (click)="alterarStatus()">
+        <i class="fa-solid fa-check"> </i> Salvar
+      </button>
+    </div>
+  </div>
+</p-dialog>
+
+<p-toast></p-toast>

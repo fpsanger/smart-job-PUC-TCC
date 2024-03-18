@@ -74,12 +74,14 @@ export class VagaComponent implements OnInit {
     this._vagaService.atribuirVaga(data).subscribe({
       next: () =>
         this._messageService.add({
+          key: 'tc',
           severity: 'success',
           summary: 'Sucesso',
           detail: 'Vaga atribuída com sucesso',
         }),
       error: (err) =>
         this._messageService.add({
+          key: 'tc',
           severity: 'error',
           summary: 'Erro',
           detail: 'Você já está atrubído a essa vaga!',
@@ -94,12 +96,14 @@ export class VagaComponent implements OnInit {
         this._vagaService.apagarVaga(this.idVaga).subscribe({
           next: () =>
             this._messageService.add({
+              key: 'tc',
               severity: 'success',
               summary: 'Sucesso',
               detail: 'Vaga apagada com sucesso',
             }),
           error: (err) =>
             this._messageService.add({
+              key: 'tc',
               severity: 'error',
               summary: 'Erro',
               detail: err,
