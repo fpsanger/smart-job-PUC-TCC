@@ -8,6 +8,7 @@ import {
 import { NumeroDocumentoValidator } from '../../validators/numero-documento.validator';
 import { CadastroService } from '../../services/cadastro.service';
 import { MessageService } from 'primeng/api';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-cadastro',
@@ -22,7 +23,8 @@ export class CadastroComponent implements OnInit {
   constructor(
     private _formBuilder: UntypedFormBuilder,
     private _cadastroService: CadastroService,
-    private _messageService: MessageService
+    private _messageService: MessageService,
+    private _router: Router
   ) {}
 
   ngOnInit(): void {
@@ -59,12 +61,13 @@ export class CadastroComponent implements OnInit {
           summary: 'Sucesso',
           detail: 'Usuário adicionado com sucesso',
         }),
-      error: (err) =>
+      error: (err) => {
         this._messageService.add({
           severity: 'error',
           summary: 'Erro',
-          detail: err,
-        }),
+          detail: err.error.mensagem,
+        });
+      },
     });
   }
 
@@ -78,5 +81,9 @@ export class CadastroComponent implements OnInit {
     }
     this.form.get('cpf').updateValueAndValidity();
     this.form.get('cnpj').updateValueAndValidity();
+  }
+
+  navigateToLogin() {
+    this._router.navigate(['login']);
   }
 }

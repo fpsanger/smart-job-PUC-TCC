@@ -19,23 +19,23 @@
           <div class="product-item-content">
             <div>
               <h4 class="mb-1">
-                {{ rowData.Nome }} - {{ status[rowData.Status] }}
+                {{ rowData.Nome }} - {{ rowData.Status | vagaStatus }}
               </h4>
 
-              <ng-container *ngIf="rowData.Status === 0">
+              <ng-container *ngIf="rowData.Status === status.Aberto">
                 <h6 class="mt-2 mb-3">
                   Ainda está em aberto. Total de participantes:
                   {{ rowData.totalParticipantes }}
                 </h6>
               </ng-container>
 
-              <ng-container *ngIf="rowData.Status === 1">
+              <ng-container *ngIf="rowData.Status === status.Fechado">
                 <h6 class="mt-0 mb-3">
                   Análise dos pariticpantes que farão parte do trabalho.
                 </h6>
               </ng-container>
 
-              <ng-container *ngIf="rowData.Status === 2">
+              <ng-container *ngIf="rowData.Status === status.Finalizado">
                 <h6 class="mt-0 mb-3">
                   A vaga foi finalizada. Remuneração total de R$
                   {{ rowData.remuneracaoTotal }} para os participantes.
@@ -43,8 +43,8 @@
               </ng-container>
 
               <span
-                >Última atualização dia
-                {{ rowData.DataAtualizacao | date }}</span
+                >Última atualização:
+                {{ rowData.DataAtualizacao | dateFormatUTC }}</span
               >
             </div>
             <div class="car-buttons mt-5">

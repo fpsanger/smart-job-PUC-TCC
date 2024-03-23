@@ -60,7 +60,7 @@
               [options]="dataExpiracaoOptions"
               (onChange)="filter($event.value)"
               [autoDisplayFirst]="false"
-              placeholder="Filtrar localização"
+              placeholder="Filtrar data"
               appendTo="body"
             >
             </p-dropdown>
@@ -93,8 +93,8 @@
     <tr>
       <td>{{ rowData.Nome }}</td>
       <td>{{ rowData.Cidade }}</td>
-      <td>{{ rowData.DataExpiracao | date }}</td>
-      <td>{{ rowData.Remuneracao }}</td>
+      <td>{{ rowData.DataExpiracao | dateFormatUTC }}</td>
+      <td>R$ {{ rowData.Remuneracao }}</td>
       <td>
         <button
           pButton
@@ -109,7 +109,7 @@
   </ng-template>
   <ng-template pTemplate="emptymessage">
     <tr>
-      <td colspan="5">Não há vagas no momento</td>
+      <td class="text-center" colspan="5">Não há vagas no momento.</td>
     </tr>
   </ng-template>
 </p-table>

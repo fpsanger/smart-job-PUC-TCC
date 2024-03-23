@@ -41,6 +41,8 @@ import { VagaListEmpresaComponent } from './empresa/vaga-list-empresa/vaga-list-
 import { CadastroVagaComponent } from './vaga/cadastro-vaga/cadastro-vaga.component';
 import { VagaComponent } from './vaga/detalhe-vaga/detalhe-vaga.component';
 import { JwtInterceptor } from './services/interceptors/jwt.interceptor';
+import { DateFormatUTCPipe } from './pipes/date-format.pipe';
+import { StatusPipe, TrabalhadorStatusPipe } from './pipes/status.pipe';
 
 @NgModule({
   declarations: [
@@ -58,6 +60,9 @@ import { JwtInterceptor } from './services/interceptors/jwt.interceptor';
     TabelaVagasComponent,
     EmpresaComponent,
     VagaListEmpresaComponent,
+    DateFormatUTCPipe,
+    StatusPipe,
+    TrabalhadorStatusPipe,
   ],
   imports: [
     BrowserModule,
@@ -91,6 +96,9 @@ import { JwtInterceptor } from './services/interceptors/jwt.interceptor';
     HttpClient,
     DatePipe,
     ConfirmationService,
+    DateFormatUTCPipe,
+    StatusPipe,
+    TrabalhadorStatusPipe,
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
   ],
   bootstrap: [AppComponent],

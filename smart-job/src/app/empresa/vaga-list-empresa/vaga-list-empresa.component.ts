@@ -90,7 +90,7 @@ export class VagaListEmpresaComponent implements OnInit {
   }
 
   alterarStatus() {
-    const data = { status: this.valorStatus } as IVaga;
+    const data = { Status: this.valorStatus } as IVaga;
 
     this._vagaService.alterarStatusVaga(this.idVaga, data).subscribe({
       next: () =>

@@ -19,27 +19,39 @@
           <div class="product-item-content">
             <div>
               <h4 class="mb-1">
-                {{ rowData.Nome }} - {{ status[rowData.TrabalhadorStatus] }}
+                {{ rowData.Nome }} -
+                {{ rowData.TrabalhadorStatus | trabalhadorStatus }}
               </h4>
               <h6 class="mt-2 mb-3">
-                Você aceitou a vaga dia {{ rowData.DataAceite | date }}
+                Você aceitou a vaga: {{ rowData.DataAceite | dateFormatUTC }}
               </h6>
 
-              <ng-container *ngIf="rowData.TrabalhadorStatus === 2">
+              <ng-container
+                *ngIf="rowData.TrabalhadorStatus === status.Analise"
+              >
                 <h6 class="mt-0 mb-3">Requisitos salvos com sucesso</h6>
               </ng-container>
 
-              <ng-container *ngIf="rowData.TrabalhadorStatus === 1">
-                <h6 class="mt-0 mb-3">Requisitos salvos com sucesso</h6>
+              <ng-container
+                *ngIf="rowData.TrabalhadorStatus === status.Pendente"
+              >
+                <h6 class="mt-0 mb-3">
+                  Análise dos requisitos obrigatórios do contratante
+                </h6>
               </ng-container>
 
-              <ng-container *ngIf="rowData.TrabalhadorStatus === 0">
-                <h6 class="mt-0 mb-3">Requisitos salvos com sucesso</h6>
+              <ng-container
+                *ngIf="rowData.TrabalhadorStatus === status.Aprovado"
+              >
+                <h6 class="mt-0 mb-3">
+                  Remuneração aprovada. Valor total de: R$
+                  {{ rowData.Remuneracao }}
+                </h6>
               </ng-container>
 
               <span
-                >Última atualização dia
-                {{ rowData.DataAtualizacao | date }}</span
+                >Última atualização:
+                {{ rowData.DataAtualizacao | dateFormatUTC }}</span
               >
             </div>
             <div class="car-buttons mt-5">
@@ -51,6 +63,10 @@
         </div>
       </ng-template>
     </p-carousel>
+  </div>
+
+  <div class="text-center">
+    <strong>Remuneracao total: R$ {{ totalRemuneracao }}</strong>
   </div>
 </div>
 
