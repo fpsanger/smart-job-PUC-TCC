@@ -3,6 +3,7 @@ import { VagaService } from '../services/vaga.service';
 import { IVaga } from '../interfaces/vaga.interface';
 import { IUsuario } from '../interfaces/usuario.interface';
 import { UsuarioService } from 'src/app/services/usuario.service';
+import { AuthService } from '../services/auth/auth.service';
 
 @Component({
   selector: 'app-trabalhador',
@@ -17,19 +18,15 @@ export class TrabalhadorComponent implements OnInit {
 
   constructor(
     private _vagaService: VagaService,
-    private _usuario: UsuarioService
+    private _authService: AuthService
   ) {}
 
   ngOnInit(): void {
-    const item = localStorage.getItem('user');
-    this.idTrabalhador = JSON.parse(item).idUsuario;
+    const tokenData = this._authService.getTokenData();
+    this.usuario = tokenData;
 
     this._vagaService.getVagasAtivas().subscribe((x) => {
       this.vagas = x;
-    });
-
-    this._usuario.getTrabalhador(this.idTrabalhador).subscribe((x) => {
-      this.usuario = x;
     });
   }
 }

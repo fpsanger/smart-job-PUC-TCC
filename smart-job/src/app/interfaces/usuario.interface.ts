@@ -1,5 +1,5 @@
 export interface IUsuario {
-  Nome: string;
+  nome: string;
   Email: string;
   Telefone: string;
   CPF: string;
