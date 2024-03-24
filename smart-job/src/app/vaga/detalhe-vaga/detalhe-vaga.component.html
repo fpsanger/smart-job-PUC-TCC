@@ -91,12 +91,5 @@
   [draggable]="false"
   [resizable]="false"
 >
-  <app-cadastro-vaga [vaga]="vaga"></app-cadastro-vaga>
+  <app-cadastro-vaga (onRefresh)="refresh()" [vaga]="vaga"></app-cadastro-vaga>
 </p-dialog>
-
-<p-confirmDialog
-  header="Confirmation"
-  icon="pi pi-exclamation-triangle"
-></p-confirmDialog>
-
-<p-toast key="tc"></p-toast>

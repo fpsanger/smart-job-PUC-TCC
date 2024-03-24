@@ -51,6 +51,7 @@
               <button
                 class="btn btn-info"
                 (click)="showAlterarStatusDialog(rowData.Id)"
+                [disabled]="rowData.Status === status.Finalizado"
               >
                 Alterar status da vaga
               </button>
@@ -63,13 +64,13 @@
 </div>
 
 <p-dialog
+  *ngIf="mostrarModal"
   header="Alterar status da vaga"
   [(visible)]="mostrarModal"
   [modal]="true"
   [style]="{ width: '50vw' }"
   [draggable]="false"
   [resizable]="false"
-  (onHide)="refresh()"
 >
   <div class="row">
     <div class="text-center">
@@ -91,5 +92,3 @@
     </div>
   </div>
 </p-dialog>
-
-<p-toast></p-toast>

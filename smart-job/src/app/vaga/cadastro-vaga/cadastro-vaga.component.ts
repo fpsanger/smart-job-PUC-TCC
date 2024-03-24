@@ -1,8 +1,10 @@
 import {
   Component,
+  EventEmitter,
   Input,
   OnChanges,
   OnInit,
+  Output,
   SimpleChanges,
 } from '@angular/core';
 import { FormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
@@ -18,6 +20,7 @@ import { VagaService } from 'src/app/services/vaga.service';
 })
 export class CadastroVagaComponent implements OnInit, OnChanges {
   @Input() vaga: IVaga;
+  @Output() onRefresh: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   tipoVagas = [
     { name: 'Temporário', value: 'Temporário' },
@@ -89,16 +92,17 @@ export class CadastroVagaComponent implements OnInit, OnChanges {
 
     if (this.vaga?.Id) {
       this._vagaService.editarVaga(data).subscribe({
-        next: () =>
+        next: () => {
           this._messageService.add({
-            key: 'tl',
             severity: 'success',
             summary: 'Sucesso',
             detail: 'Vaga editada com sucesso',
-          }),
+          });
+
+          this.onRefresh.emit(true);
+        },
         error: (err) =>
           this._messageService.add({
-            key: 'tl',
             severity: 'error',
             summary: 'Erro',
             detail: err,
@@ -108,14 +112,12 @@ export class CadastroVagaComponent implements OnInit, OnChanges {
       this._vagaService.adicionarVaga(data).subscribe({
         next: () =>
           this._messageService.add({
-            key: 'tl',
             severity: 'success',
             summary: 'Sucesso',
             detail: 'Vaga adicionada com sucesso',
           }),
         error: (err) =>
           this._messageService.add({
-            key: 'tl',
             severity: 'error',
             summary: 'Erro',
             detail: err,
