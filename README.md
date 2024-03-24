@@ -20,4 +20,4 @@ O projeto tem como objetivo proporcionar uma plataforma para encontrar as melhor
 A arquitetura escolhida para o projeto foi a monolítica, dada a simplicidade das funcionalidades e a natureza da prova de conceito. Isso foi decidido devido à necessidade de um menor tempo de configuração e manutenção. A conexão do backend com o frontend será feita através do Express.js, possibilitando operações básicas no banco de dados.
 
 ## Testes
-Para garantir a qualidade do código desenvolvido, será utilizado o framework Cypress para testes automatizados, aproveitando a familiaridade com JavaScript e TypeScript.
+Para garantir a qualidade do código desenvolvido, será utilizado o Jasmine/Jest do Angular aproveitando a familiaridade com JavaScript e TypeScript.
