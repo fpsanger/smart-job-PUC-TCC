@@ -6,6 +6,7 @@ import { ITrabalhadorVaga } from 'src/app/interfaces/trabalhador-vaga';
 import { IVaga } from 'src/app/interfaces/vaga.interface';
 import { VagaService } from 'src/app/services/vaga.service';
 import { filter } from 'rxjs';
+import { VagaStatus } from 'src/app/enum/vaga-status.enum';
 
 @Component({
   selector: 'app-detalhe-vaga',
@@ -27,6 +28,8 @@ export class VagaComponent implements OnInit {
   home: MenuItem;
 
   route: string;
+
+  status: typeof VagaStatus = VagaStatus;
 
   constructor(
     private _vagaService: VagaService,
