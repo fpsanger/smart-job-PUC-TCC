@@ -3,6 +3,7 @@ import { VagaService } from '../../services/vaga.service';
 import { IVaga } from '../../interfaces/vaga.interface';
 import { TrabalhadorVagaStatus } from '../../enum/trabalhador-vaga-status.enum';
 import { ConfirmationService, MenuItem, MessageService } from 'primeng/api';
+import { VagaStatus } from 'src/app/enum/vaga-status.enum';
 
 @Component({
   selector: 'app-vaga-list',
@@ -13,6 +14,7 @@ export class VagaListComponent implements OnInit {
   vagas: IVaga[] = [];
 
   idTrabalhador: number;
+  totalRemuneracao: number;
 
   status: typeof TrabalhadorVagaStatus = TrabalhadorVagaStatus;
 
@@ -47,7 +49,6 @@ export class VagaListComponent implements OnInit {
     ];
 
     this.items = [{ label: 'Suas vagas' }];
-
     this.home = { icon: 'pi pi-home', routerLink: '/trabalhador/inicial' };
 
     const item = localStorage.getItem('user');
@@ -55,12 +56,14 @@ export class VagaListComponent implements OnInit {
 
     this._vagaService.getVagasTrabalhador(this.idTrabalhador).subscribe((x) => {
       this.vagas = x;
+      this.totalRemuneracao = this.vagas
+        .filter((y) => y.Status === VagaStatus.Finalizado)
+        .map((y) => y.Remuneracao)
+        .reduce((acumulador, valorAtual) => acumulador + valorAtual, 0);
     });
   }
 
   sairVaga(idVaga: number) {
-    console.log(this.idTrabalhador);
-    console.log(idVaga);
     this._confirmationService.confirm({
       message: 'Tem certeza que quer sair dessa vaga?',
       accept: () => {

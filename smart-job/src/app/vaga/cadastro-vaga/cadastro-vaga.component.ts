@@ -76,7 +76,7 @@ export class CadastroVagaComponent implements OnInit, OnChanges {
       Cidade: this.form.get('cidade').value as string,
       Endereco: this.form.get('endereco').value as string,
       Estado: this.form.get('estado').value as string,
-      Remuneracao: this.form.get('remuneracao').value as string,
+      Remuneracao: this.form.get('remuneracao').value as number,
       TipoVaga: this.form.get('tipoVaga').value as string,
       Ativo: true,
       DataAtualizacao: this._datePipe.transform(new Date()),

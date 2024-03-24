@@ -24,7 +24,9 @@ export class TabelaVagasComponent implements OnChanges {
     if (changes['vagas'].currentValue?.length > 0) {
       this.eventoOptions = [...new Set(this.vagas.map((x) => x.Nome))];
       this.localizacaoOptions = [...new Set(this.vagas.map((x) => x.Cidade))];
-      this.valorOptions = [...new Set(this.vagas.map((x) => x.Remuneracao))];
+      this.valorOptions = [
+        ...new Set(this.vagas.map((x) => x.Remuneracao.toString())),
+      ];
       this.dataExpiracaoOptions = [
         ...new Set(this.vagas.map((x) => x.DataExpiracao)),
       ];

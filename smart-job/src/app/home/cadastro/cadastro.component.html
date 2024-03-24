@@ -147,17 +147,32 @@
                   ></label>
                 </span>
               </div>
-              <div>
-                <p-toast></p-toast>
-                <button
-                  pButton
-                  pRipple
-                  type="submit"
-                  class="btn btn-primary btn-md"
-                  [disabled]="form.invalid"
-                >
-                  Cadastrar
-                </button>
+
+              <div class="mb-4 row mt-2">
+                <div class="col-sm-12">
+                  <div>
+                    <button
+                      pButton
+                      pRipple
+                      type="submit"
+                      class="btn btn-primary btn-md"
+                      [disabled]="form.invalid"
+                    >
+                      Cadastrar
+                    </button>
+                  </div>
+
+                  <div>
+                    <button
+                      pRipple
+                      type="button"
+                      class="btn btn-link btn-md"
+                      (click)="navigateToLogin()"
+                    >
+                      Voltar
+                    </button>
+                  </div>
+                </div>
               </div>
             </form>
           </div>
@@ -166,3 +181,5 @@
     </div>
   </div>
 </div>
+
+<p-toast></p-toast>

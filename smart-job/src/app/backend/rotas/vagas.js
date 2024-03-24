@@ -19,14 +19,16 @@ routes.get(
   }
 );
 
-// retorna todas as vagas ativas e com vagas disponíveis
+// retorna todas as vagas ativas, com vagas disponíveis e com status em aberto
 routes.get(
   "/ativo",
   passport.authenticate("jwt", { session: false }),
   async (req, res) => {
     try {
       const results = await sql.query(
-        "SELECT v.* FROM Vaga v LEFT JOIN (SELECT IdVaga, COUNT(*) AS NumTrabalhadores FROM TrabalhadorVaga GROUP BY IdVaga ) tv ON v.Id = tv.IdVaga WHERE v.ATIVO = 1 AND (tv.NumTrabalhadores IS NULL OR tv.NumTrabalhadores < v.LimiteTrabalhadores) AND tv.IdVaga IS NULL"
+        `SELECT v.* FROM Vaga v 
+        LEFT JOIN (SELECT IdVaga, COUNT(*) AS NumTrabalhadores FROM TrabalhadorVaga GROUP BY IdVaga ) tv ON v.Id = tv.IdVaga 
+        WHERE v.Ativo = 1 AND (tv.NumTrabalhadores IS NULL OR tv.NumTrabalhadores <= v.LimiteTrabalhadores) AND v.[Status] = 0`
       );
       res.status(200).json(results.recordset);
     } catch (err) {
@@ -121,7 +123,7 @@ routes.post(
     const data = req.body;
 
     try {
-      const query = `INSERT INTO [dbo].[Vaga] (Nome, Descricao, Remuneracao, Endereco, Estado, Cidade, Ativo, TipoVaga, DataAtualizacao, DataExpiracao, IdEmpresa) VALUES ('${data.Nome}', '${data.Descricao}', '${data.Remuneracao}', '${data.Endereco}', '${data.Estado}', '${data.Cidade}', '${data.Ativo}', '${data.TipoVaga}', '${data.DataAtualizacao}', '${data.DataExpiracao}', '${data.IdEmpresa}')`;
+      const query = `INSERT INTO [dbo].[Vaga] (Nome, Descricao, Remuneracao, Endereco, Estado, Cidade, Ativo, TipoVaga, DataAtualizacao, DataExpiracao, IdEmpresa,LimiteTrabalhadores) VALUES ('${data.Nome}', '${data.Descricao}', '${data.Remuneracao}', '${data.Endereco}', '${data.Estado}', '${data.Cidade}', '${data.Ativo}', '${data.TipoVaga}', '${data.DataAtualizacao}', '${data.DataExpiracao}', '${data.IdEmpresa}','${data.LimiteTrabalhadores}')`;
       sql.query(query, (err, result) => {
         if (err) {
           return res
@@ -198,16 +200,66 @@ routes.post("/atribuirVaga", (req, res) => {
   const data = req.body;
 
   try {
-    const query = `INSERT INTO [dbo].[TrabalhadorVaga] (IdVaga,IdTrabalhador,DataAceite) VALUES ('${data.idVaga}', '${data.idTrabalhador}', '${data.dataAceite}')`;
-    sql.query(query, (err, result) => {
+    const vagasDisponiveisQuery = `SELECT v.Id, COUNT(tv.IdTrabalhador) AS totalTrabalhadores, v.LimiteTrabalhadores 
+    FROM Vaga v 
+    LEFT JOIN TrabalhadorVaga tv ON tv.IdVaga = v.Id
+    WHERE v.Id = ${data.idVaga}
+    GROUP BY 
+      v.Id, v.LimiteTrabalhadores`;
+
+    sql.query(vagasDisponiveisQuery, (err, result) => {
       if (err) {
-        return res
-          .status(500)
-          .json({ mensagem: "Você já está cadastrado nessa vaga" });
+        console.error(err);
+        return res.status(500).send("Erro ao verificar vagas disponíveis");
       }
-      res.status(201).json({
-        mensagem: "Vaga atribuída com sucesso",
-        id: result.insertId,
+
+      let totalTrabalhadores = result.recordset[0].totalTrabalhadores;
+      let limiteTrabalhadores = result.recordset[0].LimiteTrabalhadores;
+
+      if (totalTrabalhadores === limiteTrabalhadores) {
+        return res
+          .status(400)
+          .json({ mensagem: "Não há mais vagas disponíveis" });
+      }
+
+      const insertQuery = `INSERT INTO [dbo].[TrabalhadorVaga] (IdVaga,IdTrabalhador,DataAceite) VALUES ('${data.idVaga}', '${data.idTrabalhador}', '${data.dataAceite}')`;
+      sql.query(insertQuery, (err, result) => {
+        if (err) {
+          return res
+            .status(500)
+            .json({ mensagem: "Você já está cadastrado nessa vaga" });
+        }
+
+        sql.query(vagasDisponiveisQuery, (err, result) => {
+          totalTrabalhadores = result.recordset[0].totalTrabalhadores;
+          limiteTrabalhadores = result.recordset[0].LimiteTrabalhadores;
+
+          if (totalTrabalhadores === limiteTrabalhadores) {
+            const updateVagaStatusQuery = `UPDATE Vaga SET [Status] = 1 WHERE Id = '${data.idVaga}'`;
+
+            sql.query(updateVagaStatusQuery, (err, result) => {
+              if (err) {
+                return res
+                  .status(500)
+                  .json({ mensagem: "Não foi possível atualizar o status" });
+              }
+            });
+
+            const updateUserStatusQuery = `UPDATE TrabalhadorVaga SET [Status] = 1 WHERE IdTrabalhador = '${data.idTrabalhador}'`;
+            sql.query(updateUserStatusQuery, (err, result) => {
+              if (err) {
+                return res
+                  .status(500)
+                  .json({ mensagem: "Não foi possível atualizar o status" });
+              }
+            });
+          }
+        });
+
+        res.status(201).json({
+          mensagem: "Vaga atribuída com sucesso",
+          id: result.insertId,
+        });
       });
     });
   } catch (err) {
@@ -227,6 +279,11 @@ routes.delete(
     try {
       const query = `DELETE FROM TrabalhadorVaga WHERE IdVaga ='${idVaga}' AND IdTrabalhador ='${idTrabalhador}'`;
       sql.query(query, (err, result) => {
+        if (err) {
+          return res
+            .status(500)
+            .json({ mensagem: "Não foi possível apagar vaga do trabalhador" });
+        }
         res.status(200).json({
           mensagem: "Vaga excluída com sucesso",
         });
@@ -247,10 +304,34 @@ routes.put(
     const data = req.body;
 
     try {
-      const query = `UPDATE Vaga SET [Status]='${data.status}' WHERE Id ='${idVaga}'`;
-      sql.query(query, (err, result) => {
+      const updateVagaQuery = `UPDATE Vaga SET [Status]='${data.Status}' WHERE Id ='${idVaga}'`;
+      sql.query(updateVagaQuery, (err, result) => {
+        if (err) {
+          return res
+            .status(500)
+            .json({ mensagem: "Não foi possível alterar o status da vaga" });
+        }
+
+        if (data.Status === 2) {
+          return res
+            .status(500)
+            .json({
+              mensagem:
+                "Essa vaga já foi finalizada, você não pode mudar o status dela",
+            });
+        }
+
+        const updateStatusTrabalhadorQuery = `UPDATE TrabalhadorVaga SET [Status]='${data.Status}' WHERE IdVaga ='${idVaga}'`;
+        sql.query(updateStatusTrabalhadorQuery, (err, result) => {
+          if (err) {
+            return res.status(400).json({
+              mensagem: "Não foi possível alterar o staus do trabalhador",
+            });
+          }
+        });
+
         res.status(200).json({
-          mensagem: "Vaga excluída com sucesso",
+          mensagem: "Status da vaga alterado com sucesso",
         });
       });
     } catch (err) {
