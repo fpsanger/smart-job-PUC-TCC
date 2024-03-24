@@ -34,7 +34,6 @@ export class AuthService {
 
   logout(): void {
     localStorage.removeItem('token');
-    localStorage.removeItem('user');
   }
 
   getToken(): string | null {
@@ -62,10 +61,6 @@ export class AuthService {
 
   hasPermission(route: string): boolean {
     const tokenData = this.getTokenData();
-    console.log(tokenData);
-
-    // const user = localStorage.getItem('user');
-    // const userRole = JSON.parse(user).permissao;
 
     if (tokenData.permissao === 'trabalhador' && route.includes('empresa')) {
       this.router.navigate(['/error']);

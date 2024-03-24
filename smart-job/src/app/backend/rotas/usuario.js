@@ -112,20 +112,6 @@ routes.get(
   }
 );
 
-// // retorna a empresa pelo cnpj
-// routes.get("/empresa/:cnpj", async (req, res) => {
-//   const data = req.params.cnpj;
-//   try {
-//     const results = await sql.query(
-//       `SELECT * FROM Empresa WHERE CNPJ = '${data}'`
-//     );
-//     res.status(200).json(results.recordset[0]);
-//   } catch (err) {
-//     console.error(err);
-//     res.status(500).send("Server error");
-//   }
-// });
-
 // retorna todas as empresas
 routes.get(
   "/empresa",

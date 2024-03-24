@@ -32,7 +32,6 @@ export class LoginComponent implements OnInit {
       .login(this.form.get('email').value, this.form.get('senha').value)
       .subscribe({
         next: (value) => {
-          localStorage.setItem('user', JSON.stringify(value.user));
           this._messageService.add({
             severity: 'success',
             summary: 'Sucesso',
