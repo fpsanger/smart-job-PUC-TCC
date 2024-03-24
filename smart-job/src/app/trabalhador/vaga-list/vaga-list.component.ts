@@ -4,6 +4,7 @@ import { IVaga } from '../../interfaces/vaga.interface';
 import { TrabalhadorVagaStatus } from '../../enum/trabalhador-vaga-status.enum';
 import { ConfirmationService, MenuItem, MessageService } from 'primeng/api';
 import { VagaStatus } from 'src/app/enum/vaga-status.enum';
+import { AuthService } from 'src/app/services/auth/auth.service';
 
 @Component({
   selector: 'app-vaga-list',
@@ -26,7 +27,8 @@ export class VagaListComponent implements OnInit {
   constructor(
     private _vagaService: VagaService,
     private _confirmationService: ConfirmationService,
-    private _messageService: MessageService
+    private _messageService: MessageService,
+    private _authService: AuthService
   ) {}
 
   ngOnInit(): void {
@@ -51,8 +53,8 @@ export class VagaListComponent implements OnInit {
     this.items = [{ label: 'Suas vagas' }];
     this.home = { icon: 'pi pi-home', routerLink: '/trabalhador/inicial' };
 
-    const item = localStorage.getItem('user');
-    this.idTrabalhador = JSON.parse(item).idUsuario;
+    const tokenData = this._authService.getTokenData();
+    this.idTrabalhador = tokenData.id;
 
     this._vagaService.getVagasTrabalhador(this.idTrabalhador).subscribe((x) => {
       this.vagas = x;

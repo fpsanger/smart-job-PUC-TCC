@@ -12,6 +12,7 @@ import { DatePipe } from '@angular/common';
 import { MenuItem, MessageService } from 'primeng/api';
 import { IVaga } from 'src/app/interfaces/vaga.interface';
 import { VagaService } from 'src/app/services/vaga.service';
+import { AuthService } from 'src/app/services/auth/auth.service';
 
 @Component({
   selector: 'app-cadastro-vaga',
@@ -41,12 +42,13 @@ export class CadastroVagaComponent implements OnInit, OnChanges {
     private _vagaService: VagaService,
     private _formBuilder: FormBuilder,
     private _datePipe: DatePipe,
-    private _messageService: MessageService
+    private _messageService: MessageService,
+    private _authService: AuthService
   ) {}
 
   ngOnInit(): void {
-    const item = localStorage.getItem('user');
-    this.idEmpresa = JSON.parse(item).idUsuario;
+    const tokenData = this._authService.getTokenData();
+    this.idEmpresa = tokenData.id;
 
     this.items = [{ label: 'Cadastro de vagas' }];
 
