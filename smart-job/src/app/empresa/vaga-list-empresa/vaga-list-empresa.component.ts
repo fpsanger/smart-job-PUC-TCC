@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MenuItem, MessageService } from 'primeng/api';
 import { VagaStatus } from 'src/app/enum/vaga-status.enum';
 import { IVaga } from 'src/app/interfaces/vaga.interface';
+import { AuthService } from 'src/app/services/auth/auth.service';
 import { VagaService } from 'src/app/services/vaga.service';
 
 @Component({
@@ -31,7 +32,8 @@ export class VagaListEmpresaComponent implements OnInit {
 
   constructor(
     private _vagaService: VagaService,
-    private _messageService: MessageService
+    private _messageService: MessageService,
+    private _authService: AuthService
   ) {}
 
   ngOnInit(): void {
@@ -61,11 +63,10 @@ export class VagaListEmpresaComponent implements OnInit {
     ];
 
     this.items = [{ label: 'Situação das vagas' }];
-
     this.home = { icon: 'pi pi-home', routerLink: '/empresa/inicial' };
 
-    const item = localStorage.getItem('user');
-    this.idEmpresa = JSON.parse(item).idUsuario;
+    const tokenData = this._authService.getTokenData();
+    this.idEmpresa = tokenData.id;
 
     this._vagaService.getVagasEmpresa(this.idEmpresa).subscribe((x) => {
       this.vagas = x;

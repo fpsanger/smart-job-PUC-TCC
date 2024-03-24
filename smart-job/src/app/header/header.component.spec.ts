@@ -3,19 +3,17 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { HeaderComponent } from './header.component';
 import { HttpClient, HttpHandler } from '@angular/common/http';
 import { AuthService } from '../services/auth/auth.service';
+import { of } from 'rxjs';
 
 describe('HeaderComponent', () => {
   let component: HeaderComponent;
   let fixture: ComponentFixture<HeaderComponent>;
 
-  const mockLocalStorage = {
-    getItem: (key: string): string => {
-      return {
-        user: '{"isTrabalhador": "true"}',
-      }[key];
+  const mockAuthService = {
+    getTokenData() {
+      return { id: 1 };
     },
-    setItem: (key: string, value: string) => {},
-    removeItem: (key: string) => {},
+    isAuthenticated$: of(true),
   };
 
   beforeEach(async () => {
@@ -24,13 +22,10 @@ describe('HeaderComponent', () => {
         { provide: AuthService },
         { provide: HttpClient },
         { provide: HttpHandler },
+        { provide: AuthService, useValue: mockAuthService },
       ],
       declarations: [HeaderComponent],
     }).compileComponents();
-
-    spyOn(localStorage, 'getItem').and.callFake(mockLocalStorage.getItem);
-    spyOn(localStorage, 'setItem').and.callFake(mockLocalStorage.setItem);
-    spyOn(localStorage, 'removeItem').and.callFake(mockLocalStorage.removeItem);
 
     fixture = TestBed.createComponent(HeaderComponent);
     component = fixture.componentInstance;
@@ -39,11 +34,5 @@ describe('HeaderComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
-  });
-
-  it('deve obter e analisar o objeto do localStorage', () => {
-    const item = localStorage.getItem('user');
-    const isTrabalhador = JSON.parse(item).isTrabalhador;
-    expect(isTrabalhador).toEqual('true');
   });
 });
