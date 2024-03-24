@@ -2,30 +2,27 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { EmpresaComponent } from './empresa.component';
 import { HttpClient, HttpHandler } from '@angular/common/http';
+import { AuthService } from '../services/auth/auth.service';
 
 describe('EmpresaComponent', () => {
   let component: EmpresaComponent;
   let fixture: ComponentFixture<EmpresaComponent>;
 
-  const mockLocalStorage = {
-    getItem: (key: string): string => {
-      return {
-        user: '{"idUsuario": "123"}',
-      }[key];
+  const mockAuthService = {
+    getTokenData() {
+      return { id: 1 };
     },
-    setItem: (key: string, value: string) => {},
-    removeItem: (key: string) => {},
   };
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      providers: [{ provide: HttpClient }, { provide: HttpHandler }],
+      providers: [
+        { provide: HttpClient },
+        { provide: HttpHandler },
+        { provide: AuthService, useValue: mockAuthService },
+      ],
       declarations: [EmpresaComponent],
     }).compileComponents();
-
-    spyOn(localStorage, 'getItem').and.callFake(mockLocalStorage.getItem);
-    spyOn(localStorage, 'setItem').and.callFake(mockLocalStorage.setItem);
-    spyOn(localStorage, 'removeItem').and.callFake(mockLocalStorage.removeItem);
 
     fixture = TestBed.createComponent(EmpresaComponent);
     component = fixture.componentInstance;
@@ -34,11 +31,5 @@ describe('EmpresaComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
-  });
-
-  it('deve obter e analisar o objeto do localStorage', () => {
-    const item = localStorage.getItem('user');
-    const idUsuario = JSON.parse(item).idUsuario;
-    expect(idUsuario).toEqual('123');
   });
 });
