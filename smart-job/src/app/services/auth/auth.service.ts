@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import { JwtService } from '../jwt.service';
 
 @Injectable({
   providedIn: 'root',
@@ -15,7 +16,11 @@ export class AuthService {
   public isAuthenticated$: Observable<boolean> =
     this.isAuthenticatedSubject.asObservable();
 
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(
+    private http: HttpClient,
+    private router: Router,
+    private _jwtService: JwtService
+  ) {}
 
   login(email: string, senha: string): Observable<any> {
     return this.http
@@ -36,6 +41,17 @@ export class AuthService {
     return localStorage.getItem('token');
   }
 
+  getTokenData() {
+    let decodedToken;
+
+    const token = this.getToken();
+    if (token) {
+      decodedToken = this._jwtService.decodeToken(token);
+    }
+
+    return decodedToken;
+  }
+
   isAuthenticated(): boolean {
     return !!this.getToken();
   }
@@ -45,14 +61,19 @@ export class AuthService {
   }
 
   hasPermission(route: string): boolean {
-    const user = localStorage.getItem('user');
+    const tokenData = this.getTokenData();
+    console.log(tokenData);
 
-    const userRole = JSON.parse(user).permissao;
+    // const user = localStorage.getItem('user');
+    // const userRole = JSON.parse(user).permissao;
 
-    if (userRole === 'trabalhador' && route.includes('empresa')) {
+    if (tokenData.permissao === 'trabalhador' && route.includes('empresa')) {
       this.router.navigate(['/error']);
       return false;
-    } else if (userRole === 'empresa' && route.includes('trabalhador')) {
+    } else if (
+      tokenData.permissao === 'empresa' &&
+      route.includes('trabalhador')
+    ) {
       this.router.navigate(['/error']);
       return false;
     }

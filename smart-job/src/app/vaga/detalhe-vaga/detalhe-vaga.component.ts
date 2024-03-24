@@ -6,6 +6,8 @@ import { ITrabalhadorVaga } from 'src/app/interfaces/trabalhador-vaga';
 import { IVaga } from 'src/app/interfaces/vaga.interface';
 import { VagaService } from 'src/app/services/vaga.service';
 import { filter } from 'rxjs';
+import { VagaStatus } from 'src/app/enum/vaga-status.enum';
+import { AuthService } from 'src/app/services/auth/auth.service';
 
 @Component({
   selector: 'app-detalhe-vaga',
@@ -17,6 +19,7 @@ export class VagaComponent implements OnInit {
 
   idVaga: number;
   idUsuario: number;
+  usuario: any;
 
   isEmpresa: boolean;
   isTrabalhador: boolean;
@@ -28,20 +31,24 @@ export class VagaComponent implements OnInit {
 
   route: string;
 
+  status: typeof VagaStatus = VagaStatus;
+
   constructor(
     private _vagaService: VagaService,
     private _messageService: MessageService,
     private _router: Router,
     private _activatedRoute: ActivatedRoute,
-    private _confirmationService: ConfirmationService
+    private _confirmationService: ConfirmationService,
+    private _authService: AuthService
   ) {}
 
   ngOnInit(): void {
-    this.idVaga = this._activatedRoute.snapshot.params['id'];
+    const tokenData = this._authService.getTokenData();
 
-    const item = localStorage.getItem('user');
-    this.idUsuario = JSON.parse(item)?.idUsuario;
-    this.isTrabalhador = JSON.parse(item)?.isTrabalhador;
+    this.idVaga = this._activatedRoute.snapshot.params['id'];
+    this.idUsuario = tokenData.id;
+    this.usuario = tokenData;
+    this.isTrabalhador = tokenData.isTrabalhador;
 
     if (!this.isTrabalhador) {
       this.isEmpresa = true;
@@ -74,14 +81,12 @@ export class VagaComponent implements OnInit {
     this._vagaService.atribuirVaga(data).subscribe({
       next: () =>
         this._messageService.add({
-          key: 'tc',
           severity: 'success',
           summary: 'Sucesso',
           detail: 'Vaga atribuída com sucesso',
         }),
       error: (err) =>
         this._messageService.add({
-          key: 'tc',
           severity: 'error',
           summary: 'Erro',
           detail: 'Você já está atrubído a essa vaga!',
@@ -96,14 +101,12 @@ export class VagaComponent implements OnInit {
         this._vagaService.apagarVaga(this.idVaga).subscribe({
           next: () =>
             this._messageService.add({
-              key: 'tc',
               severity: 'success',
               summary: 'Sucesso',
               detail: 'Vaga apagada com sucesso',
             }),
           error: (err) =>
             this._messageService.add({
-              key: 'tc',
               severity: 'error',
               summary: 'Erro',
               detail: err,
@@ -115,6 +118,14 @@ export class VagaComponent implements OnInit {
   }
 
   showEditarVagaDialog() {
-    this.mostrarModal = true;
+    this.mostrarModal = !this.mostrarModal;
+  }
+
+  refresh() {
+    this.mostrarModal = !this.mostrarModal;
+
+    this._vagaService.getVaga(this.idVaga).subscribe((x) => {
+      this.vaga = x;
+    });
   }
 }

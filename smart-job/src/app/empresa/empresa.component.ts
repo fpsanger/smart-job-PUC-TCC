@@ -4,6 +4,7 @@ import { IUsuario } from 'src/app/interfaces/usuario.interface';
 import { IVaga } from 'src/app/interfaces/vaga.interface';
 import { UsuarioService } from 'src/app/services/usuario.service';
 import { VagaService } from 'src/app/services/vaga.service';
+import { AuthService } from '../services/auth/auth.service';
 
 @Component({
   selector: 'app-empresa',
@@ -18,19 +19,15 @@ export class EmpresaComponent implements OnInit {
   constructor(
     private _vagaService: VagaService,
     private _router: Router,
-    private _usuario: UsuarioService
+    private _authService: AuthService
   ) {}
 
   ngOnInit(): void {
-    const item = localStorage.getItem('user');
-    this.idEmpresa = JSON.parse(item).idUsuario;
+    const tokenData = this._authService.getTokenData();
+    this.usuario = tokenData;
 
-    this._vagaService.getVagasEmpresa(this.idEmpresa).subscribe((x) => {
+    this._vagaService.getVagasEmpresa(tokenData.id).subscribe((x) => {
       this.vagas = x;
-    });
-
-    this._usuario.getEmpresa(this.idEmpresa).subscribe((x) => {
-      this.usuario = x;
     });
   }
 

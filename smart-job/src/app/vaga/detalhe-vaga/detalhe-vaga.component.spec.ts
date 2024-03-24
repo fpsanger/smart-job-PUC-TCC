@@ -5,19 +5,16 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { HttpClient, HttpHandler } from '@angular/common/http';
 import { VagaService } from 'src/app/services/vaga.service';
+import { AuthService } from 'src/app/services/auth/auth.service';
 
-describe('VagaComponent', () => {
+describe('DetalheVagaComponent', () => {
   let component: VagaComponent;
   let fixture: ComponentFixture<VagaComponent>;
 
-  const mockLocalStorage = {
-    getItem: (key: string): string => {
-      return {
-        user: '{"idUsuario": "1","isTrabalhador": "true"}',
-      }[key];
+  const mockAuthService = {
+    getTokenData() {
+      return { id: 1 };
     },
-    setItem: (key: string, value: string) => {},
-    removeItem: (key: string) => {},
   };
 
   beforeEach(async () => {
@@ -39,13 +36,10 @@ describe('VagaComponent', () => {
             },
           },
         },
+        { provide: AuthService, useValue: mockAuthService },
       ],
       declarations: [VagaComponent],
     }).compileComponents();
-
-    spyOn(localStorage, 'getItem').and.callFake(mockLocalStorage.getItem);
-    spyOn(localStorage, 'setItem').and.callFake(mockLocalStorage.setItem);
-    spyOn(localStorage, 'removeItem').and.callFake(mockLocalStorage.removeItem);
 
     fixture = TestBed.createComponent(VagaComponent);
     component = fixture.componentInstance;
@@ -54,11 +48,5 @@ describe('VagaComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
-  });
-
-  it('deve obter e analisar o objeto do localStorage', () => {
-    const item = localStorage.getItem('user');
-    const idUsuario = JSON.parse(item).idUsuario;
-    expect(idUsuario).toEqual('1');
   });
 });

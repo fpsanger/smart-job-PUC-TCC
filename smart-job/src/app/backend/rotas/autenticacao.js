@@ -54,7 +54,14 @@ routes.post("/login", async (req, res) => {
       return res.status(401).json({ message: "Credenciais inválidas" });
     }
 
-    const payload = { id: user.Id };
+    const payload = {
+      id: user.Id,
+      isTrabalhador: true,
+      permissao: "trabalhador",
+      nome: user.Nome,
+      email: user.Email,
+      telefone: user.Telefone,
+    };
     const token = jwt.sign(payload, options.secretOrKey);
 
     res.json({
@@ -74,7 +81,14 @@ routes.post("/login", async (req, res) => {
       return res.status(401).json({ message: "Credenciais inválidas" });
     }
 
-    const payload = { id: user.Id };
+    const payload = {
+      id: user.Id,
+      isTrabalhador: false,
+      permissao: "empresa",
+      nome: user.Nome,
+      email: user.Email,
+      telefone: user.Telefone,
+    };
     const token = jwt.sign(payload, options.secretOrKey);
 
     res.json({

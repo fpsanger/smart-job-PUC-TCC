@@ -32,7 +32,11 @@
       <p>
         Endereço: {{ vaga?.Endereco }} - {{ vaga?.Cidade }}, {{ vaga?.Estado }}
       </p>
-      <p>Dúvidas? Fale conosco no número: 999999999</p>
+      <p>
+        Dúvidas? <br />
+        Fale conosco no número: {{ usuario.telefone }}, ou pelo e-mail:
+        {{ usuario.email }}
+      </p>
       <p>Limite de vagas: {{ vaga?.LimiteTrabalhadores ?? 0 }}</p>
     </div>
   </div>
@@ -64,6 +68,7 @@
         type="button"
         class="btn btn-info btn-md"
         (click)="showEditarVagaDialog()"
+        [disabled]="vaga?.Status === status.Finalizado"
       >
         <i class="fa-solid fa-pen-to-square"> </i> Editar vaga
       </button>
@@ -76,6 +81,7 @@
         type="button"
         class="btn btn-danger btn-md"
         (click)="apagarVaga()"
+        [disabled]="vaga?.Status === status.Finalizado"
       >
         <i class="fa-solid fa-trash"> </i> Apagar vaga
       </button>
@@ -91,12 +97,5 @@
   [draggable]="false"
   [resizable]="false"
 >
-  <app-cadastro-vaga [vaga]="vaga"></app-cadastro-vaga>
+  <app-cadastro-vaga (onRefresh)="refresh()" [vaga]="vaga"></app-cadastro-vaga>
 </p-dialog>
-
-<p-confirmDialog
-  header="Confirmation"
-  icon="pi pi-exclamation-triangle"
-></p-confirmDialog>
-
-<p-toast key="tc"></p-toast>

@@ -1,8 +1,10 @@
 import {
   Component,
+  EventEmitter,
   Input,
   OnChanges,
   OnInit,
+  Output,
   SimpleChanges,
 } from '@angular/core';
 import { FormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
@@ -10,6 +12,7 @@ import { DatePipe } from '@angular/common';
 import { MenuItem, MessageService } from 'primeng/api';
 import { IVaga } from 'src/app/interfaces/vaga.interface';
 import { VagaService } from 'src/app/services/vaga.service';
+import { AuthService } from 'src/app/services/auth/auth.service';
 
 @Component({
   selector: 'app-cadastro-vaga',
@@ -18,6 +21,7 @@ import { VagaService } from 'src/app/services/vaga.service';
 })
 export class CadastroVagaComponent implements OnInit, OnChanges {
   @Input() vaga: IVaga;
+  @Output() onRefresh: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   tipoVagas = [
     { name: 'Temporário', value: 'Temporário' },
@@ -38,12 +42,13 @@ export class CadastroVagaComponent implements OnInit, OnChanges {
     private _vagaService: VagaService,
     private _formBuilder: FormBuilder,
     private _datePipe: DatePipe,
-    private _messageService: MessageService
+    private _messageService: MessageService,
+    private _authService: AuthService
   ) {}
 
   ngOnInit(): void {
-    const item = localStorage.getItem('user');
-    this.idEmpresa = JSON.parse(item).idUsuario;
+    const tokenData = this._authService.getTokenData();
+    this.idEmpresa = tokenData.id;
 
     this.items = [{ label: 'Cadastro de vagas' }];
 
@@ -89,16 +94,17 @@ export class CadastroVagaComponent implements OnInit, OnChanges {
 
     if (this.vaga?.Id) {
       this._vagaService.editarVaga(data).subscribe({
-        next: () =>
+        next: () => {
           this._messageService.add({
-            key: 'tl',
             severity: 'success',
             summary: 'Sucesso',
             detail: 'Vaga editada com sucesso',
-          }),
+          });
+
+          this.onRefresh.emit(true);
+        },
         error: (err) =>
           this._messageService.add({
-            key: 'tl',
             severity: 'error',
             summary: 'Erro',
             detail: err,
@@ -108,14 +114,12 @@ export class CadastroVagaComponent implements OnInit, OnChanges {
       this._vagaService.adicionarVaga(data).subscribe({
         next: () =>
           this._messageService.add({
-            key: 'tl',
             severity: 'success',
             summary: 'Sucesso',
             detail: 'Vaga adicionada com sucesso',
           }),
         error: (err) =>
           this._messageService.add({
-            key: 'tl',
             severity: 'error',
             summary: 'Erro',
             detail: err,

@@ -93,12 +93,15 @@ export class VagaListEmpresaComponent implements OnInit {
     const data = { Status: this.valorStatus } as IVaga;
 
     this._vagaService.alterarStatusVaga(this.idVaga, data).subscribe({
-      next: () =>
+      next: () => {
         this._messageService.add({
           severity: 'success',
           summary: 'Sucesso',
           detail: 'Status alterado com sucesso',
-        }),
+        });
+        this.mostrarModal = !this.mostrarModal;
+        this.refresh();
+      },
       error: (err) =>
         this._messageService.add({
           severity: 'error',
