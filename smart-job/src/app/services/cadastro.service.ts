@@ -10,7 +10,6 @@ export class CadastroService {
   constructor(private _httpClient: HttpClient) {}
 
   postUsuario(data: IUsuario): Observable<any> {
-    console.log(data);
     return this._httpClient.post('http://localhost:3000/usuario', data);
   }
 }

@@ -31,7 +31,7 @@ export class LoginComponent implements OnInit {
     this._authService
       .login(this.form.get('email').value, this.form.get('senha').value)
       .subscribe({
-        next: (value) => {
+        next: () => {
           this._messageService.add({
             severity: 'success',
             summary: 'Sucesso',
@@ -39,8 +39,7 @@ export class LoginComponent implements OnInit {
           });
 
           const tokenData = this._authService.getTokenData();
-
-          this._authService.setAuthenticated(true); //! AO invés de usar um token para o User, salvar tudo no token e fazer um jwt_decode para pegar as informacões. Vai reduizer as chamadas no banco de dados
+          this._authService.setAuthenticated(true);
 
           if (tokenData.isTrabalhador) {
             this._router.navigate(['trabalhador/inicial']);

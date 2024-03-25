@@ -5,4 +5,5 @@ export interface IUsuario {
   CPF: string;
   CNPJ: string;
   Senha: string;
+  Ativo: boolean;
 }
