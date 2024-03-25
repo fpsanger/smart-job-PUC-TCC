@@ -46,8 +46,6 @@ describe('LoginComponent', () => {
     messageService = TestBed.inject(
       MessageService
     ) as jasmine.SpyObj<MessageService>;
-
-    fixture.detectChanges();
   });
 
   it('should create', () => {
