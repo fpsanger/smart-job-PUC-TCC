@@ -75,7 +75,6 @@ export class VagaListEmpresaComponent implements OnInit {
     this._vagaService
       .getVagasEmpresaTrabalhador(this.idEmpresa)
       .subscribe((x) => {
-        console.log(x);
         this.vagas = this.vagas.map((vaga) => ({
           ...vaga,
           totalParticipantes: x.find((y) => y.Id === vaga.Id)

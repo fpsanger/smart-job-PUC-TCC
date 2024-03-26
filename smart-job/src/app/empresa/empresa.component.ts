@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { IUsuario } from 'src/app/interfaces/usuario.interface';
 import { IVaga } from 'src/app/interfaces/vaga.interface';
-import { UsuarioService } from 'src/app/services/usuario.service';
 import { VagaService } from 'src/app/services/vaga.service';
 import { AuthService } from '../services/auth/auth.service';
 
