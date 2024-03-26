@@ -39,7 +39,7 @@ describe('TrabalhadorComponent', () => {
     vagaService = TestBed.inject(VagaService) as jasmine.SpyObj<VagaService>;
   });
 
-  it('deve definir o usuário com os dados do token e as vagas ativas', () => {
+  it('should get user data from token data and return vagas ativas', () => {
     const tokenData = {
       nome: 'Nome',
       Email: 'teste@teste.com',

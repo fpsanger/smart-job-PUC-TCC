@@ -33,18 +33,19 @@ describe('VagaListComponent', () => {
 
     await TestBed.configureTestingModule({
       providers: [
-        { provide: VagaService, useValue: vagaServiceSpy },
         { provide: HttpClient },
         { provide: HttpHandler },
         { provide: ConfirmationService, useValue: confirmationServiceSpy },
         { provide: MessageService, useValue: messageServiceSpy },
         { provide: AuthService, useValue: authServiceSpy },
+        { provide: VagaService, useValue: vagaServiceSpy },
       ],
       declarations: [VagaListComponent],
     }).compileComponents();
 
     fixture = TestBed.createComponent(VagaListComponent);
     component = fixture.componentInstance;
+
     authService = TestBed.inject(AuthService) as jasmine.SpyObj<AuthService>;
     vagaService = TestBed.inject(VagaService) as jasmine.SpyObj<VagaService>;
     confirmationService = TestBed.inject(
@@ -150,7 +151,7 @@ describe('VagaListComponent', () => {
     expect(component.totalRemuneracao).toEqual(0);
   });
 
-  it('deve sair da vaga corretamente e mostrar mensagem de sucesso', () => {
+  it('should leave "vaga" and show success message', () => {
     const idVaga = 1;
 
     const tokenData = {
