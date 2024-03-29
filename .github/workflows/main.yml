@@ -48,4 +48,4 @@ jobs:
 
       - name: build application
         working-directory: ./smart-job
-        run: npm run ci:build
+        run: npm run build:ci
