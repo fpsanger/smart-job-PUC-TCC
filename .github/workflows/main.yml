@@ -40,8 +40,12 @@ jobs:
             key: ${{ runner.os }}-build-${{ env.cache-name }}-${{hashFiles('**/package-lock.json') }}
             restore-keys: ${{ runner.os }}-build-${{ env.cache-name }}-${{ runner.os }}-build-${{ runner.os }}-
             
-      - name: npm install and npm run CI commands
+      - name: npm install and npm run unit tests
         working-directory: ./smart-job
         run: |
           npm i
           npm run test:ci
+
+      - name: build application
+        working-directory: ./smart-job
+        run: npm run ci:build
