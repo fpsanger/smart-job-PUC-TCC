@@ -81,6 +81,14 @@ export class CadastroComponent implements OnInit {
     }
     this.form.get('cpf').updateValueAndValidity();
     this.form.get('cnpj').updateValueAndValidity();
+    this.form.patchValue({
+      nome: null,
+      email: null,
+      cpf: '',
+      cnpj: '',
+      telefone: null,
+      senha: null,
+    });
   }
 
   navigateToLogin() {
