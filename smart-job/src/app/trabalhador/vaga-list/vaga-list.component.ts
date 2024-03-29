@@ -9,7 +9,7 @@ import { AuthService } from 'src/app/services/auth/auth.service';
 @Component({
   selector: 'app-vaga-list',
   templateUrl: './vaga-list.component.html',
-  styleUrls: ['./vaga-list.component.css'],
+  styleUrls: ['./vaga-list.component.scss'],
 })
 export class VagaListComponent implements OnInit {
   vagas: IVaga[] = [];

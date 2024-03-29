@@ -8,7 +8,7 @@ import { VagaService } from 'src/app/services/vaga.service';
 @Component({
   selector: 'app-vaga-list-empresa',
   templateUrl: './vaga-list-empresa.component.html',
-  styleUrls: ['./vaga-list-empresa.component.css'],
+  styleUrls: ['./vaga-list-empresa.component.scss'],
 })
 export class VagaListEmpresaComponent implements OnInit {
   vagas: IVaga[] = [];
