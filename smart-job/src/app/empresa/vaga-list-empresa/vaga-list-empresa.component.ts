@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { MenuItem, MessageService } from 'primeng/api';
+import { forkJoin } from 'rxjs';
 import { VagaStatus } from 'src/app/enum/vaga-status.enum';
 import { IVaga } from 'src/app/interfaces/vaga.interface';
 import { AuthService } from 'src/app/services/auth/auth.service';
@@ -8,7 +9,7 @@ import { VagaService } from 'src/app/services/vaga.service';
 @Component({
   selector: 'app-vaga-list-empresa',
   templateUrl: './vaga-list-empresa.component.html',
-  styleUrls: ['./vaga-list-empresa.component.css'],
+  styleUrls: ['./vaga-list-empresa.component.scss'],
 })
 export class VagaListEmpresaComponent implements OnInit {
   vagas: IVaga[] = [];
@@ -33,7 +34,8 @@ export class VagaListEmpresaComponent implements OnInit {
   constructor(
     private _vagaService: VagaService,
     private _messageService: MessageService,
-    private _authService: AuthService
+    private _authService: AuthService,
+    private _cdRef: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
@@ -68,20 +70,7 @@ export class VagaListEmpresaComponent implements OnInit {
     const tokenData = this._authService.getTokenData();
     this.idEmpresa = tokenData.id;
 
-    this._vagaService.getVagasEmpresa(this.idEmpresa).subscribe((x) => {
-      this.vagas = x;
-    });
-
-    this._vagaService
-      .getVagasEmpresaTrabalhador(this.idEmpresa)
-      .subscribe((x) => {
-        this.vagas = this.vagas.map((vaga) => ({
-          ...vaga,
-          totalParticipantes: x.find((y) => y.Id === vaga.Id)
-            .ContagemTrabalhadores,
-          remuneracaoTotal: x.find((y) => y.Id === vaga.Id).RemuneracaoTotal,
-        }));
-      });
+    this.setData();
   }
 
   showAlterarStatusDialog(idVaga: number) {
@@ -89,10 +78,10 @@ export class VagaListEmpresaComponent implements OnInit {
     this.idVaga = idVaga;
   }
 
-  alterarStatus() {
+  async alterarStatus() {
     const data = { Status: this.valorStatus } as IVaga;
 
-    this._vagaService.alterarStatusVaga(this.idVaga, data).subscribe({
+    await this._vagaService.alterarStatusVaga(this.idVaga, data).subscribe({
       next: () => {
         this._messageService.add({
           severity: 'success',
@@ -100,7 +89,6 @@ export class VagaListEmpresaComponent implements OnInit {
           detail: 'Status alterado com sucesso',
         });
         this.mostrarModal = !this.mostrarModal;
-        this.refresh();
       },
       error: (err) =>
         this._messageService.add({
@@ -109,11 +97,30 @@ export class VagaListEmpresaComponent implements OnInit {
           detail: err,
         }),
     });
+
+    this.setData();
   }
 
-  refresh() {
-    this._vagaService.getVagasEmpresa(this.idEmpresa).subscribe((x) => {
-      this.vagas = x;
+  setData() {
+    forkJoin([
+      this._vagaService.getVagasEmpresa(this.idEmpresa),
+      this._vagaService.getVagasEmpresaTrabalhador(this.idEmpresa),
+    ]).subscribe(([vagasEmpresa, vagasEmpresaTrabalhador]) => {
+      this.vagas = vagasEmpresa.map((vaga) => {
+        const vagaTrabalhador = vagasEmpresaTrabalhador.find(
+          (y) => y.Id === vaga.Id
+        );
+        return {
+          ...vaga,
+          totalParticipantes: vagaTrabalhador
+            ? vagaTrabalhador.ContagemTrabalhadores
+            : 0,
+          remuneracaoTotal: vagaTrabalhador
+            ? vagaTrabalhador.RemuneracaoTotal
+            : 0,
+        };
+      });
+      this._cdRef.detectChanges();
     });
   }
 }

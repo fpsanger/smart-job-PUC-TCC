@@ -85,12 +85,15 @@ export class VagaComponent implements OnInit {
           summary: 'Sucesso',
           detail: 'Vaga atribuída com sucesso',
         }),
-      error: (err) =>
+      error: (err) => {
+        console.log(err);
+
         this._messageService.add({
           severity: 'error',
           summary: 'Erro',
-          detail: 'Você já está atrubído a essa vaga!',
-        }),
+          detail: `${err.error.mensagem}`,
+        });
+      },
     });
   }
 

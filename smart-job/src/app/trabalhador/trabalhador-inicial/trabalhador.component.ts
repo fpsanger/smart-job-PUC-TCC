@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { VagaService } from '../services/vaga.service';
-import { IVaga } from '../interfaces/vaga.interface';
-import { IUsuario } from '../interfaces/usuario.interface';
-import { AuthService } from '../services/auth/auth.service';
+import { VagaService } from '../../services/vaga.service';
+import { IVaga } from '../../interfaces/vaga.interface';
+import { IUsuario } from '../../interfaces/usuario.interface';
+import { AuthService } from '../../services/auth/auth.service';
 
 @Component({
   selector: 'app-trabalhador',

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { VagaService } from '../../services/vaga.service';
 import { IVaga } from '../../interfaces/vaga.interface';
 import { TrabalhadorVagaStatus } from '../../enum/trabalhador-vaga-status.enum';
@@ -9,7 +9,7 @@ import { AuthService } from 'src/app/services/auth/auth.service';
 @Component({
   selector: 'app-vaga-list',
   templateUrl: './vaga-list.component.html',
-  styleUrls: ['./vaga-list.component.css'],
+  styleUrls: ['./vaga-list.component.scss'],
 })
 export class VagaListComponent implements OnInit {
   vagas: IVaga[] = [];
@@ -28,7 +28,8 @@ export class VagaListComponent implements OnInit {
     private _vagaService: VagaService,
     private _confirmationService: ConfirmationService,
     private _messageService: MessageService,
-    private _authService: AuthService
+    private _authService: AuthService,
+    private _cdRef: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
@@ -56,20 +57,14 @@ export class VagaListComponent implements OnInit {
     const tokenData = this._authService.getTokenData();
     this.idTrabalhador = tokenData.id;
 
-    this._vagaService.getVagasTrabalhador(this.idTrabalhador).subscribe((x) => {
-      this.vagas = x;
-      this.totalRemuneracao = this.vagas
-        .filter((y) => y.Status === VagaStatus.Finalizado)
-        .map((y) => y.Remuneracao)
-        .reduce((acumulador, valorAtual) => acumulador + valorAtual, 0);
-    });
+    this.setData();
   }
 
   sairVaga(idVaga: number) {
     this._confirmationService.confirm({
       message: 'Tem certeza que quer sair dessa vaga?',
-      accept: () => {
-        this._vagaService.sairVaga(this.idTrabalhador, idVaga).subscribe({
+      accept: async () => {
+        await this._vagaService.sairVaga(this.idTrabalhador, idVaga).subscribe({
           next: () =>
             this._messageService.add({
               severity: 'success',
@@ -83,7 +78,19 @@ export class VagaListComponent implements OnInit {
               detail: err,
             }),
         });
+        this.setData();
       },
+    });
+  }
+
+  setData() {
+    this._vagaService.getVagasTrabalhador(this.idTrabalhador).subscribe((x) => {
+      this.vagas = x;
+      this.totalRemuneracao = this.vagas
+        .filter((y) => y.Status === VagaStatus.Finalizado)
+        .map((y) => y.Remuneracao)
+        .reduce((acumulador, valorAtual) => acumulador + valorAtual, 0);
+      this._cdRef.detectChanges();
     });
   }
 }

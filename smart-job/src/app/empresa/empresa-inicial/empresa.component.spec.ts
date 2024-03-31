@@ -2,10 +2,10 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { EmpresaComponent } from './empresa.component';
 import { HttpClient, HttpHandler } from '@angular/common/http';
-import { AuthService } from '../services/auth/auth.service';
-import { VagaService } from '../services/vaga.service';
+import { AuthService } from '../../services/auth/auth.service';
+import { VagaService } from '../../services/vaga.service';
 import { of } from 'rxjs';
-import { IUsuario } from '../interfaces/usuario.interface';
+import { IUsuario } from '../../interfaces/usuario.interface';
 import { Router } from '@angular/router';
 
 describe('EmpresaComponent', () => {
