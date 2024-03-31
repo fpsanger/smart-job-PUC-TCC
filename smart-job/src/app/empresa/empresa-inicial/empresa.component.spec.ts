@@ -7,6 +7,7 @@ import { VagaService } from '../../services/vaga.service';
 import { of } from 'rxjs';
 import { IUsuario } from '../../interfaces/usuario.interface';
 import { Router } from '@angular/router';
+import { IVaga } from 'src/app/interfaces/vaga.interface';
 
 describe('EmpresaComponent', () => {
   let component: EmpresaComponent;
@@ -54,8 +55,8 @@ describe('EmpresaComponent', () => {
       nome: 'Nome',
       Email: 'teste@teste.com',
       Telefone: '123456789',
-      CPF: '12345678900',
-      CNPJ: '12345678000100',
+      Cpf: '12345678900',
+      Cnpj: '12345678000100',
       Senha: '123',
       Ativo: true,
     };
@@ -77,7 +78,7 @@ describe('EmpresaComponent', () => {
         Status: 1,
         LimiteTrabalhadores: 5,
       },
-    ];
+    ] as IVaga[];
     vagaService.getVagasEmpresa.and.returnValue(of(vagas));
 
     component.ngOnInit();

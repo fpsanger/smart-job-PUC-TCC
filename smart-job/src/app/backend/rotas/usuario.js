@@ -12,7 +12,7 @@ routes.post("/", (req, res) => {
   if (data.cpf) {
     const hashedSenha = bcrypt.hashSync(data.senha, 10);
 
-    const query = `INSERT INTO [dbo].[Trabalhador] (Nome, Email, CPF, Senha, Telefone, Ativo) VALUES ('${data.nome}', '${data.email}', '${data.cpf}', '${hashedSenha}', '${data.telefone}', '${data.ativo}')`;
+    const query = `INSERT INTO [dbo].[Trabalhador] (Nome, Email, Cpf, Senha, Telefone, Ativo) VALUES ('${data.nome}', '${data.email}', '${data.cpf}', '${hashedSenha}', '${data.telefone}', '${data.ativo}')`;
     sql.query(query, (err, result) => {
       if (err) {
         return res
@@ -27,7 +27,7 @@ routes.post("/", (req, res) => {
   } else {
     const hashedSenha = bcrypt.hashSync(data.senha, 10);
 
-    const query = `INSERT INTO [dbo].[Empresa] (Nome, Email, CNPJ, Senha, Telefone, Ativo) VALUES ('${data.nome}', '${data.email}', '${data.cnpj}', '${hashedSenha}', '${data.telefone}', '${data.ativo}')`;
+    const query = `INSERT INTO [dbo].[Empresa] (Nome, Email, Cnpj, Senha, Telefone, Ativo) VALUES ('${data.nome}', '${data.email}', '${data.cnpj}', '${hashedSenha}', '${data.telefone}', '${data.ativo}')`;
     sql.query(query, (err, result) => {
       if (err) {
         return res

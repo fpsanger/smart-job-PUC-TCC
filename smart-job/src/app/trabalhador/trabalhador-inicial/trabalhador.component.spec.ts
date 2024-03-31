@@ -5,6 +5,7 @@ import { AuthService } from '../../services/auth/auth.service';
 import { VagaService } from '../../services/vaga.service';
 import { IUsuario } from '../../interfaces/usuario.interface';
 import { of } from 'rxjs';
+import { IVaga } from 'src/app/interfaces/vaga.interface';
 
 describe('TrabalhadorComponent', () => {
   let component: TrabalhadorComponent;
@@ -41,8 +42,8 @@ describe('TrabalhadorComponent', () => {
       nome: 'Nome',
       Email: 'teste@teste.com',
       Telefone: '123456789',
-      CPF: '12345678900',
-      CNPJ: '12345678000100',
+      Cpf: '12345678900',
+      Cnpj: '12345678000100',
       Senha: '123',
       Ativo: true,
     };
@@ -63,8 +64,10 @@ describe('TrabalhadorComponent', () => {
         DataExpiracao: '2024-04-25',
         Status: 1,
         LimiteTrabalhadores: 5,
+        Email: 'teste@teste.com',
+        Telefone: '123456789',
       },
-    ];
+    ] as IVaga[];
     vagaService.getVagasAtivas.and.returnValue(of(vagas));
 
     component.ngOnInit();

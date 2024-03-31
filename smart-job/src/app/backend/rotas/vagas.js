@@ -45,7 +45,9 @@ routes.get(
   async (req, res) => {
     const id = req.params.id;
     try {
-      const results = await sql.query(`SELECT * FROM Vaga WHERE Id = '${id}'`);
+      const results = await sql.query(
+        `SELECT v.*, e.Email,e.Telefone FROM Vaga v JOIN Empresa e ON e.Id = v.IdEmpresa WHERE v.Id = '${id}'`
+      );
       res.status(200).json(results.recordset[0]);
     } catch (err) {
       console.error(err);

@@ -61,8 +61,8 @@ describe('VagaListEmpresaComponent', () => {
       nome: 'Nome',
       Email: 'teste@teste.com',
       Telefone: '123456789',
-      CPF: '12345678900',
-      CNPJ: '12345678000100',
+      Cpf: '12345678900',
+      Cnpj: '12345678000100',
       Senha: '123',
       Ativo: true,
     };

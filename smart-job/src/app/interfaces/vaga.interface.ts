@@ -13,4 +13,6 @@ export interface IVaga {
   IdEmpresa?: number;
   Status: number;
   LimiteTrabalhadores: number;
+  Telefone: string;
+  Email: string;
 }

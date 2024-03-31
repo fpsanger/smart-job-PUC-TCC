@@ -5,7 +5,6 @@ import { ConfirmationService } from 'primeng/api';
 import { ITrabalhadorVaga } from 'src/app/interfaces/trabalhador-vaga';
 import { IVaga } from 'src/app/interfaces/vaga.interface';
 import { VagaService } from 'src/app/services/vaga.service';
-import { filter } from 'rxjs';
 import { VagaStatus } from 'src/app/enum/vaga-status.enum';
 import { AuthService } from 'src/app/services/auth/auth.service';
 
@@ -86,13 +85,19 @@ export class VagaComponent implements OnInit {
           detail: 'Vaga atribuída com sucesso',
         }),
       error: (err) => {
-        console.log(err);
-
-        this._messageService.add({
-          severity: 'error',
-          summary: 'Erro',
-          detail: `${err.error.mensagem}`,
-        });
+        if (!err.error.mensagem) {
+          this._messageService.add({
+            severity: 'error',
+            summary: 'Erro',
+            detail: `Você já está atríbuido a essa vaga!`,
+          });
+        } else {
+          this._messageService.add({
+            severity: 'error',
+            summary: 'Erro',
+            detail: `${err.error.mensagem}`,
+          });
+        }
       },
     });
   }
