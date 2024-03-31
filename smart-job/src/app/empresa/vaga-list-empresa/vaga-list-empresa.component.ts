@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { MenuItem, MessageService } from 'primeng/api';
+import { forkJoin } from 'rxjs';
 import { VagaStatus } from 'src/app/enum/vaga-status.enum';
 import { IVaga } from 'src/app/interfaces/vaga.interface';
 import { AuthService } from 'src/app/services/auth/auth.service';
@@ -33,7 +34,8 @@ export class VagaListEmpresaComponent implements OnInit {
   constructor(
     private _vagaService: VagaService,
     private _messageService: MessageService,
-    private _authService: AuthService
+    private _authService: AuthService,
+    private _cdRef: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
@@ -100,19 +102,25 @@ export class VagaListEmpresaComponent implements OnInit {
   }
 
   setData() {
-    this._vagaService.getVagasEmpresa(this.idEmpresa).subscribe((x) => {
-      this.vagas = x;
-    });
-
-    this._vagaService
-      .getVagasEmpresaTrabalhador(this.idEmpresa)
-      .subscribe((x) => {
-        this.vagas = this.vagas.map((vaga) => ({
+    forkJoin([
+      this._vagaService.getVagasEmpresa(this.idEmpresa),
+      this._vagaService.getVagasEmpresaTrabalhador(this.idEmpresa),
+    ]).subscribe(([vagasEmpresa, vagasEmpresaTrabalhador]) => {
+      this.vagas = vagasEmpresa.map((vaga) => {
+        const vagaTrabalhador = vagasEmpresaTrabalhador.find(
+          (y) => y.Id === vaga.Id
+        );
+        return {
           ...vaga,
-          totalParticipantes: x.find((y) => y.Id === vaga.Id)
-            .ContagemTrabalhadores,
-          remuneracaoTotal: x.find((y) => y.Id === vaga.Id).RemuneracaoTotal,
-        }));
+          totalParticipantes: vagaTrabalhador
+            ? vagaTrabalhador.ContagemTrabalhadores
+            : 0,
+          remuneracaoTotal: vagaTrabalhador
+            ? vagaTrabalhador.RemuneracaoTotal
+            : 0,
+        };
       });
+      this._cdRef.detectChanges();
+    });
   }
 }

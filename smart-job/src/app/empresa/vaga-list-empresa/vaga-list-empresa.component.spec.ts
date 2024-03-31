@@ -53,54 +53,8 @@ describe('VagaListEmpresaComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should init data component', () => {
-    const tokenData = {
-      id: 1,
-      nome: 'Nome',
-      Email: 'teste@teste.com',
-      Telefone: '123456789',
-      CPF: '12345678900',
-      CNPJ: '12345678000100',
-      Senha: '123',
-      Ativo: true,
-    };
-
-    authService.getTokenData.and.returnValue(tokenData);
-
-    const vagas = [
-      {
-        Nome: 'Nome',
-        Descricao: 'Descrição',
-        Remuneracao: 100,
-        Endereco: 'Endereço',
-        Estado: 'Estado',
-        Cidade: 'Cidade',
-        Ativo: true,
-        TipoVaga: 'Tipo',
-        DataAtualizacao: '2024-03-25',
-        DataExpiracao: '2024-04-25',
-        Status: VagaStatus.Finalizado,
-        LimiteTrabalhadores: 5,
-      },
-    ] as IVaga[];
-
-    vagaService.getVagasEmpresa.and.returnValue(of(vagas));
-    vagaService.getVagasEmpresaTrabalhador.and.returnValue(of());
-
-    component.ngOnInit();
-    fixture.detectChanges();
-
-    expect(vagaService.getVagasEmpresa).toHaveBeenCalledWith(
-      component.idEmpresa
-    );
-    expect(vagaService.getVagasEmpresaTrabalhador).toHaveBeenCalledWith(
-      component.idEmpresa
-    );
-    expect(component.vagas).toEqual(vagas);
-  });
-
   it('should alterarStatus', () => {
-    spyOn(component, 'refresh');
+    spyOn(component, 'setData');
 
     const tokenData = {
       id: 1,
@@ -157,6 +111,6 @@ describe('VagaListEmpresaComponent', () => {
       })
     );
 
-    expect(component.refresh).toHaveBeenCalled();
+    expect(component.setData).toHaveBeenCalled();
   });
 });

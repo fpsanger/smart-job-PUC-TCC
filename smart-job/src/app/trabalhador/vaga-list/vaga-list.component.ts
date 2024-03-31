@@ -86,11 +86,11 @@ export class VagaListComponent implements OnInit {
   setData() {
     this._vagaService.getVagasTrabalhador(this.idTrabalhador).subscribe((x) => {
       this.vagas = x;
-      this._cdRef.detectChanges();
       this.totalRemuneracao = this.vagas
         .filter((y) => y.Status === VagaStatus.Finalizado)
         .map((y) => y.Remuneracao)
         .reduce((acumulador, valorAtual) => acumulador + valorAtual, 0);
+      this._cdRef.detectChanges();
     });
   }
 }

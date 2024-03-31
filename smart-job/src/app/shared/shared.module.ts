@@ -61,7 +61,6 @@ import { TabelaVagasComponent } from '../componentes/tabela-vagas/tabela-vagas.c
     RadioButtonModule,
     FormsModule,
     ToastModule,
-
     TableModule,
     DropdownModule,
     MultiSelectModule,
