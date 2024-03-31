@@ -56,7 +56,15 @@
                   class="nav-link active"
                   aria-current="page"
                   [href]="'/' + routePage + '/suas-vagas'"
-                  >Sua vagas</a
+                  *ngIf="isTrabalhador"
+                  >Suas vagas</a
+                >
+                <a
+                  class="nav-link active"
+                  aria-current="page"
+                  [href]="'/' + routePage + '/suas-vagas'"
+                  *ngIf="!isTrabalhador"
+                  >Situação das vagas</a
                 >
               </ng-container>
             </li>
