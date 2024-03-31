@@ -1,13 +1,10 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { TrabalhadorComponent } from './trabalhador.component';
-import { HttpClient, HttpHandler } from '@angular/common/http';
-import { DatePipe } from '@angular/common';
-import { AuthService } from '../services/auth/auth.service';
-import { VagaService } from '../services/vaga.service';
-import { IUsuario } from '../interfaces/usuario.interface';
+import { AuthService } from '../../services/auth/auth.service';
+import { VagaService } from '../../services/vaga.service';
+import { IUsuario } from '../../interfaces/usuario.interface';
 import { of } from 'rxjs';
-import { IVaga } from '../interfaces/vaga.interface';
 
 describe('TrabalhadorComponent', () => {
   let component: TrabalhadorComponent;

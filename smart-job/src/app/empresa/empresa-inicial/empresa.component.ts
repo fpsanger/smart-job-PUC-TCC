@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { IUsuario } from 'src/app/interfaces/usuario.interface';
 import { IVaga } from 'src/app/interfaces/vaga.interface';
 import { VagaService } from 'src/app/services/vaga.service';
-import { AuthService } from '../services/auth/auth.service';
+import { AuthService } from '../../services/auth/auth.service';
 
 @Component({
   selector: 'app-empresa',

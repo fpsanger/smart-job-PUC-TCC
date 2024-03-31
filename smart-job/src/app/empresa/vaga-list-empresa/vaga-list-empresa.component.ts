@@ -68,6 +68,38 @@ export class VagaListEmpresaComponent implements OnInit {
     const tokenData = this._authService.getTokenData();
     this.idEmpresa = tokenData.id;
 
+    this.setData();
+  }
+
+  showAlterarStatusDialog(idVaga: number) {
+    this.mostrarModal = !this.mostrarModal;
+    this.idVaga = idVaga;
+  }
+
+  async alterarStatus() {
+    const data = { Status: this.valorStatus } as IVaga;
+
+    await this._vagaService.alterarStatusVaga(this.idVaga, data).subscribe({
+      next: () => {
+        this._messageService.add({
+          severity: 'success',
+          summary: 'Sucesso',
+          detail: 'Status alterado com sucesso',
+        });
+        this.mostrarModal = !this.mostrarModal;
+      },
+      error: (err) =>
+        this._messageService.add({
+          severity: 'error',
+          summary: 'Erro',
+          detail: err,
+        }),
+    });
+
+    this.setData();
+  }
+
+  setData() {
     this._vagaService.getVagasEmpresa(this.idEmpresa).subscribe((x) => {
       this.vagas = x;
     });
@@ -82,38 +114,5 @@ export class VagaListEmpresaComponent implements OnInit {
           remuneracaoTotal: x.find((y) => y.Id === vaga.Id).RemuneracaoTotal,
         }));
       });
-  }
-
-  showAlterarStatusDialog(idVaga: number) {
-    this.mostrarModal = !this.mostrarModal;
-    this.idVaga = idVaga;
-  }
-
-  alterarStatus() {
-    const data = { Status: this.valorStatus } as IVaga;
-
-    this._vagaService.alterarStatusVaga(this.idVaga, data).subscribe({
-      next: () => {
-        this._messageService.add({
-          severity: 'success',
-          summary: 'Sucesso',
-          detail: 'Status alterado com sucesso',
-        });
-        this.mostrarModal = !this.mostrarModal;
-        this.refresh();
-      },
-      error: (err) =>
-        this._messageService.add({
-          severity: 'error',
-          summary: 'Erro',
-          detail: err,
-        }),
-    });
-  }
-
-  refresh() {
-    this._vagaService.getVagasEmpresa(this.idEmpresa).subscribe((x) => {
-      this.vagas = x;
-    });
   }
 }

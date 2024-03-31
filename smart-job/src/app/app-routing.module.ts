@@ -2,52 +2,31 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { CadastroComponent } from './home/cadastro/cadastro.component';
-import { TrabalhadorComponent } from './trabalhador/trabalhador.component';
 import { LoginComponent } from './home/login/login.component';
-import { VagaListComponent } from './trabalhador/vaga-list/vaga-list.component';
-import { AuthGuard } from './auth.guard';
 import { RedefinirSenhaComponent } from './home/redefinir-senha/redefinir-senha.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
-import { EmpresaComponent } from './empresa/empresa.component';
-import { VagaListEmpresaComponent } from './empresa/vaga-list-empresa/vaga-list-empresa.component';
-import { CadastroVagaComponent } from './vaga/cadastro-vaga/cadastro-vaga.component';
-import { VagaComponent } from './vaga/detalhe-vaga/detalhe-vaga.component';
 
 const routes: Routes = [
+  {
+    path: 'trabalhador',
+    loadChildren: () =>
+      import('./trabalhador/trabalhador.module').then(
+        (m) => m.TrabalhadorModule
+      ),
+  },
+  {
+    path: 'vaga',
+    loadChildren: () => import('./vaga/vaga.module').then((m) => m.VagaModule),
+  },
+  {
+    path: 'empresa',
+    loadChildren: () =>
+      import('./empresa/empresa.module').then((m) => m.EmpresaModule),
+  },
   { path: '', component: HomeComponent },
   { path: 'cadastro', component: CadastroComponent },
   { path: 'login', component: LoginComponent },
   { path: 'redefinir-senha', component: RedefinirSenhaComponent },
-  {
-    path: 'trabalhador/inicial',
-    component: TrabalhadorComponent,
-    canActivate: [AuthGuard],
-  },
-  {
-    path: 'empresa/inicial',
-    component: EmpresaComponent,
-    canActivate: [AuthGuard],
-  },
-  {
-    path: 'vaga/:id',
-    component: VagaComponent,
-    canActivate: [AuthGuard],
-  },
-  {
-    path: 'trabalhador/suas-vagas',
-    component: VagaListComponent,
-    canActivate: [AuthGuard],
-  },
-  {
-    path: 'empresa/suas-vagas',
-    component: VagaListEmpresaComponent,
-    canActivate: [AuthGuard],
-  },
-  {
-    path: 'cadastro-vaga',
-    component: CadastroVagaComponent,
-    canActivate: [AuthGuard],
-  },
   { path: '**', component: PageNotFoundComponent },
 ];
 
