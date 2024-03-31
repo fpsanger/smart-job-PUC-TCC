@@ -12,6 +12,7 @@ O projeto tem como objetivo proporcionar uma plataforma para encontrar as melhor
 - Frontend:
   - Linguagem: TypeScript
   - Framework: Angular (HTML,CSS)
+  - Biblioteca componenete; PrimeNG
  
 - Testes:
   - Jasmine/Jest: Angular
