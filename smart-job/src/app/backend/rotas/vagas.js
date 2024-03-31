@@ -223,7 +223,6 @@ routes.post("/atribuirVaga", async (req, res) => {
     const checkVagaStatusQuery = `SELECT Status FROM Vaga WHERE Id = '${data.idVaga}'`;
 
     const resultVagaStatus = await queryPromise(checkVagaStatusQuery);
-    console.log(resultVagaStatus);
 
     if (
       resultVagaStatus.recordset[0].Status === 1 ||
@@ -237,7 +236,16 @@ routes.post("/atribuirVaga", async (req, res) => {
     const insertQuery = `INSERT INTO [dbo].[TrabalhadorVaga] (IdVaga,IdTrabalhador,DataAceite) VALUES ('${data.idVaga}', '${data.idTrabalhador}', '${data.dataAceite}')`;
     const resultInsert = await queryPromise(insertQuery);
 
-    if (totalTrabalhadores === limiteTrabalhadores) {
+    const resultVagasDisponiveisInsert = await queryPromise(
+      vagasDisponiveisQuery
+    );
+
+    const totalTrabalhadoresDepoisInsert =
+      resultVagasDisponiveisInsert.recordset[0].totalTrabalhadores;
+    const limiteTrabalhadoresDepoisInsert =
+      resultVagasDisponiveisInsert.recordset[0].LimiteTrabalhadores;
+
+    if (totalTrabalhadoresDepoisInsert === limiteTrabalhadoresDepoisInsert) {
       const updateVagaStatusQuery = `UPDATE Vaga SET [Status] = 1 WHERE Id = '${data.idVaga}'`;
       await queryPromise(updateVagaStatusQuery);
 

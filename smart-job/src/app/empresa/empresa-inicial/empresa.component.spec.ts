@@ -93,6 +93,6 @@ describe('EmpresaComponent', () => {
   it('should navigate to cadastro-vaga', () => {
     component.navigateToAdicionarVaga();
 
-    expect(router.navigate).toHaveBeenCalledWith(['cadastro-vaga']);
+    expect(router.navigate).toHaveBeenCalledWith(['vaga/cadastro-vaga']);
   });
 });

@@ -6,13 +6,13 @@ import { CadastroVagaComponent } from './cadastro-vaga/cadastro-vaga.component';
 
 const routes: Routes = [
   {
-    path: ':id',
-    component: VagaComponent,
+    path: 'cadastro-vaga',
+    component: CadastroVagaComponent,
     canActivate: [AuthGuard],
   },
   {
-    path: 'cadastro-vaga',
-    component: CadastroVagaComponent,
+    path: ':id',
+    component: VagaComponent,
     canActivate: [AuthGuard],
   },
 ];

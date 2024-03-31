@@ -31,6 +31,6 @@ export class EmpresaComponent implements OnInit {
   }
 
   navigateToAdicionarVaga() {
-    this._router.navigate(['cadastro-vaga']);
+    this._router.navigate(['vaga/cadastro-vaga']);
   }
 }
