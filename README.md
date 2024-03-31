@@ -3,6 +3,8 @@
 ## Descrição
 O projeto tem como objetivo proporcionar uma plataforma para encontrar as melhores vagas disponibilizadas por empresas. O desenvolvimento backend foi realizado utilizando JavaScript e Express.js, um framework para construir aplicações web com RESTful APIs.
 
+O script com a criação das tabelas está na pasta: script-banco-de-dados
+
 ## Tecnologias utilizadas
 - Backend:
   - Linguagem: JavaScript
