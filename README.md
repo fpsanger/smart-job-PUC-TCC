@@ -17,10 +17,13 @@ O script com a criação das tabelas está na pasta: script-banco-de-dados
   - Biblioteca componenete: PrimeNG
  
 - Testes:
-  - Jasmine/Jest: Angular
+  - Jasmine: Angular
 
 ## Arquitetura
 A arquitetura escolhida para o projeto foi a monolítica, dada a simplicidade das funcionalidades e a natureza da prova de conceito. Isso foi decidido devido à necessidade de um menor tempo de configuração e manutenção. A conexão do backend com o frontend será feita através do Express.js, possibilitando operações básicas no banco de dados.
 
 ## Testes
-Para garantir a qualidade do código desenvolvido, será utilizado o Jasmine/Jest do Angular aproveitando a familiaridade com JavaScript e TypeScript.
+Para garantir a qualidade do código desenvolvido, será utilizado o Jasmine do Angular aproveitando a familiaridade com JavaScript e TypeScript.
+
+## Referências
+A imagem utilizada na tela inicial do projeto foi gerada com ajuda do site Canva. Fonte: Canva, https://www.canva.com/ai-image-generator/
