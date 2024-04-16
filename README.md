@@ -27,3 +27,6 @@ Para garantir a qualidade do código desenvolvido, será utilizado o Jasmine do 
 
 ## Referências
 A imagem utilizada na tela inicial do projeto foi gerada com ajuda do site Canva. Fonte: Canva, https://www.canva.com/ai-image-generator/
+
+## Como testar
+Primeiro, é preciso criar um perfil como Empresa, preenchendo todos os dados no cadastro. Após o cadastro, você será redirecionado para a tela principal. Nela, cliclar no botão 'Adicionar nova vaga' e preencher o formulário. Após o preenchimento, será possível ver a vaga como usuário Empresa e Trabalhador. Para ver como Trabalhador, basta sair, criar uma conta de Trabalhador e fazer login. 
